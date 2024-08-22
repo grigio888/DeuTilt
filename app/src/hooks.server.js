@@ -1,3 +1,4 @@
+import User from '$db/models/User';
 import { locale } from '$i18n/store.js';
 
 export async function handle({ event, resolve }) {
@@ -12,6 +13,14 @@ export async function handle({ event, resolve }) {
 	event.locals.lang = requestLanguage ?? 'en';
 
 	locale.set(event.locals.lang);
+
+    // »»»»» User
+    event.locals.user = {};
+
+    let user = event.cookies.get('user');
+    if (user) {
+        event.locals.user = await User.findOne({ where: { password: user } });
+    }
 
 	// --------- RENDERING --------- //
 	// Transforming the page chunk

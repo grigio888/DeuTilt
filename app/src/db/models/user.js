@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { DataTypes } from 'sequelize';
 import sequelize from '../connector.js';
 
@@ -9,6 +10,10 @@ const User = sequelize.define(
 			allowNull: false,
 			unique: true
 		},
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -26,7 +31,12 @@ const User = sequelize.define(
 	},
 	{
 		tableName: 'Users',
-		timestamps: true
+		timestamps: true,
+        instanceMethods: {
+            comparePassword: function (password) {
+                return bcrypt.compareSync(password, this.password);
+            }
+        }
 	}
 );
 
