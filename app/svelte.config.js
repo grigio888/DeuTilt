@@ -11,6 +11,7 @@ const config = {
     kit: {
 		adapter: adapter(),
         alias: {
+            $i18n: './src/i18n',
             $comp: './src/lib/components',
         },
         version: {

@@ -1,2 +1,6 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    // »»»»» Imports
+    import { translate as _ } from '$i18n/translate';
+</script>
+
+<h1>{_("Welcome to SvelteKit")}</h1>
