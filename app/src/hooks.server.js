@@ -10,7 +10,6 @@ export async function handle({ event, resolve }) {
     const requestLanguage = event.request.headers.get('accept-language')?.split(',')[0].split('-')[0];
 
     event.locals.lang = requestLanguage ?? 'en';
-    console.log(requestLanguage, event.locals.lang)
 
     locale.set(event.locals.lang)
 
