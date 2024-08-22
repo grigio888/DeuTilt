@@ -37,8 +37,10 @@ services:
       - .env
       - .env.secret
     volumes:
+      - ../../app/package.json:/home/app/package.json
       - ../../app/svelte.config.js:/home/app/svelte.config.js
       - ../../app/vite.config.js:/home/app/vite.config.js
+      - ../../app/.sequelizerc:/home/app/.sequelizerc
       - ../../app/src:/home/app/src
       - ../../nginx/static:/vol/static/
     networks:

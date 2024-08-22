@@ -10,7 +10,8 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$i18n: './src/i18n',
-			$comp: './src/lib/components'
+			$comp: './src/lib/components',
+			$db: './src/db'
 		},
 		version: {
 			name: process.env.PUBLIC_APP_VERSION
