@@ -1,41 +1,70 @@
 export default {
-    "The best manga reader" : "O melhor leitor de mangá",
-    "Welcome to MangaGrid": "Bem-vindo ao MangaGrid",
-    "your ultimate manga hub": "seu hub de mangá definitivo",
-    "Share on": "Compartilhe no",
-    "Immerse yourself in a world of captivating stories and breathtaking artwork, all just a few clicks away on your web browse.": "Mergulhe em um mundo de histórias cativantes e obras de arte de tirar o fôlego, tudo a apenas alguns cliques de distância em seu navegador da web.",
-    "Say goodbye to complicated installations - MangaGrid brings the joy of manga reading right to your fingertips.": "Diga adeus a instalações complicadas - MangaGrid traz a alegria da leitura de mangá diretamente para suas pontas dos dedos.",
-    "Whether you're a die-hard fan or a curious newcomer, we've got you covered with a vast collection of manga titles waiting to be explore.": "Se você é um fã fanático ou um recém-chegado curioso, temos tudo o que você precisa com uma vasta coleção de títulos de mangá esperando para serem explorados.",
-    "Get ready to embark on epic adventures, meet unforgettable characters, and discover new worlds within the pages of MangaGrid. It's time to let your imagination soar!": "Prepare-se para embarcar em aventuras épicas, conhecer personagens inesquecíveis e descobrir novos mundos nas páginas do MangaGrid. É hora de deixar sua imaginação voar!",
-    "Unleash the Power of MangaGrid:": "Libere o Poder do MangaGrid:",
-    "Get ready for the latest updates! Stay in the loop with the freshest manga releases from a variety of websites.": "Prepare-se para as últimas atualizações! Mantenha-se atualizado com os lançamentos mais recentes de mangá de uma variedade de sites.",
-    "A image showing the sources explorer section": "Uma imagem mostrando a seção de explorador de fontes",
-    "Dive into a vast collection of genres and never miss an exciting chapter. Explore thrilling adventures, heartwarming romances, captivating fantasies, and so much more.": "Mergulhe em uma vasta coleção de gêneros e nunca perca um capítulo emocionante. Explore aventuras empolgantes, romances emocionantes, fantasias cativantes e muito mais.",
-    "This page is your gateway to an incredible universe of manga goodness. When entering, you'll be transported to worlds beyond imagination.": "Esta página é sua porta de entrada para um incrível universo de bondade de mangá. Ao entrar, você será transportado para mundos além da imaginação.",
-    "Dive into a universe of adventure, romance, fantasy, and more.": "Mergulhe em um universo de aventura, romance, fantasia e muito mais.",
-    "Enter now": "Entrar agora",
-    "Looking for your favorite manga series? Look no further! With our comprehensive search feature, you'll effortlessly navigate through a vast collection of manga titles.": "Procurando sua série de mangá favorita? Não mais! Com nosso recurso de pesquisa abrangente, você navegará sem esforço por uma vasta coleção de títulos de mangá.",
-    "No more endless searching or disappointing dead ends! We've made it our mission to make your manga hunting experience a breeze.": "Não mais pesquisas intermináveis ​​ou becos sem saída decepcionantes! Fizemos nossa missão tornar sua experiência de caça ao mangá uma brisa.",
-    "Discover hidden gems and explore new worlds through our comprehensive search feature.": "Descubra joias escondidas e explore novos mundos por meio de nosso recurso de pesquisa abrangente.",
-    "Delve into the archives of growing sources available on our site.": "Aprofunde-se nos arquivos de fontes crescentes disponíveis em nosso site.",
-    "Now, we're talking! Creating an account on MangaGrid, you will unlock the full potential!": "Agora, agente tá conversando! Ao criar uma conta no MangaGrid, você desbloqueia todo o potencial!",
-    "A image showing the profile section": "Uma imagem mostrando a seção de perfil",
-    "Save all your favorite manga titles and curate a customized reading list that's tailored just for you!": "Salve todos os seus títulos de mangá favoritos e crie uma lista de leitura personalizada que seja feita sob medida para você!",
-    "With MangaGrid, you'll never miss a beat as you seamlessly switch between devices, continuing your manga journey without any hassle.": "Com o MangaGrid, você nunca perderá o ritmo, pois alternará perfeitamente entre dispositivos, continuando sua jornada de mangá sem complicações.",
-    "And the best part? You can personalize the theme and homepage of the site to match your unique style! Make MangaGrid truly yours and showcase your otaku vibes with a touch of personal flair.": "E a melhor parte? Você pode personalizar o tema e a página inicial do site para combinar com seu estilo único! Torne o MangaGrid realmente seu e mostre suas vibrações otaku com um toque de estilo pessoal.",
-    "Keep track of your favorite manga series and never lose your place again!": "Acompanhe sua série de mangá favorita e nunca mais a perca!",
-    "With MangaGrid, you can bookmark your favorite titles and pick up right where you left off.": "Com o MangaGrid, você pode marcar seus títulos favoritos e continuar de onde parou.",
-    "Build a sanctuary for your manga cravings and relish in the joy of exploration.": "Construa um santuário para seus desejos de mangá e desfrute da alegria da exploração.",
-    "Unlock a world where your favorite characters come to life, waiting to captivate you.": "Desbloqueie um mundo onde seus personagens favoritos ganham vida, esperando para cativá-lo.",
-    "A image showing the favorites section": "Uma imagem mostrando a seção de favoritos",
-    "Relive the magic of your manga journey. Revisit past adventures and reminisce about captivating stories.": "Reviva a magia de sua jornada de mangá. Revisite aventuras passadas e relembre histórias cativantes.",
-    "A image showing the historic section": "Uma imagem mostrando a seção de histórico",
-    "Let's embark on the incredible manga odyssey together! Follow the steps and dive into a unique and thrilling journey. Relive each past adventure and let yourself be captivated by the stories that have touched your heart.": "Vamos embarcar na incrível odisseia do mangá juntos! Siga os passos e mergulhe em uma jornada única e emocionante. Reviva cada aventura passada e deixe-se cativar pelas histórias que tocaram seu coração.",
-    "Revisit each chapter and immerse yourself in the magic that permeates its pages. Here, you can relive every special moment effortlessly. Track your progress and enjoy the satisfaction of following the steps of this passionate journey.": "Reveja cada capítulo e mergulhe na magia que permeia suas páginas. Aqui, você pode reviver cada momento especial sem esforço. Acompanhe seu progresso e desfrute da satisfação de seguir os passos desta jornada apaixonada.",
-    "Relive the magic of each chapter and track your progress effortlessly.": "Reviva a magia de cada capítulo e acompanhe seu progresso sem esforço.",
-    "Stay connected and be the first to embark on thrilling new story arcs!": "Mantenha-se conectado e seja o primeiro a embarcar em novos arcos de história emocionantes!",
-    "Our notifications will ping your way, ensuring you're always on top of the latest releases.": "Nossas notificações vão pingar no seu caminho, garantindo que você esteja sempre por cima dos últimos lançamentos.",
-    "Be the first to know when new chapters of your favorite series drop! Stay connected and embark on thrilling new story arcs!": "Seja o primeiro a saber quando novos capítulos da sua série favorita forem lançados! Mantenha-se conectado e embarque em novos arcos de história emocionantes!",
-    "And to be diving into thrilling new story arcs before anyone else. Join us and never let the manga magic escape your grasp!": "E para mergulhar em novos arcos de história emocionantes antes de qualquer outra pessoa. Junte-se a nós e nunca deixe a magia do mangá escapar de suas mãos!",
-    "A image showing the notifications section": "Uma imagem mostrando a seção de notificações",
-}
+	'The best manga reader': 'O melhor leitor de mangá',
+	'Welcome to MangaGrid': 'Bem-vindo ao MangaGrid',
+	'your ultimate manga hub': 'seu hub de mangá definitivo',
+	'Share on': 'Compartilhe no',
+	'Immerse yourself in a world of captivating stories and breathtaking artwork, all just a few clicks away on your web browse.':
+		'Mergulhe em um mundo de histórias cativantes e obras de arte de tirar o fôlego, tudo a apenas alguns cliques de distância em seu navegador da web.',
+	'Say goodbye to complicated installations - MangaGrid brings the joy of manga reading right to your fingertips.':
+		'Diga adeus a instalações complicadas - MangaGrid traz a alegria da leitura de mangá diretamente para suas pontas dos dedos.',
+	"Whether you're a die-hard fan or a curious newcomer, we've got you covered with a vast collection of manga titles waiting to be explore.":
+		'Se você é um fã fanático ou um recém-chegado curioso, temos tudo o que você precisa com uma vasta coleção de títulos de mangá esperando para serem explorados.',
+	"Get ready to embark on epic adventures, meet unforgettable characters, and discover new worlds within the pages of MangaGrid. It's time to let your imagination soar!":
+		'Prepare-se para embarcar em aventuras épicas, conhecer personagens inesquecíveis e descobrir novos mundos nas páginas do MangaGrid. É hora de deixar sua imaginação voar!',
+	'Unleash the Power of MangaGrid:': 'Libere o Poder do MangaGrid:',
+	'Get ready for the latest updates! Stay in the loop with the freshest manga releases from a variety of websites.':
+		'Prepare-se para as últimas atualizações! Mantenha-se atualizado com os lançamentos mais recentes de mangá de uma variedade de sites.',
+	'A image showing the sources explorer section':
+		'Uma imagem mostrando a seção de explorador de fontes',
+	'Dive into a vast collection of genres and never miss an exciting chapter. Explore thrilling adventures, heartwarming romances, captivating fantasies, and so much more.':
+		'Mergulhe em uma vasta coleção de gêneros e nunca perca um capítulo emocionante. Explore aventuras empolgantes, romances emocionantes, fantasias cativantes e muito mais.',
+	"This page is your gateway to an incredible universe of manga goodness. When entering, you'll be transported to worlds beyond imagination.":
+		'Esta página é sua porta de entrada para um incrível universo de bondade de mangá. Ao entrar, você será transportado para mundos além da imaginação.',
+	'Dive into a universe of adventure, romance, fantasy, and more.':
+		'Mergulhe em um universo de aventura, romance, fantasia e muito mais.',
+	'Enter now': 'Entrar agora',
+	"Looking for your favorite manga series? Look no further! With our comprehensive search feature, you'll effortlessly navigate through a vast collection of manga titles.":
+		'Procurando sua série de mangá favorita? Não mais! Com nosso recurso de pesquisa abrangente, você navegará sem esforço por uma vasta coleção de títulos de mangá.',
+	"No more endless searching or disappointing dead ends! We've made it our mission to make your manga hunting experience a breeze.":
+		'Não mais pesquisas intermináveis ​​ou becos sem saída decepcionantes! Fizemos nossa missão tornar sua experiência de caça ao mangá uma brisa.',
+	'Discover hidden gems and explore new worlds through our comprehensive search feature.':
+		'Descubra joias escondidas e explore novos mundos por meio de nosso recurso de pesquisa abrangente.',
+	'Delve into the archives of growing sources available on our site.':
+		'Aprofunde-se nos arquivos de fontes crescentes disponíveis em nosso site.',
+	"Now, we're talking! Creating an account on MangaGrid, you will unlock the full potential!":
+		'Agora, agente tá conversando! Ao criar uma conta no MangaGrid, você desbloqueia todo o potencial!',
+	'A image showing the profile section': 'Uma imagem mostrando a seção de perfil',
+	"Save all your favorite manga titles and curate a customized reading list that's tailored just for you!":
+		'Salve todos os seus títulos de mangá favoritos e crie uma lista de leitura personalizada que seja feita sob medida para você!',
+	"With MangaGrid, you'll never miss a beat as you seamlessly switch between devices, continuing your manga journey without any hassle.":
+		'Com o MangaGrid, você nunca perderá o ritmo, pois alternará perfeitamente entre dispositivos, continuando sua jornada de mangá sem complicações.',
+	'And the best part? You can personalize the theme and homepage of the site to match your unique style! Make MangaGrid truly yours and showcase your otaku vibes with a touch of personal flair.':
+		'E a melhor parte? Você pode personalizar o tema e a página inicial do site para combinar com seu estilo único! Torne o MangaGrid realmente seu e mostre suas vibrações otaku com um toque de estilo pessoal.',
+	'Keep track of your favorite manga series and never lose your place again!':
+		'Acompanhe sua série de mangá favorita e nunca mais a perca!',
+	'With MangaGrid, you can bookmark your favorite titles and pick up right where you left off.':
+		'Com o MangaGrid, você pode marcar seus títulos favoritos e continuar de onde parou.',
+	'Build a sanctuary for your manga cravings and relish in the joy of exploration.':
+		'Construa um santuário para seus desejos de mangá e desfrute da alegria da exploração.',
+	'Unlock a world where your favorite characters come to life, waiting to captivate you.':
+		'Desbloqueie um mundo onde seus personagens favoritos ganham vida, esperando para cativá-lo.',
+	'A image showing the favorites section': 'Uma imagem mostrando a seção de favoritos',
+	'Relive the magic of your manga journey. Revisit past adventures and reminisce about captivating stories.':
+		'Reviva a magia de sua jornada de mangá. Revisite aventuras passadas e relembre histórias cativantes.',
+	'A image showing the historic section': 'Uma imagem mostrando a seção de histórico',
+	"Let's embark on the incredible manga odyssey together! Follow the steps and dive into a unique and thrilling journey. Relive each past adventure and let yourself be captivated by the stories that have touched your heart.":
+		'Vamos embarcar na incrível odisseia do mangá juntos! Siga os passos e mergulhe em uma jornada única e emocionante. Reviva cada aventura passada e deixe-se cativar pelas histórias que tocaram seu coração.',
+	'Revisit each chapter and immerse yourself in the magic that permeates its pages. Here, you can relive every special moment effortlessly. Track your progress and enjoy the satisfaction of following the steps of this passionate journey.':
+		'Reveja cada capítulo e mergulhe na magia que permeia suas páginas. Aqui, você pode reviver cada momento especial sem esforço. Acompanhe seu progresso e desfrute da satisfação de seguir os passos desta jornada apaixonada.',
+	'Relive the magic of each chapter and track your progress effortlessly.':
+		'Reviva a magia de cada capítulo e acompanhe seu progresso sem esforço.',
+	'Stay connected and be the first to embark on thrilling new story arcs!':
+		'Mantenha-se conectado e seja o primeiro a embarcar em novos arcos de história emocionantes!',
+	"Our notifications will ping your way, ensuring you're always on top of the latest releases.":
+		'Nossas notificações vão pingar no seu caminho, garantindo que você esteja sempre por cima dos últimos lançamentos.',
+	'Be the first to know when new chapters of your favorite series drop! Stay connected and embark on thrilling new story arcs!':
+		'Seja o primeiro a saber quando novos capítulos da sua série favorita forem lançados! Mantenha-se conectado e embarque em novos arcos de história emocionantes!',
+	'And to be diving into thrilling new story arcs before anyone else. Join us and never let the manga magic escape your grasp!':
+		'E para mergulhar em novos arcos de história emocionantes antes de qualquer outra pessoa. Junte-se a nós e nunca deixe a magia do mangá escapar de suas mãos!',
+	'A image showing the notifications section': 'Uma imagem mostrando a seção de notificações'
+};

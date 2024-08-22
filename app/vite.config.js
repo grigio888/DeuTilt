@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-    server: {
+	server: {
 		watch: { usePolling: process.env.USE_POLLING },
 		hmr: { clientPort: 3000 }
 	}

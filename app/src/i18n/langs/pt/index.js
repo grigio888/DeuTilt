@@ -1,3 +1,3 @@
 export default {
-    "Welcome to SvelteKit": "Bem-vindo ao SvelteKit",
-}
+	'Welcome to SvelteKit': 'Bem-vindo ao SvelteKit'
+};
