@@ -1,0 +1,24 @@
+server {
+    listen 80;
+    server_name o-tilt.local *.o-tilt.local o-tilt.com.br *.o-tilt.com.br;
+
+    if ($ENVIRONMENT = production) {
+        return 301 https://www.o-tilt.com.br$request_uri;
+    }
+
+    include /etc/nginx/includes/app.conf;
+}
+
+# server {
+#     # This inner proxy must be setup when having access to the server
+#     # because the certificate homologation is doned via WEB with LetsEncrypt.
+#     listen 443 ssl;
+#     server_name www.o-tilt.com.br;
+
+#     ssl_certificate /etc/letsencrypt/live/www.o-tilt.com.br/fullchain.pem;
+#     ssl_certificate_key /etc/letsencrypt/live/www.o-tilt.com.br/privkey.pem;
+#     include /etc/letsencrypt/options-ssl-nginx.conf;
+#     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+#     include /etc/nginx/includes/app.conf;
+# }

@@ -1,0 +1,75 @@
+version: '3'
+name: o-tilt
+
+services:
+  db:
+    restart: unless-stopped
+    image: postgres
+    env_file:
+      - ../.env
+      - ../.env.secret
+      - .env
+      - .env.secret
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - inet
+
+  cache:
+    restart: unless-stopped
+    image: redis
+    expose:
+      - 6379
+    networks:
+      - inet
+
+  app:
+    restart: unless-stopped
+    build:
+      context: ../../app
+    env_file:
+      - ../.env
+      - ../.env.secret
+      - .env
+      - .env.secret
+    volumes:
+      - ../../app/svelte.config.js:/home/app/svelte.config.js
+      - ../../app/vite.config.js:/home/app/vite.config.js
+      - ../../app/src:/home/app/src
+      - ../../nginx/static:/vol/static/
+    networks:
+      - inet
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+      - cache
+    command: npm run dev -- --host --port 3000
+
+  nginx:
+    restart: unless-stopped
+    build:
+      context: ../../nginx
+    env_file:
+      - ../.env
+      - ../.env.secret
+      - .env
+      - .env.secret
+    volumes:
+      - ../../nginx/static:/vol/static/
+    ports:
+      - 80:80
+    networks:
+      - inet
+    depends_on:
+      - app
+
+networks:
+  inet:
+
+volumes:
+  db-data:

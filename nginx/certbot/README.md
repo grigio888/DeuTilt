@@ -1,0 +1,1 @@
+After a successfull retrieve of both certificates on Let's Encrypt!, certbot folder must be copy to this folder (normally on `/etc/letsencrypt/`) and the image must be recreated.
