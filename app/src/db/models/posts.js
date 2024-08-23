@@ -13,6 +13,9 @@ const Posts = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false
 		},
+        imageHeader: {
+            type: DataTypes.STRING
+        },
 		content: {
 			type: DataTypes.TEXT,
 			allowNull: false
