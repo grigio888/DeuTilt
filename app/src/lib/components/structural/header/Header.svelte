@@ -106,6 +106,10 @@
 
         nav {
             display: flex;
+
+            :global(button) {
+                display: none;
+            }
         }
 
         :global(a:not(.logo)), :global(button) {
