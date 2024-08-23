@@ -19,6 +19,8 @@
             icon: "search"
         },
     ]
+
+    let mobileMenuActive = false;
 </script>
 
 <header>
@@ -27,9 +29,15 @@
             <Icon icon="x" />
             <Icon icon="device-gamepad" />
         </div>
-        Deu Tilt
+        <p>Deu Tilt</p>
     </a>
-    <nav>
+    <Button secondary on:click={() => mobileMenuActive = true}>
+        <Icon icon="menu-2" />
+    </Button>
+    <nav class:active={mobileMenuActive}>
+        <Button secondary on:click={() => mobileMenuActive = false}>
+            <Icon icon="x" />
+        </Button>
         {#each options as option}
             <Button secondary animated href={option.href}>
                 <Icon icon={option.icon} />
@@ -45,6 +53,7 @@
 		top: 0;
 
         display: flex;
+        align-items: center;
         justify-content: space-between;
 
 		width: 100%;
@@ -59,6 +68,8 @@
             display: flex;
             align-items: center;
             gap: 0.5em;
+
+            height: 100%;
 
             margin-left: 1em;
 
@@ -87,19 +98,83 @@
                     font-size: 2.5em;
                 }
             }
+
+            p {
+                padding-top: 0.1em;
+            }
         }
 
         nav {
             display: flex;
+        }
 
-            :global(a) {
-                width: 8em !important;
-                height: 3em !important;
+        :global(a:not(.logo)), :global(button) {
+            width: 8em !important;
+            height: 3em !important;
 
-                font-size: 1em !important;
+            font-size: 1em !important;
 
-                border: none !important;
-                border-radius: 0 !important;
+            border: none !important;
+            border-radius: 0 !important;
+        }
+
+        :global(.ti-menu-2) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        header {
+            font-size: 1.15em;
+
+            .logo {
+
+                p {
+                    font-size: 1.25em;
+                }
+            }
+
+            > :global(button) {
+                width: 3em !important;
+                font-size: 1.25em !important;
+            }
+
+            :global(.ti-menu-2) {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: 0;
+
+                flex-direction: column;
+                align-items: end;
+
+                width: 0;
+                height: 100vh;
+                height: 100dvh;
+
+                font-size: 1.25em;
+
+                background-color: var(--color-background-faded-1);
+                backdrop-filter: blur(7px);
+
+                transition: width var(--transition-fast);
+                overflow: hidden;
+
+                &.active {
+                    width: 100vw;
+                }
+
+                :global(.secondary) {
+                    display: flex;
+                    flex-direction: row-reverse;
+                    justify-content: flex-start;
+
+                    width: 100% !important;
+                }
             }
         }
     }
