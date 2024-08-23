@@ -30,6 +30,8 @@
 
 	--color-theme-1: hsl(278, 65%, 40%);
 	--color-theme-2: hsl(from var(--color-theme-1) h 85% 65%);
+	--color-theme-faded-1: hsla(from var(--color-theme-1) h s l / .5);
+	--color-theme-faded-2: hsla(from var(--color-theme-2) h s l / .5);
 
 	--colors-animation-1: hsl(0, 0%, 20%);
 	--colors-animation-2: hsl(from var(--colors-animation-1) h s 40%);
