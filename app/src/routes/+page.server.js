@@ -1,4 +1,3 @@
-export async function load({}) {
-	// eslint-disable-line
-	return {};
-}
+// export async function load({}) {
+// 	return {};
+// }

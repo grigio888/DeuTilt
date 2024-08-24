@@ -20,8 +20,8 @@ export function translate(phrase, ...args) {
 		// If there are arguments, we will replace the placeholders
 		// with the arguments. If the value is 'value', then the
 		// placeholder will be %(value)s
+		// eslint-disable-next-line no-unused-vars
 		args.forEach((value, index) => {
-			// eslint-disable-line no-unused-vars
 			Object.keys(value).forEach((key) => {
 				phraseTranslated = phraseTranslated.replace(`%(${key})s`, value[key]);
 			});

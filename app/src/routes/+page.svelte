@@ -4,7 +4,7 @@
 
 	// »»»»» Components
 	import Metadata from '$comp/structural/Metadata.svelte';
-    import Carousel from './Carousel.svelte';
+	import Carousel from './Carousel.svelte';
 </script>
 
 <Metadata

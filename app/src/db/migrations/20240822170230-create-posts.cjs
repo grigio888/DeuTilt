@@ -15,9 +15,9 @@ module.exports = {
 			title: {
 				type: Sequelize.STRING
 			},
-            imageHeader: {
-                type: Sequelize.STRING
-            },
+			imageHeader: {
+				type: Sequelize.STRING
+			},
 			content: {
 				type: Sequelize.TEXT
 			},
@@ -34,6 +34,7 @@ module.exports = {
 			}
 		});
 	},
+	// eslint-disable-next-line no-unused-vars
 	async down(queryInterface, Sequelize) {
 		await queryInterface.dropTable('Posts');
 	}

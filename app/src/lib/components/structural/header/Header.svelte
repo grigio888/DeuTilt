@@ -1,50 +1,50 @@
 <script>
-    // »»»»» Imports
-    import { translate as _ } from '$i18n/translate';
+	// »»»»» Imports
+	import { translate as _ } from '$i18n/translate';
 
-    // »»»»» Components
-    import Icon from '$comp/commons/Icon.svelte';
-    import Button from '$comp/commons/buttons/Button.svelte';
+	// »»»»» Components
+	import Icon from '$comp/commons/Icon.svelte';
+	import Button from '$comp/commons/buttons/Button.svelte';
 
-    // »»»»» Logic
-    let options = [
-        {
-            name: _("Posts"),
-            href: "/posts",
-            icon: "device-gamepad"
-        },
-        {
-            name: _("Procurar"),
-            href: "/procurar",
-            icon: "search"
-        },
-    ]
+	// »»»»» Logic
+	let options = [
+		{
+			name: _('Posts'),
+			href: '/posts',
+			icon: 'device-gamepad'
+		},
+		{
+			name: _('Procurar'),
+			href: '/procurar',
+			icon: 'search'
+		}
+	];
 
-    let mobileMenuActive = false;
+	let mobileMenuActive = false;
 </script>
 
 <header>
-    <a href="/" class="logo">
-        <div class="icon">
-            <Icon icon="x" />
-            <Icon icon="device-gamepad" />
-        </div>
-        <p>Deu Tilt</p>
-    </a>
-    <Button secondary on:click={() => mobileMenuActive = true}>
-        <Icon icon="menu-2" />
-    </Button>
-    <nav class:active={mobileMenuActive}>
-        <Button secondary on:click={() => mobileMenuActive = false}>
-            <Icon icon="x" />
-        </Button>
-        {#each options as option}
-            <Button secondary animated href={option.href}>
-                <Icon icon={option.icon} />
-                {option.name}
-            </Button>
-        {/each}
-    </nav>
+	<a href="/" class="logo">
+		<div class="icon">
+			<Icon icon="x" />
+			<Icon icon="device-gamepad" />
+		</div>
+		<p>Deu Tilt</p>
+	</a>
+	<Button secondary on:click={() => (mobileMenuActive = true)}>
+		<Icon icon="menu-2" />
+	</Button>
+	<nav class:active={mobileMenuActive}>
+		<Button secondary on:click={() => (mobileMenuActive = false)}>
+			<Icon icon="x" />
+		</Button>
+		{#each options as option}
+			<Button secondary animated href={option.href}>
+				<Icon icon={option.icon} />
+				{option.name}
+			</Button>
+		{/each}
+	</nav>
 </header>
 
 <style lang="scss" scoped>
@@ -52,9 +52,9 @@
 		position: sticky;
 		top: 0;
 
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 
 		width: 100%;
 
@@ -64,122 +64,121 @@
 
 		z-index: 5000; // 5000 is the default z-index of the header component
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5em;
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 0.5em;
 
-            height: 100%;
+			height: 100%;
 
-            margin-left: 1em;
+			margin-left: 1em;
 
-            font-size: 1.15em;
-            font-weight: bolder;
-            text-transform: uppercase;
+			font-size: 1.15em;
+			font-weight: bolder;
+			text-transform: uppercase;
 
-            .icon {
-                position: relative;
+			.icon {
+				position: relative;
 
-                display: flex;
-                align-items: center;
+				display: flex;
+				align-items: center;
 
-                :global(i) {
-                    color: var(--color-theme-1);
-                    font-size: 2em;
-                }
-                
-                :global(.ti-x) {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    
-                    color: var(--color-theme-2);
-                    font-size: 2.5em;
-                }
-            }
+				:global(i) {
+					color: var(--color-theme-1);
+					font-size: 2em;
+				}
 
-            p {
-                padding-top: 0.1em;
-            }
-        }
+				:global(.ti-x) {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
 
-        nav {
-            display: flex;
+					color: var(--color-theme-2);
+					font-size: 2.5em;
+				}
+			}
 
-            :global(button) {
-                display: none;
-            }
-        }
+			p {
+				padding-top: 0.1em;
+			}
+		}
 
-        :global(a:not(.logo)), :global(button) {
-            width: 8em !important;
-            height: 3em !important;
+		nav {
+			display: flex;
 
-            font-size: 1em !important;
+			:global(button) {
+				display: none;
+			}
+		}
 
-            border: none !important;
-            border-radius: 0 !important;
-        }
+		:global(a:not(.logo)),
+		:global(button) {
+			width: 8em !important;
+			height: 3em !important;
 
-        :global(.ti-menu-2) {
-            display: none;
-        }
-    }
+			font-size: 1em !important;
 
-    @media (max-width: 768px) {
+			border: none !important;
+			border-radius: 0 !important;
+		}
 
-        header {
-            font-size: 1.15em;
+		:global(.ti-menu-2) {
+			display: none;
+		}
+	}
 
-            .logo {
+	@media (max-width: 768px) {
+		header {
+			font-size: 1.15em;
 
-                p {
-                    font-size: 1.25em;
-                }
-            }
+			.logo {
+				p {
+					font-size: 1.25em;
+				}
+			}
 
-            > :global(button) {
-                width: 3em !important;
-                font-size: 1.25em !important;
-            }
+			> :global(button) {
+				width: 3em !important;
+				font-size: 1.25em !important;
+			}
 
-            :global(.ti-menu-2) {
-                display: block;
-            }
+			:global(.ti-menu-2) {
+				display: block;
+			}
 
-            nav {
-                position: fixed;
-                top: 0;
-                right: 0;
+			nav {
+				position: fixed;
+				top: 0;
+				right: 0;
 
-                flex-direction: column;
-                align-items: end;
+				flex-direction: column;
+				align-items: end;
 
-                width: 0;
-                height: 100vh;
-                height: 100dvh;
+				width: 0;
+				height: 100vh;
+				height: 100dvh;
 
-                font-size: 1.25em;
+				font-size: 1.25em;
 
-                background-color: var(--color-background-faded-1);
-                backdrop-filter: blur(7px);
+				background-color: var(--color-background-faded-1);
+				backdrop-filter: blur(7px);
 
-                transition: width var(--transition-fast);
-                overflow: hidden;
+				transition: width var(--transition-fast);
+				overflow: hidden;
 
-                &.active {
-                    width: 100vw;
-                }
+				&.active {
+					width: 100vw;
+				}
 
-                :global(.secondary) {
-                    display: flex;
-                    flex-direction: row-reverse;
-                    justify-content: flex-start;
+				:global(.secondary) {
+					display: flex;
+					flex-direction: row-reverse;
+					justify-content: flex-start;
 
-                    width: 100% !important;
-                }
-            }
-        }
-    }
+					width: 100% !important;
+				}
+			}
+		}
+	}
 </style>

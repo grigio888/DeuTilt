@@ -13,9 +13,9 @@ const Posts = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-        imageHeader: {
-            type: DataTypes.STRING
-        },
+		imageHeader: {
+			type: DataTypes.STRING
+		},
 		content: {
 			type: DataTypes.TEXT,
 			allowNull: false
@@ -36,4 +36,54 @@ const Posts = sequelize.define(
 	}
 );
 
+const Tags = sequelize.define(
+	'Tags',
+	{
+		slug: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: true
+		},
+		title: {
+			type: DataTypes.STRING,
+			allowNull: false
+		}
+	},
+	{
+		tableName: 'Tags',
+		timestamps: true
+	}
+);
+
+const PostTags = sequelize.define(
+	'PostTags',
+	{
+		postId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'Posts',
+				key: 'id'
+			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
+		},
+		tagId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'Tags',
+				key: 'id'
+			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
+		}
+	},
+	{
+		tableName: 'PostTags'
+	}
+);
+
+Posts.belongsToMany(Tags, { through: PostTags });
+Tags.belongsToMany(Posts, { through: PostTags });
+
 export default Posts;
+export { Tags, PostTags };

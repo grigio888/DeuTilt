@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { DataTypes } from 'sequelize';
 import sequelize from '../connector.js';
 
@@ -10,10 +9,10 @@ const User = sequelize.define(
 			allowNull: false,
 			unique: true
 		},
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+		password: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -27,17 +26,48 @@ const User = sequelize.define(
 		},
 		biography: {
 			type: DataTypes.TEXT
+		},
+		roleId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'Roles',
+				key: 'id'
+			},
+			onDelete: 'SET NULL',
+			onUpdate: 'CASCADE'
 		}
 	},
 	{
 		tableName: 'Users',
 		timestamps: true,
-        instanceMethods: {
-            comparePassword: function (password) {
-                return bcrypt.compareSync(password, this.password);
-            }
-        }
+		hooks: {
+			// Logic after creating a user
+			// afterCreate: (user, options) => {
+			// }
+		}
 	}
 );
 
+const Roles = sequelize.define(
+	'Roles',
+	{
+		slug: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: true
+		},
+		title: {
+			type: DataTypes.STRING
+		}
+	},
+	{
+		tableName: 'Roles',
+		timestamps: true
+	}
+);
+
+User.belongsTo(Roles, { foreignKey: 'roleId', as: 'Role' });
+Roles.hasMany(User, { foreignKey: 'roleId', as: 'Users' });
+
 export default User;
+export { Roles };
