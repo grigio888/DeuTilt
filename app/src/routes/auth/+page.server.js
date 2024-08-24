@@ -6,7 +6,6 @@ import { comparePassword } from '$db/utils/password';
 
 export async function load({ locals }) {
 	if (locals.user) {
-		console.log(locals.user.Role?.slug);
 		redirect(302, locals.user.Role?.slug == 'admin' ? '/admin/' : '/');
 	}
 
@@ -17,8 +16,6 @@ export const actions = {
 	login: async ({ request, cookies }) => {
 		const formData = await request.formData();
 		const entries = Object.fromEntries(formData);
-
-		console.log(entries);
 
 		if (!entries.username || !entries.password) {
 			return fail(400, {

@@ -12,7 +12,7 @@ module.exports = {
 			postId: {
 				type: Sequelize.INTEGER
 			},
-			userID: {
+			tagId: {
 				type: Sequelize.INTEGER
 			},
 			createdAt: {

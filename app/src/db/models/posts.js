@@ -47,6 +47,9 @@ const Tags = sequelize.define(
 		title: {
 			type: DataTypes.STRING,
 			allowNull: false
+		},
+		color: {
+			type: DataTypes.STRING
 		}
 	},
 	{
@@ -82,8 +85,8 @@ const PostTags = sequelize.define(
 	}
 );
 
-Posts.belongsToMany(Tags, { through: PostTags });
-Tags.belongsToMany(Posts, { through: PostTags });
+Posts.belongsToMany(Tags, { through: PostTags, foreignKey: 'postId', as: 'Tags' });
+Tags.belongsToMany(Posts, { through: PostTags, foreignKey: 'tagId', as: 'Posts' });
 
 export default Posts;
 export { Tags, PostTags };

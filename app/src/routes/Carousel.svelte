@@ -5,6 +5,9 @@
 	// »»»»» Props
 	let { items } = $props();
 
+	// »»»»» Components
+	import Tags from '$comp/design/Tags.svelte';
+
 	// »»»»» Logic
 	// determining which post is in view
 	let inView = $state(items[0]);
@@ -38,14 +41,21 @@
 </script>
 
 <section>
-	<a href="/posts/{inView.slug}" class="in-view">
+	<div class="in-view">
 		<img src={inView.imageHeader} alt={inView.title} />
-		<div>
-			<h2>{inView.title}</h2>
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html marked(inView.content.slice(0, 100) + '...')}
+		<div class="content">
+			<div class="tags">
+				{#each inView.Tags as tag}
+					<Tags {tag} />
+				{/each}
+			</div>
+			<a href="/posts/{inView.slug}">
+				<h2>{inView.title}</h2>
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html marked(inView.content.slice(0, 100) + '...')}
+			</a>
 		</div>
-	</a>
+	</div>
 	<div class="options">
 		{#each options as option}
 			<button onclick={() => setInView(option)}>
@@ -102,6 +112,7 @@
 
 			flex: 1;
 			height: var(--height);
+			width: 100%;
 
 			img {
 				position: absolute;
@@ -117,23 +128,38 @@
 				z-index: 1;
 			}
 
-			div {
+			.content {
 				width: 100%;
 
 				padding: 1em;
 
 				background-color: hsla(0, 0%, 100%, 0.5);
-				color: var(--color-background-1);
 
 				z-index: 2;
 
-				h2 {
-					display: -webkit-box;
-					-webkit-box-orient: vertical;
-					-webkit-line-clamp: 2;
+				.tags {
+					display: flex;
+					flex-wrap: nowrap;
+					gap: 0.25em;
 
-					overflow: hidden;
-					text-overflow: ellipsis;
+					padding-bottom: 0.5em;
+
+					overflow: auto;
+				}
+
+				a {
+					width: 100%;
+
+					color: var(--color-background-1);
+
+					h2 {
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 2;
+
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
 				}
 			}
 		}
@@ -219,9 +245,30 @@
 			--height: 20em;
 			flex-direction: column;
 
+			margin-top: 1.5em;
+			margin-inline: 0.5em;
+
+			&:after {
+				left: 50%;
+				transform: translate(-50%, -50%);
+
+				width: 90%;
+
+				padding: 0em;
+
+				font-size: 1.5em;
+				text-align: center;
+			}
+
 			.in-view {
 				height: var(--height);
 				flex: none;
+
+				.content {
+					.tags {
+						gap: 0.5em;
+					}
+				}
 			}
 
 			.options {
