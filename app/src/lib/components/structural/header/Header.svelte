@@ -62,6 +62,8 @@
 
 		border-bottom: var(--border-width) solid var(--color-theme-1);
 
+		background-color: var(--color-background-1);
+
 		z-index: 5000; // 5000 is the default z-index of the header component
 
 		.logo {

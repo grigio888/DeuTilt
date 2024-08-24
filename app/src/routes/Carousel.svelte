@@ -90,15 +90,37 @@ It has been a few weeks since AMD launched its Zen 5-based Ryzen AI 300 APUs aka
 	section {
 		--height: 30em;
 
+		position: relative;
+
 		display: flex;
 		justify-content: center;
 		align-items: center;
 
-		margin-top: 1em;
+		margin-top: 2em;
 		margin-inline: 1em;
 
 		border: var(--border-width) solid var(--color-theme-1);
 		border-radius: var(--border-radius);
+
+		&:after {
+			content: 'Destaques';
+			position: absolute;
+			top: 0;
+			left: 2em;
+			transform: translateY(-50%);
+
+			display: block;
+
+			padding: 0.25em 0.5em;
+
+			border: var(--border-width) solid var(--color-theme-1);
+			border-radius: var(--border-radius);
+
+			background-color: var(--color-background-1);
+			color: var(--color-theme-1);
+
+			z-index: 10;
+		}
 
 		.in-view {
 			position: relative;
