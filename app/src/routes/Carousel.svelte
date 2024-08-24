@@ -3,41 +3,11 @@
 	import { marked } from 'marked';
 
 	// »»»»» Props
-	let { posts } = $props();
-
-	if (!posts)
-		posts = [
-			{
-				slug: 'amd-to-establish-two-rd-facilities-in-taiwan',
-				title:
-					'AMD To Establish Two R&D Facilities In Taiwan, Total Cost Reaching Up To $270 Million',
-				imageHeader:
-					'https://cdn.wccftech.com/wp-content/uploads/2024/08/DSC_0870.original-728x484.jpg',
-				content: `
-AMD plans to set up two R&D centers in Taiwan in collaboration with the local government, with total investments planned to be $270 million.
-
-## AMD Is Now Eager To Place Itself At The Heart of Taiwan, Recruiting Local Talent & Collaborating With Supply Chain Partners
-The strategic importance of Taiwan for mainstream tech companies like NVIDIA and AMD is growing more than ever. With the AI hype coming into play, tech giants are moving towards closer collaboration with their supply chain partners to ensure a more extensive collaboration and, of course, monitor overall progress. After rumors of both NVIDIA and AMD setting up their facilities in Taiwan, it looks like we now have Team Red's plans of execution, and they sure look interesting.
-            `
-			},
-			{
-				slug: 'amd-ryzen-ai-9-hx-370-apu-tested-in-mini-pc',
-				title:
-					'AMD Ryzen AI 9 HX 370 APU Tested In Mini PC Configuration, Radeon 890M iGPU Shines With Great 1080p Gaming Performance',
-				imageHeader:
-					'https://cdn.wccftech.com/wp-content/uploads/2024/06/AMD-Ryzen-AI-300-Laptops-Launch-728x410.jpg',
-				content: `
-The first Mini PC featuring AMD Ryzen AI 9 HX 370 APU has been tested and its Radeon 890M iGPU shines in gaming benchmarks.
-
-AMD Ryzen AI 300 Mini PCs Deliver Much Capable Gaming Performance Thanks To Radeon 890M iGPU
-It has been a few weeks since AMD launched its Zen 5-based Ryzen AI 300 APUs aka Strix-Point for gaming laptops and mobile platforms. Several notebook manufacturers have already announced new gaming laptops with the latest Strix APUs but we haven't seen a mini-PC being announced with one of these chips. Although the estimated date for these mini-PCs is early October, ETA Prime has showcased the first benchmarks for one of these Mini PCs before its official launch.
-            `
-			}
-		];
+	let { items } = $props();
 
 	// »»»»» Logic
 	// determining which post is in view
-	let inView = $state(posts[0]);
+	let inView = $state(items[0]);
 
 	// fetching the next 4 posts that comes after the inView post
 	let options = $state([]);
@@ -50,7 +20,7 @@ It has been a few weeks since AMD launched its Zen 5-based Ryzen AI 300 APUs aka
 		// fetching the next 4 posts that comes after the inView post
 		for (let i = 1; i < 5; i++) {
 			newOptions.push(
-				posts[(posts.findIndex((post) => post.title === inView.title) + i) % posts.length]
+				items[(items.findIndex((post) => post.title === inView.title) + i) % items.length]
 			);
 		}
 
