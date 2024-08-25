@@ -1,6 +1,8 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../connector.js';
 
+import User from './user.js';
+
 const Posts = sequelize.define(
 	'Posts',
 	{
@@ -23,7 +25,7 @@ const Posts = sequelize.define(
 		createdBy: {
 			type: DataTypes.INTEGER,
 			references: {
-				model: 'Users',
+				model: 'User',
 				key: 'id'
 			},
 			onDelete: 'SET NULL',
@@ -85,6 +87,7 @@ const PostTags = sequelize.define(
 	}
 );
 
+Posts.belongsTo(User, { foreignKey: 'createdBy', as: 'Author' });
 Posts.belongsToMany(Tags, { through: PostTags, foreignKey: 'postId', as: 'Tags' });
 Tags.belongsToMany(Posts, { through: PostTags, foreignKey: 'tagId', as: 'Posts' });
 
