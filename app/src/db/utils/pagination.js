@@ -1,4 +1,4 @@
-export default async function paginate({ model, page = 1, pageSize = 10, where = {}, order = [], returnAsJson = false }) {
+export default async function paginate({ model, page = 1, pageSize = 10, where = {}, include = [], order = [], returnAsJson = false }) {
     let offset = (page - 1) * pageSize;
     let limit = pageSize;
 
@@ -6,7 +6,8 @@ export default async function paginate({ model, page = 1, pageSize = 10, where =
         where,
         order,
         offset,
-        limit
+        limit,
+        include
     });
 
     let totalPages = Math.ceil(count / pageSize);
