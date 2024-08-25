@@ -39,7 +39,7 @@
 			<Icon icon="x" />
 		</Button>
 		{#each options as option}
-			<Button secondary animated href={option.href}>
+			<Button secondary animated href={option.href} on:click={() => (mobileMenuActive = false)}>
 				<Icon icon={option.icon} />
 				{option.name}
 			</Button>
