@@ -71,7 +71,7 @@
 
 <style lang="scss">
 	section {
-		--height: 30em;
+		--height: 25em;
 
 		position: relative;
 
