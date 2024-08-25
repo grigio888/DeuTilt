@@ -57,9 +57,12 @@
 		</div>
 	</div>
 	<div class="options">
+		<button class="selected">
+			<h2>{inView.title}</h2>
+		</button>
 		{#each options as option}
+			<hr />
 			<button onclick={() => setInView(option)}>
-				<img src={option.imageHeader} alt={option.title} />
 				<h2>{option.title}</h2>
 			</button>
 		{/each}
@@ -73,34 +76,11 @@
 		position: relative;
 
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 
-		margin-top: 2em;
-		margin-inline: 1em;
-
-		border: var(--border-width) solid var(--color-theme-1);
-		border-radius: var(--border-radius);
-
-		&:after {
-			content: 'Destaques';
-			position: absolute;
-			top: 0;
-			left: 2em;
-			transform: translateY(-50%);
-
-			display: block;
-
-			padding: 0.25em 0.5em;
-
-			border: var(--border-width) solid var(--color-theme-1);
-			border-radius: var(--border-radius);
-
-			background-color: var(--color-background-1);
-			color: var(--color-theme-1);
-
-			z-index: 10;
-		}
+		border-bottom: var(--border-width) solid var(--color-theme-1);
 
 		.in-view {
 			position: relative;
@@ -110,9 +90,20 @@
 			justify-content: flex-end;
 			align-items: center;
 
-			flex: 1;
 			height: var(--height);
 			width: 100%;
+
+			&:after {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: 0;
+
+				height: 1em;
+				width: 100%;
+				background: linear-gradient(0deg, var(--color-background-1), transparent);
+				z-index: 10;
+			}
 
 			img {
 				position: absolute;
@@ -166,11 +157,12 @@
 
 		.options {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
+			justify-content: space-evenly;
+			align-items: center;
 
 			height: 100%;
-
-			border-left: var(--border-width) solid var(--color-theme-1);
+			width: 100%;
 
 			button {
 				position: relative;
@@ -180,36 +172,43 @@
 
 				border: none;
 
-				background-color: var(--color-theme-2);
+				background-color: transparent;
 
 				cursor: pointer;
-				transition: border-color var(--transition-fast);
 
 				overflow: hidden;
 
-				&:hover {
-					img {
-						opacity: 0.5;
-					}
-
-					h2 {
-						opacity: 1;
-					}
-				}
-
-				img {
+				&:after {
+					content: '';
 					position: absolute;
 					top: 50%;
 					left: 50%;
 					transform: translate(-50%, -50%);
 
-					width: 101%;
-					height: 101%;
+					height: 100%;
+					width: 100%;
 
-					object-fit: cover;
+					background: radial-gradient(circle, var(--color-theme-1) 0%, transparent 50%);
+
 					z-index: 1;
-
+					opacity: 0;
 					transition: opacity var(--transition-fast);
+					pointer-events: none;
+				}
+
+				&:hover:after {
+					opacity: 0.5;
+				}
+
+				&.selected {
+					&:after {
+						background: radial-gradient(circle, var(--color-theme-1) 0%, transparent 75%);
+						opacity: 1;
+					}
+
+					&:hover:after {
+						opacity: 1;
+					}
 				}
 
 				h2 {
@@ -221,21 +220,24 @@
 
 					padding: 0.25em;
 
+					color: var(--color-text-1);
 					font-size: 1.2em;
-
-					opacity: 0;
-					pointer-events: none;
-
-					overflow: hidden;
 					text-overflow: ellipsis;
+
+					pointer-events: none;
+					overflow: hidden;
 
 					z-index: 2;
 					transition: opacity var(--transition-fast);
 				}
 			}
 
-			button + button {
-				border-top: var(--border-width) solid var(--color-theme-1);
+			hr {
+				height: 4em;
+				width: 3px;
+				border: none;
+				background-color: var(--color-theme-1);
+				transform: skewY(355deg) rotateZ(7.5deg);
 			}
 		}
 	}
@@ -243,26 +245,16 @@
 	@media (max-width: 768px) {
 		section {
 			--height: 20em;
-			flex-direction: column;
-
-			margin-top: 1.5em;
-			margin-inline: 0.5em;
-
-			&:after {
-				left: 50%;
-				transform: translate(-50%, -50%);
-
-				width: 90%;
-
-				padding: 0em;
-
-				font-size: 1.5em;
-				text-align: center;
-			}
 
 			.in-view {
 				height: var(--height);
 				flex: none;
+
+				&:after {
+					bottom: -1px;
+
+					height: 1em;
+				}
 
 				.content {
 					.tags {
@@ -272,8 +264,10 @@
 			}
 
 			.options {
+				flex-direction: column;
+
 				border-left: none;
-				border-top: var(--border-width) solid var(--color-theme-1);
+				// border-top: var(--border-width) solid var(--color-theme-1);
 
 				button {
 					display: flex;
@@ -283,21 +277,8 @@
 
 					background-color: var(--color-background-1);
 
-					&:hover {
-						img {
-							opacity: 1;
-						}
-					}
-
-					img {
-						position: static;
-						top: auto;
-						left: auto;
-						transform: none;
-
-						height: 100%;
-						width: auto;
-						aspect-ratio: 3/2;
+					&.selected {
+						display: none;
 					}
 
 					h2 {
@@ -310,6 +291,12 @@
 
 						opacity: 1;
 					}
+				}
+
+				hr {
+					height: 1px;
+					width: 100%;
+					transform: none;
 				}
 			}
 		}

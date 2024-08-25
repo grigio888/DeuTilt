@@ -44,12 +44,6 @@
 	--border-radius: 0.25em;
 }
 
-@media (max-width: 768px) {
-	:root {
-		--border-width: 1px;
-	}
-}
-
 ::-webkit-scrollbar {
 	width: 5px;
 	height: 4px;
@@ -102,6 +96,24 @@ hr.vr {
 	background: var(--color-theme-1);
 	border: none;
 	border-radius: var(--border-radius);
+}
+
+.only-mobile {
+	display: none !important;
+}
+
+@media (max-width: 768px) {
+	:root {
+		--border-width: 1px;
+	}
+
+	.only-mobile {
+		display: block !important;
+	}
+
+	.only-desktop {
+		display: none !important;
+	}
 }
 
 @keyframes fadeIn {
