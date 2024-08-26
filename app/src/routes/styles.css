@@ -19,19 +19,20 @@
 	--color-text-1: hsl(0, 0%, 85%);
 	--color-text-2: hsl(from var(--color-text-1) h s 50%);
 
-	--color-background-1: hsl(267, 25%, 10%);
+    --color-theme-1: hsl(278, 65%, 40%);
+    --color-theme-2: hsl(from var(--color-theme-1) h 85% 65%);
+    --color-theme-faded-1: hsla(from var(--color-theme-1) h s l / 0.5);
+    --color-theme-faded-2: hsla(from var(--color-theme-2) h s l / 0.5);
+
+	--color-background-1: hsl(from var(--color-theme-1) h 25% 10%);
 	--color-background-2: hsl(from var(--color-background-1) h s 20%);
 	--color-background-3: hsl(from var(--color-background-1) h s 30%);
 
 	--color-background-faded-1: hsla(from var(--color-background-1) h s l / 0.5);
 	--color-background-faded-2: hsla(from var(--color-background-2) h s l / 0.5);
 	--color-background-faded-3: hsla(from var(--color-background-3) h s l / 0.5);
-	--color-shadow: hsla(0, 0%, 75%, 0.5);
 
-	--color-theme-1: hsl(278, 65%, 40%);
-	--color-theme-2: hsl(from var(--color-theme-1) h 85% 65%);
-	--color-theme-faded-1: hsla(from var(--color-theme-1) h s l / 0.5);
-	--color-theme-faded-2: hsla(from var(--color-theme-2) h s l / 0.5);
+    --color-shadow: hsla(0, 0%, 75%, 0.5);
 
 	--colors-animation-1: hsl(0, 0%, 20%);
 	--colors-animation-2: hsl(from var(--colors-animation-1) h s 40%);
