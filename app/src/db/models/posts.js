@@ -22,6 +22,10 @@ const Posts = sequelize.define(
 			type: DataTypes.TEXT,
 			allowNull: false
 		},
+        views: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
 		createdBy: {
 			type: DataTypes.INTEGER,
 			references: {
@@ -37,6 +41,8 @@ const Posts = sequelize.define(
 		timestamps: true
 	}
 );
+
+Posts.belongsTo(User, { foreignKey: 'createdBy', as: 'Author' });
 
 const Tags = sequelize.define(
 	'Tags',
@@ -87,7 +93,6 @@ const PostTags = sequelize.define(
 	}
 );
 
-Posts.belongsTo(User, { foreignKey: 'createdBy', as: 'Author' });
 Posts.belongsToMany(Tags, { through: PostTags, foreignKey: 'postId', as: 'Tags' });
 Tags.belongsToMany(Posts, { through: PostTags, foreignKey: 'tagId', as: 'Posts' });
 

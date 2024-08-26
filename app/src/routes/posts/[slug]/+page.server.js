@@ -11,6 +11,9 @@ export async function load({ params }) {
 
 	if (!post) error(404, 'Post not found');
 
+    post.views++;
+    await post.save();
+
 	return {
 		post: post.toJSON()
 	};
