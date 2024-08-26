@@ -181,7 +181,7 @@
 					width: 100vw;
 				}
 
-				:global(.secondary) {
+				:global(.primary), :global(.secondary) {
 					display: flex;
 					flex-direction: row-reverse;
 					justify-content: flex-start;

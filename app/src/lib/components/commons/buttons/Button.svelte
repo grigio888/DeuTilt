@@ -75,7 +75,7 @@
 		&.primary {
 			border: none;
 
-			background-color: var(--color-theme-1);
+			background-color: var(--color-theme-2);
 			color: var(--color-background-1);
 			font-weight: 700;
 		}
