@@ -58,7 +58,12 @@ const Tags = sequelize.define(
 		},
 		color: {
 			type: DataTypes.STRING
-		}
+		},
+        icon: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'none'
+        }
 	},
 	{
 		tableName: 'Tags',
