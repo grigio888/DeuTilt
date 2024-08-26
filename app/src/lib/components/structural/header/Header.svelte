@@ -1,5 +1,6 @@
 <script>
 	// »»»»» Imports
+    import { page } from '$app/stores';
 	import { translate as _ } from '$i18n/translate';
 
 	// »»»»» Components
@@ -20,7 +21,8 @@
 		}
 	];
 
-	let mobileMenuActive = false;
+	let mobileMenuActive = $state(false);
+    let isAdmin = $state($page.data?.user?.Role?.slug === 'admin');
 </script>
 
 <header>
@@ -39,11 +41,17 @@
 			<Icon icon="x" />
 		</Button>
 		{#each options as option}
-			<Button secondary animated href={option.href} on:click={() => (mobileMenuActive = false)}>
+			<Button secondary={option.href != $page.url.pathname} animated href={option.href} on:click={() => (mobileMenuActive = false)}>
 				<Icon icon={option.icon} />
 				{option.name}
 			</Button>
 		{/each}
+        {#if isAdmin}
+            <Button secondary={$page.url.pathname != "/admin"} animated href="/admin" on:click={() => (mobileMenuActive = false)}>
+                <Icon icon="crown" />
+                {_('Admin')}
+            </Button>
+        {/if}
 	</nav>
 </header>
 
