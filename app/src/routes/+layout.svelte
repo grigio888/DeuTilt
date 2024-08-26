@@ -9,6 +9,7 @@
 
 	// »»»»» Components
 	import Header from '$comp/structural/header/Header.svelte';
+    import PageTransition from '$comp/structural/PageTransition.svelte';
 
 	// »»»»» Logic
 	// » Refreshing locale
@@ -18,4 +19,6 @@
 
 <Header />
 
-<slot />
+<PageTransition refresh={data.url}>
+    <slot />
+</PageTransition>
