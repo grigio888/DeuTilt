@@ -4,9 +4,10 @@ import { fail, redirect } from '@sveltejs/kit';
 import User from '$db/models/User';
 import { comparePassword } from '$db/utils/password';
 
-export async function load({ locals }) {
-	if (locals.user) {
-		redirect(302, locals.user.Role?.slug == 'admin' ? '/admin/' : '/');
+export async function load({ parent }) {
+    const { user } = await parent();
+	if (user) {
+		redirect(302, user.Role?.slug == 'admin' ? '/admin/' : '/');
 	}
 
 	return {};
