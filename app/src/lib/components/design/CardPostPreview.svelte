@@ -1,9 +1,13 @@
 <script>
+    // »»»»» Imports
+    import { relativeTime } from '$lib/utils/date';
+
 	// »»»»» Props
 	let { item } = $props();
 
 	// »»»»» Components
 	import Tags from '$comp/design/Tags.svelte';
+    import Icon from '$comp/commons/Icon.svelte';
 </script>
 
 <div class="card">
@@ -16,6 +20,7 @@
                 <Tags {tag} />
             {/each}
         </div>
+        <span><Icon icon="clock" /> {relativeTime(item.createdAt)}</span>
         <a href="/posts/{item.slug}">
             <h2>{item.title}</h2>
         </a>
@@ -72,12 +77,18 @@
 		}
 
         .body {
-            height: 11.5em;
+            height: 12.5em;
 
             padding: 0.5em;
 
             border-top: var(--border-width) solid var(--color-theme-1);
-    
+
+            span {
+                display: flex;
+                align-items: center;
+                gap: 0.25em;
+            }
+
             .tags {
                 display: flex;
                 gap: 0.5em;
