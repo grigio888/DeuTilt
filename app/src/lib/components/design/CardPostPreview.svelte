@@ -44,10 +44,10 @@
 				height: 100%;
 				width: 100%;
 
-				transition: transform 0.5s;
+				transition: transform var(--transition-slow);
 
 				&:hover {
-					transform: scale(1.1);
+					transform: scale(1.05);
 				}
 			}
 
