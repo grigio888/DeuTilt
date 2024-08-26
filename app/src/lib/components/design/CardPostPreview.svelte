@@ -10,14 +10,16 @@
 	<a href="/posts/{item.slug}">
 		<img src={item.imageHeader} alt={item.title} />
 	</a>
-	<div class="tags">
-		{#each item.Tags as tag}
-			<Tags {tag} />
-		{/each}
-	</div>
-	<a href="/posts/{item.slug}">
-		<h2>{item.title}</h2>
-	</a>
+    <div class="body">
+        <div class="tags">
+            {#each item.Tags as tag}
+                <Tags {tag} />
+            {/each}
+        </div>
+        <a href="/posts/{item.slug}">
+            <h2>{item.title}</h2>
+        </a>
+    </div>
 </div>
 
 <style lang="scss">
@@ -35,10 +37,6 @@
 
 			overflow: hidden;
 
-			&:not(:last-child) {
-				border-bottom: var(--border-width) solid var(--color-theme-1);
-			}
-
 			img {
 				object-fit: cover;
 				height: 100%;
@@ -54,11 +52,9 @@
 			h2 {
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 5;
+				-webkit-line-clamp: 4;
 
 				height: auto;
-				margin: 0.5em;
-				margin-top: 0;
 
 				font-size: 1.25rem;
 				text-overflow: ellipsis;
@@ -67,11 +63,21 @@
 			}
 		}
 
-		.tags {
-			display: flex;
-			gap: 0.5em;
-			padding: 0.5em;
-		}
+        .body {
+            height: 11.5em;
+
+            padding: 0.5em;
+
+            border-top: var(--border-width) solid var(--color-theme-1);
+    
+            .tags {
+                display: flex;
+                gap: 0.5em;
+                padding-bottom: 0.5em;
+    
+                overflow-x: auto;
+            }
+        }
 	}
 
 	@media (max-width: 768px) {
