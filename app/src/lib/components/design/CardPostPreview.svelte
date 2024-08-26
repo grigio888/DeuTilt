@@ -30,6 +30,14 @@
 		width: 100%;
 		aspect-ratio: 18/9;
 
+        transition: box-shadow, transform;
+        transition-duration: var(--transition-slow);
+
+        &:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 1em var(--color-theme-1);
+        }
+
 		a {
 			display: block;
 			height: 100%;
