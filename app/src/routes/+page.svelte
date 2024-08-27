@@ -11,6 +11,7 @@
 	import Carousel from './Carousel.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
 	import CardPostPreview from '$comp/design/CardPostPreview.svelte';
+    import Button from '$comp/commons/buttons/Button.svelte';
 </script>
 
 <Metadata
@@ -32,6 +33,13 @@
 		<CardPostPreview {item} />
 	{/each}
 </section>
+
+{#if posts.totalItems > 10}
+    <Button secondary animated id="seeMorePosts" href="/posts">
+        {_('Ver Mais')}
+        <Icon icon="chevron-right" />
+    </Button>
+{/if}
 
 <style lang="scss">
     .header {
@@ -64,6 +72,12 @@
 		margin-inline: auto;
 	}
 
+    :global(#seeMorePosts) {
+        max-width: 40em;
+
+        margin: 0em auto 2em;
+    }
+
 	@media (max-width: 768px) {
         .header {
 
@@ -76,5 +90,11 @@
 			padding: 2em 1em;
 
 		}
+
+        :global(#seeMorePosts) {
+            max-width: auto;
+
+            margin: 0em 1em 2em;
+        }
 	}
 </style>
