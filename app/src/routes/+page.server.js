@@ -1,5 +1,8 @@
 import { Op } from 'sequelize';
+
 import Posts from '$db/models/posts';
+import { Tags } from '$db/models/posts';
+import paginate from '$db/utils/pagination';
 
 export async function load() {
 	const carouselItems = (
@@ -15,7 +18,22 @@ export async function load() {
 		})
 	).map((post) => post.toJSON());
 
+	const posts = await paginate({
+		model: Posts,
+		page: 1,
+		pageSize: 10,
+		order: [['createdAt', 'DESC']],
+		include: [
+			{
+				model: Tags,
+				as: 'Tags'
+			}
+		],
+		returnAsJson: true
+	});
+
 	return {
-		carouselItems
+		carouselItems,
+		posts
 	};
 }
