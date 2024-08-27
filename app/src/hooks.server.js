@@ -32,6 +32,7 @@ export async function handle({ event, resolve }) {
 	// »»»»» Rendering
 	// transforming the page chunk
 	return resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('%lang%', event.locals.lang)
+		transformPageChunk: ({ html }) =>
+			html.replace('%lang%', event.locals.lang).replace('%theme%', 'dark')
 	});
 }

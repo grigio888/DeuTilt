@@ -146,14 +146,14 @@
 					align-items: center;
 					gap: 0.25em;
 
-					color: var(--color-background-1);
+					color: var(--color-text-highlight-1);
 					font-size: 0.8em;
 				}
 
 				a {
 					width: 100%;
 
-					color: var(--color-background-1);
+					color: var(--color-text-highlight-1);
 
 					h2 {
 						display: -webkit-box;

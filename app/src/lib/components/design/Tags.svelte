@@ -13,7 +13,7 @@
 
 <style lang="scss">
 	a {
-		--color-2: hsl(from var(--color-1) h s 75%);
+		--color-2: hsl(from var(--color-1) h s 90%);
 
 		display: flex;
 		align-items: center;

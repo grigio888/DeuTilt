@@ -19,18 +19,23 @@
 	--color-text-1: hsl(0, 0%, 85%);
 	--color-text-2: hsl(from var(--color-text-1) h s 50%);
 
+	--color-text-highlight-1: hsl(0, 0%, 5%);
+	--color-text-highlight-2: hsl(from var(--color-text-1) h s 20%);
+
 	--color-theme-1: hsl(278, 65%, 40%);
+	/* --color-theme-1: hsl(17, 100%, 61%); */
+	/* --color-theme-1: hsl(355, 72%, 57%); */
 	--color-theme-2: hsl(from var(--color-theme-1) h 85% 65%);
 	--color-theme-faded-1: hsla(from var(--color-theme-1) h s l / 0.5);
 	--color-theme-faded-2: hsla(from var(--color-theme-2) h s l / 0.5);
 
-	--color-background-1: hsl(from var(--color-theme-1) h 25% 10%);
+	--color-background-1: hsl(from var(--color-theme-1) h 25% 5%);
 	--color-background-2: hsl(from var(--color-background-1) h s 20%);
 	--color-background-3: hsl(from var(--color-background-1) h s 30%);
 
-	--color-background-faded-1: hsla(from var(--color-background-1) h s l / 0.5);
-	--color-background-faded-2: hsla(from var(--color-background-2) h s l / 0.5);
-	--color-background-faded-3: hsla(from var(--color-background-3) h s l / 0.5);
+	--color-background-faded-1: hsla(from var(--color-background-1) h s l / 0.75);
+	--color-background-faded-2: hsla(from var(--color-background-2) h s l / 0.75);
+	--color-background-faded-3: hsla(from var(--color-background-3) h s l / 0.75);
 
 	--color-shadow: hsla(0, 0%, 75%, 0.5);
 
@@ -43,6 +48,20 @@
 	/* Defaults */
 	--border-width: 2px;
 	--border-radius: 0.25em;
+}
+
+[data-theme='light'] {
+	--color-text-1: hsl(0, 0%, 10%);
+	--color-text-2: hsl(from var(--color-text-1) h s 25%);
+
+	--color-text-highlight-1: var(--color-text-1);
+	--color-text-highlight-2: var(--color-text-2);
+
+	--color-background-1: hsl(from var(--color-theme-1) h 25% 95%);
+	--color-background-2: hsl(from var(--color-background-1) h s 80%);
+	--color-background-3: hsl(from var(--color-background-1) h s 70%);
+
+	--color-shadow: hsla(0, 0%, 25%, 0.5);
 }
 
 ::-webkit-scrollbar {
