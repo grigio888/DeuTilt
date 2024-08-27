@@ -33,14 +33,13 @@
 
 	let minTop = -75;
 	let maxTop = -1;
-	let currentTop = $state(maxTop);
+	let currentTop = $state('maxTop');
 
 	function handleScroll() {
 		let currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-		if (currentScrollTop == 0) currentTop = 0;
-		else if (currentScrollTop > lastScrollTop) currentTop = minTop;
-		else currentTop = maxTop;
+		if (currentScrollTop > lastScrollTop) currentTop = 'minTop';
+		else currentTop = 'maxTop';
 
 		lastScrollTop = currentScrollTop;
 	}
@@ -54,7 +53,7 @@
 	});
 </script>
 
-<header bind:this={header} style="--top: {currentTop}px">
+<header bind:this={header} style="--top: var(--{currentTop})">
 	<a href="/" class="logo">
 		<div class="icon">
 			<Icon icon="x" />
@@ -62,7 +61,7 @@
 		</div>
 		<p>Deu Tilt</p>
 	</a>
-	<Button secondary on:click={() => (mobileMenuActive = true)}>
+	<Button secondary id="mobileMenu" on:click={() => (mobileMenuActive = true)}>
 		<Icon icon="menu-2" />
 	</Button>
 	<nav class:active={mobileMenuActive}>
@@ -96,10 +95,14 @@
 
 <style lang="scss" scoped>
 	header {
+		--minTop: -100px;
+		--maxTop: -1px;
+
 		position: sticky;
 		top: var(--top);
 
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: space-between;
 
@@ -122,9 +125,9 @@
 
 			height: 100%;
 
-			margin-left: 1em;
+			margin-top: 1em;
 
-			font-size: 1.15em;
+			font-size: 1.25em;
 			font-weight: bolder;
 			text-transform: uppercase;
 
@@ -155,8 +158,15 @@
 			}
 		}
 
+		> :global(button) {
+			display: none;
+		}
+
 		nav {
 			display: flex;
+			align-items: start;
+
+			width: 100%;
 
 			:global(button) {
 				display: none;
@@ -166,36 +176,42 @@
 		:global(a:not(.logo)),
 		:global(button) {
 			width: 8em !important;
-			height: 3em !important;
+			height: 2.5em !important;
 
 			font-size: 1em !important;
 
 			border: none !important;
 			border-radius: 0 !important;
 		}
-
-		:global(.ti-menu-2) {
-			display: none;
-		}
 	}
 
 	@media (max-width: 768px) {
 		header {
+			--minTop: -75px;
+
 			font-size: 1.15em;
 
 			.logo {
+				margin: 0;
+				padding: 0.5em;
+
+				font-size: 1.15em;
+
 				p {
 					font-size: 1.25em;
 				}
 			}
 
 			> :global(button) {
+				position: absolute;
+				top: 56%;
+				right: 0;
+				transform: translateY(-50%);
+
+				display: block;
+
 				width: 3em !important;
 				font-size: 1.25em !important;
-			}
-
-			:global(.ti-menu-2) {
-				display: block;
 			}
 
 			nav {
@@ -229,6 +245,9 @@
 					justify-content: flex-start;
 
 					width: 100% !important;
+					height: 3em !important;
+
+					padding-inline: 0.75em !important;
 				}
 			}
 		}
