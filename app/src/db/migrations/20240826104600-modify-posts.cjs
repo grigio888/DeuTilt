@@ -5,7 +5,7 @@ module.exports = {
 		// add a column to the Tags table named color
 		await queryInterface.addColumn('Posts', 'views', {
 			type: Sequelize.INTEGER,
-            defaultValue: 0
+			defaultValue: 0
 		});
 	},
 	// eslint-disable-next-line no-unused-vars

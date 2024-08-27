@@ -2,12 +2,12 @@
 	// »»»»» Props
 	let { tag } = $props();
 
-    // »»»»» Components
-    import Icon from '$comp/commons/Icon.svelte';
+	// »»»»» Components
+	import Icon from '$comp/commons/Icon.svelte';
 </script>
 
 <a href="/posts/?tag={tag.slug}" style="--color-1: {tag.color}">
-    <Icon icon={tag.icon} />
+	<Icon icon={tag.icon} />
 	<span>{tag.title}</span>
 </a>
 
@@ -15,9 +15,9 @@
 	a {
 		--color-2: hsl(from var(--color-1) h s 75%);
 
-        display: flex;
-        align-items: center;
-        gap: 0.25em;
+		display: flex;
+		align-items: center;
+		gap: 0.25em;
 
 		width: fit-content;
 		height: fit-content;
@@ -34,8 +34,8 @@
 		text-align: center;
 		text-wrap: nowrap;
 
-        span {
-            padding-top: 0.1em;
-        }
+		span {
+			padding-top: 0.1em;
+		}
 	}
 </style>

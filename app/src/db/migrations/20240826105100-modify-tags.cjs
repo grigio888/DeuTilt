@@ -5,8 +5,8 @@ module.exports = {
 		// add a column to the Tags table named color
 		await queryInterface.addColumn('Tags', 'icon', {
 			type: Sequelize.STRING,
-            allowNull: false,
-            defaultValue: 'none'
+			allowNull: false,
+			defaultValue: 'none'
 		});
 	},
 	// eslint-disable-next-line no-unused-vars

@@ -6,12 +6,11 @@ import { ptBR } from 'date-fns/locale';
 import { locale } from '$i18n/store';
 
 export function relativeTime(date) {
-    let options = { addSuffix: true };
+	let options = { addSuffix: true };
 
-    if (get(locale) === 'pt') {
-        options.locale = ptBR;
-    }
+	if (get(locale) === 'pt') {
+		options.locale = ptBR;
+	}
 
-    return formatDistanceToNow(date, options);
+	return formatDistanceToNow(date, options);
 }
-

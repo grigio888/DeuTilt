@@ -5,7 +5,7 @@ import User from '$db/models/User';
 import { comparePassword } from '$db/utils/password';
 
 export async function load({ parent }) {
-    const { user } = await parent();
+	const { user } = await parent();
 	if (user) {
 		redirect(302, user.Role?.slug == 'admin' ? '/admin/' : '/');
 	}

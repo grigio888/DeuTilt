@@ -22,10 +22,10 @@ const Posts = sequelize.define(
 			type: DataTypes.TEXT,
 			allowNull: false
 		},
-        views: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0
-        },
+		views: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0
+		},
 		createdBy: {
 			type: DataTypes.INTEGER,
 			references: {
@@ -59,11 +59,11 @@ const Tags = sequelize.define(
 		color: {
 			type: DataTypes.STRING
 		},
-        icon: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 'none'
-        }
+		icon: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: 'none'
+		}
 	},
 	{
 		tableName: 'Tags',

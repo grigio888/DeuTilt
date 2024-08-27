@@ -1,14 +1,14 @@
 <script>
 	// »»»»» Imports
 	import { marked } from 'marked';
-    import { relativeTime } from '$lib/utils/date';
+	import { relativeTime } from '$lib/utils/date';
 
 	// »»»»» Props
 	let { items } = $props();
 
 	// »»»»» Components
 	import Tags from '$comp/design/Tags.svelte';
-    import Icon from '$comp/commons/Icon.svelte';
+	import Icon from '$comp/commons/Icon.svelte';
 
 	// »»»»» Logic
 	// determining which post is in view
@@ -51,7 +51,7 @@
 					<Tags {tag} />
 				{/each}
 			</div>
-            <span><Icon icon="clock" /> {relativeTime(inView.createdAt)}</span>
+			<span><Icon icon="clock" /> {relativeTime(inView.createdAt)}</span>
 			<a href="/posts/{inView.slug}">
 				<h2>{inView.title}</h2>
 				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -141,14 +141,14 @@
 					overflow: auto;
 				}
 
-                span {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.25em;
+				span {
+					display: flex;
+					align-items: center;
+					gap: 0.25em;
 
-                    color: var(--color-background-1);
-                    font-size: .8em;
-                }
+					color: var(--color-background-1);
+					font-size: 0.8em;
+				}
 
 				a {
 					width: 100%;

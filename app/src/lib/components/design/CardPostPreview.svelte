@@ -1,30 +1,30 @@
 <script>
-    // »»»»» Imports
-    import { relativeTime } from '$lib/utils/date';
+	// »»»»» Imports
+	import { relativeTime } from '$lib/utils/date';
 
 	// »»»»» Props
 	let { item } = $props();
 
 	// »»»»» Components
 	import Tags from '$comp/design/Tags.svelte';
-    import Icon from '$comp/commons/Icon.svelte';
+	import Icon from '$comp/commons/Icon.svelte';
 </script>
 
 <div class="card">
 	<a href="/posts/{item.slug}">
 		<img src={item.imageHeader} alt={item.title} />
 	</a>
-    <div class="body">
-        <div class="tags">
-            {#each item.Tags as tag}
-                <Tags {tag} />
-            {/each}
-        </div>
-        <span><Icon icon="clock" /> {relativeTime(item.createdAt)}</span>
-        <a href="/posts/{item.slug}">
-            <h2>{item.title}</h2>
-        </a>
-    </div>
+	<div class="body">
+		<div class="tags">
+			{#each item.Tags as tag}
+				<Tags {tag} />
+			{/each}
+		</div>
+		<span><Icon icon="clock" /> {relativeTime(item.createdAt)}</span>
+		<a href="/posts/{item.slug}">
+			<h2>{item.title}</h2>
+		</a>
+	</div>
 </div>
 
 <style lang="scss">
@@ -35,13 +35,13 @@
 		width: 100%;
 		aspect-ratio: 18/9;
 
-        transition: box-shadow, transform;
-        transition-duration: var(--transition-slow);
+		transition: box-shadow, transform;
+		transition-duration: var(--transition-slow);
 
-        &:hover {
-            transform: scale(1.01);
-            box-shadow: 0 0 1em var(--color-theme-1);
-        }
+		&:hover {
+			transform: scale(1.01);
+			box-shadow: 0 0 1em var(--color-theme-1);
+		}
 
 		a {
 			display: block;
@@ -76,27 +76,27 @@
 			}
 		}
 
-        .body {
-            height: 12.5em;
+		.body {
+			height: 12.5em;
 
-            padding: 0.5em;
+			padding: 0.5em;
 
-            border-top: var(--border-width) solid var(--color-theme-1);
+			border-top: var(--border-width) solid var(--color-theme-1);
 
-            span {
-                display: flex;
-                align-items: center;
-                gap: 0.25em;
-            }
+			span {
+				display: flex;
+				align-items: center;
+				gap: 0.25em;
+			}
 
-            .tags {
-                display: flex;
-                gap: 0.5em;
-                padding-bottom: 0.5em;
-    
-                overflow-x: auto;
-            }
-        }
+			.tags {
+				display: flex;
+				gap: 0.5em;
+				padding-bottom: 0.5em;
+
+				overflow-x: auto;
+			}
+		}
 	}
 
 	@media (max-width: 768px) {
