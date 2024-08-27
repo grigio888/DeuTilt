@@ -9,6 +9,7 @@
 
 	// »»»»» Components
 	import Header from '$comp/structural/header/Header.svelte';
+    import Footer from '$comp/structural/footer/Footer.svelte';
 	import PageTransition from '$comp/structural/PageTransition.svelte';
 
 	// »»»»» Logic
@@ -22,3 +23,5 @@
 <PageTransition refresh={data.url}>
 	<slot />
 </PageTransition>
+
+<Footer />
