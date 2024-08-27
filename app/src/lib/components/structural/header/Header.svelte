@@ -8,6 +8,7 @@
 	import Button from '$comp/commons/buttons/Button.svelte';
 
 	// »»»»» Logic
+	// options for the header menu
 	let options = [
 		{
 			name: _('Posts'),
@@ -21,11 +22,39 @@
 		}
 	];
 
+	// state for the mobile menu
 	let mobileMenuActive = $state(false);
 	let isAdmin = $state($page.data?.user?.Role?.slug === 'admin');
+
+	// handle dynamic header position
+	let header;
+
+	let lastScrollTop = 0;
+
+	let minTop = -75;
+	let maxTop = -1;
+	let currentTop = $state(maxTop);
+
+	function handleScroll() {
+		let currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+		if (currentScrollTop == 0) currentTop = 0;
+		else if (currentScrollTop > lastScrollTop) currentTop = minTop;
+		else currentTop = maxTop;
+
+		lastScrollTop = currentScrollTop;
+	}
+
+	$effect(() => {
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	});
 </script>
 
-<header>
+<header bind:this={header} style="--top: {currentTop}px">
 	<a href="/" class="logo">
 		<div class="icon">
 			<Icon icon="x" />
@@ -68,7 +97,7 @@
 <style lang="scss" scoped>
 	header {
 		position: sticky;
-		top: 0;
+		top: var(--top);
 
 		display: flex;
 		align-items: center;
@@ -82,6 +111,7 @@
 
 		background-color: var(--color-background-1);
 
+		transition: top var(--transition-medium);
 		z-index: 5000; // 5000 is the default z-index of the header component
 
 		.logo {
