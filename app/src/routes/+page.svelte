@@ -21,11 +21,11 @@
 
 <Carousel items={carouselItems} />
 
-<h1>
-	<Icon icon="chevron-right" />
-	{_('Noticias Recentes')}
-	<Icon icon="chevron-left" />
-</h1>
+<div class="header">
+    <Icon icon="chevron-right" />
+    <h1>{_('Noticias Recentes')}</h1>
+    <Icon icon="chevron-left" />
+</div>
 
 <section>
 	{#each posts.items as item}
@@ -34,20 +34,26 @@
 </section>
 
 <style lang="scss">
-	h1 {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1em;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
 
-		margin-top: 1em;
+        width: 90%;
 
-		font-size: 2em;
+        margin-top: 2em;
+        margin-inline: auto;
 
-		:global(.ti) {
-			color: var(--color-theme-1);
-		}
-	}
+        h1 {
+            text-align: center;
+        }
+
+        :global(.ti) {
+            color: var(--color-theme-1);
+            font-size: 2em;
+        }
+    }
 
 	section {
 		display: grid;
@@ -59,8 +65,16 @@
 	}
 
 	@media (max-width: 768px) {
+        .header {
+
+            :global(.ti) {
+                font-size: 3em;
+            }
+        }
+
 		section {
 			padding: 2em 1em;
+
 		}
 	}
 </style>
