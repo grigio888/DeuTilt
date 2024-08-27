@@ -7,10 +7,18 @@
 	let { pagination } = data;
 
 	// »»»»» Components
+    import Icon from '$comp/commons/Icon.svelte';
 	import CardPostPreview from '$comp/design/CardPostPreview.svelte';
 </script>
 
-<h1>{_('Arquivos')}</h1>
+<div class="header">
+    <div class="left">
+        <Icon icon="chevrons-right" />
+    </div>
+    <div class="right">
+        <h1>{_('Todos os Artigos')}</h1>
+    </div>
+</div>
 
 <div class="wrapper">
 	{#each pagination.items as item}
@@ -19,10 +27,21 @@
 </div>
 
 <style lang="scss">
-	h1 {
-		margin: 1em;
-		text-align: center;
-	}
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+
+        margin: 3em 1em;
+
+        .left {
+            
+            :global(.ti) {
+                font-size: 3em;
+                color: var(--color-theme-1);
+            }
+        }
+    }
 
 	.wrapper {
 		display: grid;

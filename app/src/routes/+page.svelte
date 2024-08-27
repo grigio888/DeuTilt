@@ -9,6 +9,7 @@
 	// »»»»» Components
 	import Metadata from '$comp/structural/Metadata.svelte';
 	import Carousel from './Carousel.svelte';
+    import Icon from '$comp/commons/Icon.svelte';
 	import CardPostPreview from '$comp/design/CardPostPreview.svelte';
 </script>
 
@@ -20,7 +21,11 @@
 
 <Carousel items={carouselItems} />
 
-<h1>{_('Noticias Recentes')}</h1>
+<h1>
+    <Icon icon="chevron-right" />
+    {_('Noticias Recentes')}
+    <Icon icon="chevron-left" />
+</h1>
 
 <section>
 	{#each posts.items as item}
@@ -30,10 +35,18 @@
 
 <style lang="scss">
 	h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+
 		margin-top: 1em;
 
-		text-align: center;
 		font-size: 2em;
+
+        :global(.ti) {
+            color: var(--color-theme-1);
+        }
 	}
 
 	section {
