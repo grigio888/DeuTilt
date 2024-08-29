@@ -1,5 +1,7 @@
 <script>
 	// »»»»» Imports
+	import { fade } from 'svelte/transition';
+
 	import { marked } from 'marked';
 	import { relativeTime } from '$lib/utils/date';
 
@@ -37,14 +39,51 @@
 		inView = post;
 	}
 
+	// handle progress bar
+	let timer = $state(0);
+	let duration = 10000;
+	let interval;
+
+	function removeInterval() {
+		clearInterval(interval);
+		interval = null;
+	}
+
+	function renewInterval() {
+		interval = setInterval(() => {
+			timer += 100;
+			if (timer >= duration) {
+				let index = options.findIndex((post) => post.title === inView.title);
+
+				if (index === options.length - 1) {
+					setInView(options[0]);
+				} else {
+					setInView(options[index + 1]);
+				}
+
+				timer = 0;
+			}
+		}, 100);
+	}
+
 	$effect(() => {
 		refreshOptions();
+		renewInterval();
+
+		return () => removeInterval();
 	});
 </script>
 
 <section>
-	<div class="in-view">
-		<img src={inView.imageHeader} alt={inView.title} />
+	<div
+		class="in-view"
+		role="banner"
+		onmouseenter={() => removeInterval()}
+		onmouseleave={() => renewInterval()}
+	>
+		{#key inView}
+			<img src={inView.imageHeader} alt={inView.title} in:fade={{ duration: 150 }} />
+		{/key}
 		<div class="content">
 			<div class="tags">
 				{#each inView.Tags as tag}
@@ -57,6 +96,7 @@
 				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 				{@html marked(inView.content.slice(0, 100) + '...')}
 			</a>
+			<div class="progress-bar" style="width: {(timer / duration) * 100}%"></div>
 		</div>
 	</div>
 	<div class="options">
@@ -123,6 +163,8 @@
 			}
 
 			.content {
+				position: relative;
+
 				width: 100%;
 
 				padding: 1em;
@@ -163,6 +205,19 @@
 						overflow: hidden;
 						text-overflow: ellipsis;
 					}
+				}
+
+				.progress-bar {
+					position: absolute;
+					top: 0;
+					left: 0;
+
+					width: 0%;
+					height: 0.15em;
+
+					background-color: var(--color-theme-1);
+
+					transition: width 0.25s;
 				}
 			}
 		}
