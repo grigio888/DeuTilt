@@ -31,8 +31,6 @@
 
 	let lastScrollTop = 0;
 
-	let minTop = -75;
-	let maxTop = -1;
 	let currentTop = $state('maxTop');
 
 	function handleScroll() {
