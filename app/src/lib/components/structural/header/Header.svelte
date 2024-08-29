@@ -10,11 +10,11 @@
 	// »»»»» Logic
 	// options for the header menu
 	let options = [
-        {
-            name: _('Início'),
-            href: '/',
-            icon: 'home'
-        },
+		{
+			name: _('Início'),
+			href: '/',
+			icon: 'home'
+		},
 		{
 			name: _('Posts'),
 			href: '/posts',
@@ -47,6 +47,24 @@
 		lastScrollTop = currentScrollTop;
 	}
 
+	// handle theme change
+	let currentTheme = $state($page.data?.theme);
+
+	function toggleTheme() {
+		document.documentElement.setAttribute(
+			'data-theme',
+			document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+		);
+		currentTheme = document.documentElement.getAttribute('data-theme');
+
+		let formData = new FormData();
+		formData.append('theme', currentTheme);
+		fetch('/?/setTheme', {
+			method: 'POST',
+			body: formData
+		});
+	}
+
 	$effect(() => {
 		window.addEventListener('scroll', handleScroll);
 
@@ -71,28 +89,39 @@
 		<Button secondary on:click={() => (mobileMenuActive = false)}>
 			<Icon icon="x" />
 		</Button>
-		{#each options as option}
-			<Button
-				secondary={option.href != $page.url.pathname}
-				animated
-				href={option.href}
-				on:click={() => (mobileMenuActive = false)}
-			>
-				<Icon icon={option.icon} />
-				{option.name}
+		<div class="upper-options">
+			{#each options as option}
+				<Button
+					secondary={option.href != $page.url.pathname}
+					animated
+					href={option.href}
+					on:click={() => (mobileMenuActive = false)}
+				>
+					<Icon icon={option.icon} />
+					{option.name}
+				</Button>
+			{/each}
+			{#if isAdmin}
+				<Button
+					secondary={$page.url.pathname != '/admin'}
+					animated
+					href="/admin"
+					on:click={() => (mobileMenuActive = false)}
+				>
+					<Icon icon="crown" />
+					{_('Admin')}
+				</Button>
+			{/if}
+		</div>
+		<div class="lower-options">
+			<Button secondary animated on:click={toggleTheme}>
+				<span>
+					<Icon icon="sun-filled" />
+					<Icon icon="toggle-{currentTheme === 'light' ? 'left' : 'right'}" />
+					<Icon icon="moon-filled" />
+				</span>
 			</Button>
-		{/each}
-		{#if isAdmin}
-			<Button
-				secondary={$page.url.pathname != '/admin'}
-				animated
-				href="/admin"
-				on:click={() => (mobileMenuActive = false)}
-			>
-				<Icon icon="crown" />
-				{_('Admin')}
-			</Button>
-		{/if}
+		</div>
 	</nav>
 </header>
 
@@ -167,12 +196,18 @@
 
 		nav {
 			display: flex;
+			justify-content: space-between;
 			align-items: start;
 
 			width: 100%;
 
-			:global(button) {
+			> :global(button) {
 				display: none;
+			}
+
+			.upper-options,
+			.lower-options {
+				display: flex;
 			}
 		}
 
@@ -251,6 +286,14 @@
 					height: 3em !important;
 
 					padding-inline: 0.75em !important;
+				}
+
+				.upper-options,
+				.lower-options {
+					flex-direction: column;
+					gap: 1em;
+
+					width: 100%;
 				}
 			}
 		}

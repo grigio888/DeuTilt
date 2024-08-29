@@ -1,3 +1,4 @@
+import { PUBLIC_COOKIE_SECURE } from '$env/static/public';
 import { Op } from 'sequelize';
 
 import Posts from '$db/models/posts';
@@ -37,3 +38,13 @@ export async function load() {
 		posts
 	};
 }
+
+export const actions = {
+	setTheme: async ({ request, cookies }) => {
+		let formData = await request.formData();
+		let entries = Object.fromEntries(formData);
+		let { theme } = entries;
+
+		cookies.set('theme', theme, { path: '/', secure: JSON.parse(PUBLIC_COOKIE_SECURE) });
+	}
+};

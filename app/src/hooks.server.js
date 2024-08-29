@@ -16,6 +16,15 @@ export async function handle({ event, resolve }) {
 
 	locale.set(event.locals.lang);
 
+	// »»»»» Theme
+	// configuring the theme
+	event.locals.theme = 'dark';
+
+	let theme = event.cookies.get('theme');
+	if (theme) {
+		event.locals.theme = theme;
+	}
+
 	// »»»»» User
 	// configuring the user
 	event.locals.user = {};
@@ -33,6 +42,6 @@ export async function handle({ event, resolve }) {
 	// transforming the page chunk
 	return resolve(event, {
 		transformPageChunk: ({ html }) =>
-			html.replace('%lang%', event.locals.lang).replace('%theme%', 'dark')
+			html.replace('%lang%', event.locals.lang).replace('%theme%', event.locals.theme)
 	});
 }
