@@ -10,6 +10,11 @@
 	// »»»»» Logic
 	// options for the header menu
 	let options = [
+        {
+            name: _('Início'),
+            href: '/',
+            icon: 'home'
+        },
 		{
 			name: _('Posts'),
 			href: '/posts',
