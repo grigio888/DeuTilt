@@ -92,7 +92,9 @@
 			.tags {
 				display: flex;
 				gap: 0.5em;
-				padding-bottom: 0.5em;
+
+                margin-bottom: 0.25em;
+				padding-bottom: 0.25em;
 
 				overflow-x: auto;
 			}
