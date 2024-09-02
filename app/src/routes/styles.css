@@ -16,8 +16,9 @@
 	font-family: var(--default-font) !important;
 
 	/* Colors */
-	--color-text-1: hsl(0, 0%, 85%);
-	--color-text-2: hsl(from var(--color-text-1) h s 50%);
+	--color-text-1: hsl(0, 0%, 90%);
+	--color-text-2: hsl(from var(--color-text-1) h s 75%);
+	--color-text-3: hsl(from var(--color-text-1) h s 60%);
 
 	--color-text-highlight-1: hsl(0, 0%, 5%);
 	--color-text-highlight-2: hsl(from var(--color-text-1) h s 20%);
@@ -53,6 +54,7 @@
 [data-theme='light'] {
 	--color-text-1: hsl(0, 0%, 10%);
 	--color-text-2: hsl(from var(--color-text-1) h s 25%);
+	--color-text-3: hsl(from var(--color-text-1) h s 50%);
 
 	--color-text-highlight-1: var(--color-text-1);
 	--color-text-highlight-2: var(--color-text-2);
@@ -111,8 +113,8 @@ button {
 }
 
 hr.vr {
-	width: 100%;
-	height: var(--border-width);
+	height: 100%;
+	width: var(--border-width);
 	background: var(--color-theme-1);
 	border: none;
 	border-radius: var(--border-radius);

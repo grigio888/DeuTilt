@@ -21,8 +21,15 @@
 			{/each}
 		</div>
 		<span><Icon icon="clock" /> {relativeTime(item.createdAt)}</span>
-		<a href="/posts/{item.slug}">
-			<h2>{item.title}</h2>
+		<a class="title" href="/posts/{item.slug}">
+			<h2>
+                {item.title}
+            </h2>
+            {#if item.subTitle}
+            <h3>
+                {item.subTitle}
+            </h3>
+            {/if}
 		</a>
 	</div>
 </div>
@@ -55,6 +62,9 @@
 				height: 100%;
 				width: 100%;
 
+				border-top-left-radius: var(--border-radius);
+				border-top-right-radius: var(--border-radius);
+
 				transition: transform var(--transition-slow);
 
 				&:hover {
@@ -62,18 +72,27 @@
 				}
 			}
 
-			h2 {
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 4;
+            &.title {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 4;
+    
+                height: auto;
+    
+                text-overflow: ellipsis;
+                
+                overflow: hidden;
+                
+                h2 {
+                    font-size: 1.25em;
+                }
 
-				height: auto;
+                h3 {
+                    color: var(--color-text-3);
+                    font-size: 1em;
+                }
+            }
 
-				font-size: 1.25rem;
-				text-overflow: ellipsis;
-
-				overflow: hidden;
-			}
 		}
 
 		.body {

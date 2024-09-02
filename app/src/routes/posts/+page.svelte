@@ -7,9 +7,17 @@
 	let { pagination } = data;
 
 	// »»»»» Components
+	import Metadata from '$comp/structural/Metadata.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
 	import CardPostPreview from '$comp/design/CardPostPreview.svelte';
 </script>
+
+<Metadata
+	title="Todos os Artigos"
+	altTitle="Hardware, Software, Games e Cultura Geek"
+	description="Fique por dentro das ultimas noticias de tecnologia, games, cultura geek e muito mais."
+	keywords={['palavra1', 'palavra2']}
+/>
 
 <div class="header">
 	<div class="left">
@@ -46,6 +54,9 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		gap: 1em;
+
+        min-height: 55vh;
+        min-height: 55dvh;
 
 		margin: 1em;
 	}

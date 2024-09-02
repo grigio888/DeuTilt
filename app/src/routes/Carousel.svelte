@@ -36,6 +36,7 @@
 	refreshOptions();
 
 	function setInView(post) {
+        timer = 0;
 		inView = post;
 	}
 
@@ -91,8 +92,9 @@
 				{/each}
 			</div>
 			<span><Icon icon="clock" /> {relativeTime(inView.createdAt)}</span>
-			<a href="/posts/{inView.slug}">
+			<a class="text" href="/posts/{inView.slug}">
 				<h2>{inView.title}</h2>
+                <h3>{inView.subTitle}</h3>
 				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 				{@html marked(inView.content.slice(0, 100) + '...')}
 			</a>
@@ -193,18 +195,15 @@
 				}
 
 				a {
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 6;
 					width: 100%;
-
+                    
 					color: var(--color-text-highlight-1);
 
-					h2 {
-						display: -webkit-box;
-						-webkit-box-orient: vertical;
-						-webkit-line-clamp: 2;
-
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
+                    overflow: hidden;
+                    text-overflow: ellipsis;
 				}
 
 				.progress-bar {

@@ -75,6 +75,12 @@
 		<Input type="text" id="title" name="title" value={post?.title} required />
 	</div>
 	<div class="row">
+		<label for="subTitle">
+			{_('Sub-titulo')}
+		</label>
+		<Input type="text" id="subTitle" name="subTitle" value={post?.subTitle} required />
+	</div>
+	<div class="row">
 		<label for="content">{_('Conteúdo')}</label>
 		<Input element="textarea" id="content" name="content" value={post?.content} required />
 	</div>

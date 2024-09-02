@@ -16,7 +16,8 @@
 
 <Metadata
 	title="Pagina Inicial"
-	description="Descrição da página inicial"
+	altTitle="Hardware, Software, Games e Cultura Geek"
+	description="Fique por dentro das ultimas noticias de tecnologia, games, cultura geek e muito mais."
 	keywords={['palavra1', 'palavra2']}
 />
 
