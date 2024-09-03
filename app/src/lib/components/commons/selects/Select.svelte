@@ -29,7 +29,6 @@
 		let windowHeight = window.outerHeight;
 		let selectBottom = defaultSelect.getBoundingClientRect().bottom;
 
-		console.log(windowHeight, selectBottom);
 		if (windowHeight - selectBottom < 200) {
 			showOnTop = true;
 		} else {

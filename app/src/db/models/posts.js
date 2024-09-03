@@ -37,6 +37,25 @@ const Posts = sequelize.define(
 			},
 			onDelete: 'SET NULL',
 			onUpdate: 'CASCADE'
+		},
+		editedBy: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'User',
+				key: 'id'
+			},
+			onDelete: 'SET NULL',
+			onUpdate: 'CASCADE'
+		},
+		editedAt: {
+			type: DataTypes.DATE
+		},
+		published: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
+		},
+		publishedAt: {
+			type: DataTypes.DATE
 		}
 	},
 	{

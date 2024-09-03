@@ -32,7 +32,11 @@
 		</h1>
 		<div class="details">
 			<p><Icon icon="user" /> {post.Author.firstName + ' ' + post.Author.lastName}</p>
-			<p><Icon icon="clock" /> {relativeTime(post.createdAt)}</p>
+			{#if post.editedAt}
+				<p><Icon icon="edit" /> {relativeTime(post.editedAt)}</p>
+			{:else}
+				<p><Icon icon="clock" /> {relativeTime(post.createdAt)}</p>
+			{/if}
 		</div>
 	</div>
 

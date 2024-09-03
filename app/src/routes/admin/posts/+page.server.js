@@ -20,7 +20,7 @@ export const actions = {
 
 		let post;
 		if (entries.id) {
-			post = await editPost(entries);
+			post = await editPost(entries, locals.user.id);
 			await post.setTags([]);
 		} else {
 			post = await createPost(entries, locals.user.id);
@@ -36,7 +36,7 @@ export const actions = {
 			await post.setTags(categories);
 		}
 
-		return redirect(302, `/posts/${post.slug}`);
+		return redirect(302, `/admin/posts/edit`);
 	}
 };
 
@@ -57,7 +57,7 @@ async function createPost(postData, userId) {
 	return post;
 }
 
-async function editPost(postData) {
+async function editPost(postData, userId) {
 	const post = await Posts.findByPk(postData.id);
 
 	if (!post) {
@@ -74,6 +74,9 @@ async function editPost(postData) {
 	if (postData.imageHeader && postData.imageHeader !== post.imageHeader) {
 		data.imageHeader = postData.imageHeader;
 	}
+
+	data.editedBy = userId;
+	data.editedAt = new Date();
 
 	await post.update(data);
 

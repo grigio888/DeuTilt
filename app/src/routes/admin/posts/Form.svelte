@@ -54,7 +54,7 @@
 		</div>
 		<div class="actions">
 			<label for="image-header">
-				<Icon icon="upload" />
+				<Icon icon="photo-plus" />
 				{_('Carregar Imagem Principal')}
 			</label>
 			<input
