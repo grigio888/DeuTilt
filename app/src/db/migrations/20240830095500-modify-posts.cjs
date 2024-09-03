@@ -4,7 +4,7 @@ module.exports = {
 	async up(queryInterface, Sequelize) {
 		// add a column to the Tags table named subTitle
 		await queryInterface.addColumn('Posts', 'subTitle', {
-			type: Sequelize.STRING,
+			type: Sequelize.STRING
 		});
 	},
 	// eslint-disable-next-line no-unused-vars

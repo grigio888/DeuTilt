@@ -34,7 +34,7 @@ export const actions = {
 
 		cookies.set('user', user.password, { path: '/', secure: JSON.parse(PUBLIC_COOKIE_SECURE) });
 	},
-    logout: async ({ cookies }) => {
-        cookies.delete('user', { path: '/', secure: JSON.parse(PUBLIC_COOKIE_SECURE)  });
-    }
+	logout: async ({ cookies }) => {
+		cookies.delete('user', { path: '/', secure: JSON.parse(PUBLIC_COOKIE_SECURE) });
+	}
 };

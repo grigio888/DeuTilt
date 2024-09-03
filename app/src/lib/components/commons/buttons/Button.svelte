@@ -1,33 +1,33 @@
 <script>
 	// »»»»» Props
-    let {
-        // element construction
-        element = 'button',
-        // style
-        secondary,
-        animated,
-        standOut,
-        pill,
-        warn,
-        notAllowed,
-        hidden,
-        // form related
-        formaction,
-        type,
-        // label related
-        forLabel,
-        // link related
-        href,
-        // children
-        children,
-        // remaining props
-        ...props
-    } = $props();
+	let {
+		// element construction
+		element = 'button',
+		// style
+		secondary,
+		animated,
+		standOut,
+		pill,
+		warn,
+		notAllowed,
+		hidden,
+		// form related
+		formaction,
+		type,
+		// label related
+		forLabel,
+		// link related
+		href,
+		// children
+		children,
+		// remaining props
+		...props
+	} = $props();
 	if (href) element = 'a';
 </script>
 
 <svelte:element
-    this={element}
+	this={element}
 	{formaction}
 	class:primary={!secondary}
 	class:secondary
@@ -40,13 +40,13 @@
 	{type}
 	for={forLabel}
 	{href}
-    {...props}
-    >
-    <!--
+	{...props}
+>
+	<!--
         For some reason, this warning is nothing, since the documentation says
         that this is the correct way to render children.
     -->
-    {@render children()}
+	{@render children()}
 </svelte:element>
 
 <style lang="scss">

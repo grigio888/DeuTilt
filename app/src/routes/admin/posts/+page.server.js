@@ -35,7 +35,7 @@ export const actions = {
 			await post.setTags(categories);
 		}
 
-        return redirect(302, `/posts/${post.slug}`);
+		return redirect(302, `/posts/${post.slug}`);
 	}
 };
 
@@ -47,7 +47,7 @@ async function createPost(postData, userId) {
 	const post = await Posts.create({
 		slug: await generateSlug(postData.title),
 		title: postData.title,
-        subTitle: postData.subTitle,
+		subTitle: postData.subTitle,
 		imageHeader: postData.imageHeader,
 		content: postData.content,
 		createdBy: userId
@@ -66,7 +66,7 @@ async function editPost(postData) {
 	let data = {
 		slug: await generateSlug(postData.title),
 		title: postData.title,
-        subTitle: postData.subTitle,
+		subTitle: postData.subTitle,
 		content: postData.content
 	};
 

@@ -30,13 +30,13 @@
 	let user = $state($page.data?.user);
 	let isAdmin = $state($page.data?.user?.Role?.slug === 'admin');
 
-    if (user) {
-        options.push({
-            name: _('Perfil'),
-            href: '/perfil',
-            icon: 'user'
-        });
-    }
+	if (user) {
+		options.push({
+			name: _('Perfil'),
+			href: '/perfil',
+			icon: 'user'
+		});
+	}
 
 	// state for the mobile menu
 	let mobileMenuActive = $state(false);
@@ -124,29 +124,31 @@
 			{/if}
 		</div>
 		<div class="lower-options">
-            {#if user}
-            <Button
-                secondary animated
-                onclick={() => {
-                    mobileMenuActive = false
-                    fetch('/auth?/logout', { method: 'POST', body: new FormData() })
-                    .then(() => window.location.href = '/')
-                }}
-            >
-                <Icon icon="logout" />
-                {_('Logout')}
-            </Button>
-            {:else}
-            <Button
-                secondary={$page.url.pathname != '/auth'}
-                animated
-                href="/auth"
-                onclick={() => (mobileMenuActive = false)}
-            >
-                <Icon icon="login" />
-                {_('Login')}
-            </Button>
-            {/if}
+			{#if user}
+				<Button
+					secondary
+					animated
+					onclick={() => {
+						mobileMenuActive = false;
+						fetch('/auth?/logout', { method: 'POST', body: new FormData() }).then(
+							() => (window.location.href = '/')
+						);
+					}}
+				>
+					<Icon icon="logout" />
+					{_('Logout')}
+				</Button>
+			{:else}
+				<Button
+					secondary={$page.url.pathname != '/auth'}
+					animated
+					href="/auth"
+					onclick={() => (mobileMenuActive = false)}
+				>
+					<Icon icon="login" />
+					{_('Login')}
+				</Button>
+			{/if}
 			<Button secondary animated onclick={toggleTheme}>
 				<span>
 					<Icon icon="sun-filled" />
@@ -242,9 +244,9 @@
 			.lower-options {
 				display: flex;
 
-                :global(button span) {
-                    white-space: nowrap;
-                }
+				:global(button span) {
+					white-space: nowrap;
+				}
 			}
 		}
 

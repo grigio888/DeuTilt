@@ -55,8 +55,8 @@
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		gap: 1em;
 
-        min-height: 55vh;
-        min-height: 55dvh;
+		min-height: 55vh;
+		min-height: 55dvh;
 
 		margin: 1em;
 	}

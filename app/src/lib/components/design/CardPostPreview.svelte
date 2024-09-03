@@ -23,13 +23,13 @@
 		<span><Icon icon="clock" /> {relativeTime(item.createdAt)}</span>
 		<a class="title" href="/posts/{item.slug}">
 			<h2>
-                {item.title}
-            </h2>
-            {#if item.subTitle}
-            <h3>
-                {item.subTitle}
-            </h3>
-            {/if}
+				{item.title}
+			</h2>
+			{#if item.subTitle}
+				<h3>
+					{item.subTitle}
+				</h3>
+			{/if}
 		</a>
 	</div>
 </div>
@@ -72,27 +72,26 @@
 				}
 			}
 
-            &.title {
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 4;
-    
-                height: auto;
-    
-                text-overflow: ellipsis;
-                
-                overflow: hidden;
-                
-                h2 {
-                    font-size: 1.25em;
-                }
+			&.title {
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 4;
 
-                h3 {
-                    color: var(--color-text-3);
-                    font-size: 1em;
-                }
-            }
+				height: auto;
 
+				text-overflow: ellipsis;
+
+				overflow: hidden;
+
+				h2 {
+					font-size: 1.25em;
+				}
+
+				h3 {
+					color: var(--color-text-3);
+					font-size: 1em;
+				}
+			}
 		}
 
 		.body {

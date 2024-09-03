@@ -16,7 +16,7 @@ const Posts = sequelize.define(
 			allowNull: false
 		},
 		subTitle: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING
 		},
 		imageHeader: {
 			type: DataTypes.STRING

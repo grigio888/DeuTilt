@@ -9,18 +9,19 @@
 	let { robots, title, altTitle, description, keywords, image } = $props();
 
 	let params = $state({
-        robots: robots ?? 'index, follow',
-        title: title ?? '',
-        altTitle: altTitle ?? '',
-        description: description ?? 'Some description',
-        keywords: keywords ?? [],
-        image: image ?? 'favicon.ico',
-        page_url: $page.url.pathname
-	})
+		robots: robots ?? 'index, follow',
+		title: title ?? '',
+		altTitle: altTitle ?? '',
+		description: description ?? 'Some description',
+		keywords: keywords ?? [],
+		image: image ?? 'favicon.ico',
+		page_url: $page.url.pathname
+	});
 
-    $effect(() => {
-        if (params.description.length > 166) params.description = params.description.substring(0, 166) + '...';
-    })
+	$effect(() => {
+		if (params.description.length > 166)
+			params.description = params.description.substring(0, 166) + '...';
+	});
 </script>
 
 <svelte:head>
@@ -39,12 +40,21 @@
 	<meta property="og:description" content={params.description} />
 	<meta property="og:image" content="{PUBLIC_APP_URL}/{params.image}" />
 	<meta property="og:site_name" content="Deu Tilt" />
-	<meta property="og:title" content="Deu Tilt{params.title != '' ? ' - ' + params.title : ''}{params.altTitle ? params.altTitle : ''}" />
+	<meta
+		property="og:title"
+		content="Deu Tilt{params.title != '' ? ' - ' + params.title : ''}{params.altTitle
+			? params.altTitle
+			: ''}"
+	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="{PUBLIC_APP_URL}{params.page_url}" />
 
 	<meta name="description" content={params.description} />
-	<meta name="keywords" itemprop="keywords" content="{_('Deu Tilt')}, {params.keywords.toString()}" />
+	<meta
+		name="keywords"
+		itemprop="keywords"
+		content="{_('Deu Tilt')}, {params.keywords.toString()}"
+	/>
 	<link rel="shortcut icon" href="{PUBLIC_APP_URL}/{params.image}" />
 	<link rel="icon" href="{PUBLIC_APP_URL}/{params.image}" />
 	<link rel="canonical" href="{PUBLIC_APP_URL}{params.page_url}" />

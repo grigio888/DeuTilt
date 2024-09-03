@@ -2,7 +2,7 @@
 	// »»»»» Imports
 	import { marked } from 'marked';
 
-    import { translate as _ } from '$i18n/translate';
+	import { translate as _ } from '$i18n/translate';
 	import { relativeTime } from '$lib/utils/date';
 
 	// »»»»» Props
@@ -31,9 +31,9 @@
 		</div>
 		<h1>
 			{post.title}
-            <span>
-                <br>{post.subTitle}
-            </span>
+			<span>
+				<br />{post.subTitle}
+			</span>
 		</h1>
 		<div class="details">
 			<p><Icon icon="user" /> {post.Author.firstName + ' ' + post.Author.lastName}</p>
@@ -43,31 +43,31 @@
 
 	<img src={post.imageHeader} alt={post.title} />
 
-    {#if user.Role?.slug === 'admin'}
-    <div class="options">
-        <a href="/admin/posts/edit/{post.id}">
-            <Icon icon="pencil" />
-            {_("Editar")}
-        </a>
-        <hr class="vr">
-        {#if post.published}
-        <a href="/posts/{post.slug}">
-            <Icon icon="eye-lash" />
-            {_("Transformar em Rascunho")}
-        </a>
-        {:else}
-        <a href="/posts/{post.slug}">
-            <Icon icon="eye" />
-            {_("Publicar")}
-        </a>
-        {/if}
-        <hr class="vr">
-        <a href="/posts/{post.slug}">
-            <Icon icon="trash" />
-            {_("Apagar")}
-        </a>
-    </div>
-    {/if}
+	{#if user.Role?.slug === 'admin'}
+		<div class="options">
+			<a href="/admin/posts/edit/{post.id}">
+				<Icon icon="pencil" />
+				{_('Editar')}
+			</a>
+			<hr class="vr" />
+			{#if post.published}
+				<a href="/posts/{post.slug}">
+					<Icon icon="eye-lash" />
+					{_('Transformar em Rascunho')}
+				</a>
+			{:else}
+				<a href="/posts/{post.slug}">
+					<Icon icon="eye" />
+					{_('Publicar')}
+				</a>
+			{/if}
+			<hr class="vr" />
+			<a href="/posts/{post.slug}">
+				<Icon icon="trash" />
+				{_('Apagar')}
+			</a>
+		</div>
+	{/if}
 
 	<div class="body">
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -98,10 +98,10 @@
 			h1 {
 				font-size: 2em;
 
-                span {
-                    color: var(--color-text-3);
-                    font-size: .75em;
-                }
+				span {
+					color: var(--color-text-3);
+					font-size: 0.75em;
+				}
 			}
 
 			.details {
@@ -127,21 +127,21 @@
 			box-shadow: 0 0 1em var(--color-theme-1);
 		}
 
-        .options {
-            display: flex;
-            gap: 1em;
+		.options {
+			display: flex;
+			gap: 1em;
 
-            padding: 1em;
+			padding: 1em;
 
-            border: var(--border-width) solid var(--color-theme-1);
-            border-radius: var(--border-radius);
+			border: var(--border-width) solid var(--color-theme-1);
+			border-radius: var(--border-radius);
 
-            a {
-                display: flex;
-                align-items: center;
-                gap: 0.5em;
-            }
-        }
+			a {
+				display: flex;
+				align-items: center;
+				gap: 0.5em;
+			}
+		}
 
 		.body {
 			display: flex;
