@@ -42,6 +42,9 @@
 					</div>
 				</div>
 				<div class="actions">
+					<Button secondary animated href="/posts/{item.slug}">
+						<Icon icon="eye" />
+					</Button>
 					<Button secondary animated href="/admin/posts/edit/{item.id}">
 						<Icon icon="edit" />
 					</Button>
@@ -150,7 +153,7 @@
 					border-left: var(--border-width) solid var(--color-theme-1);
 
 					:global(a) {
-						height: 50%;
+						height: 33%;
 						border: none;
 						border-radius: 0;
 					}

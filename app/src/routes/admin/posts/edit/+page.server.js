@@ -10,7 +10,7 @@ export async function load({ url }) {
 		page: page,
 		pageSize: 10,
 		order: [['createdAt', 'DESC']],
-		include: ['Tags', 'Author'],
+		include: ['Author'],
 		returnAsJson: true
 	});
 

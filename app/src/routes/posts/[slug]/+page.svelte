@@ -147,7 +147,15 @@
 			flex-direction: column;
 			gap: 1em;
 
-			font-size: 1.25em;
+			font-size: 1em;
+
+            :global(a) {
+                text-decoration: underline;
+
+                &:hover {
+                    color: var(--color-theme-1);
+                }
+            }
 		}
 	}
 
