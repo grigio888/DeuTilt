@@ -27,7 +27,7 @@ export async function handle({ event, resolve }) {
 
 	// »»»»» User
 	// configuring the user
-	event.locals.user = {};
+	event.locals.user = undefined;
 
 	let user = event.cookies.get('user');
 	if (user) {
