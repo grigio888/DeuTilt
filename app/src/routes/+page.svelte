@@ -14,12 +14,7 @@
 	import Button from '$comp/commons/buttons/Button.svelte';
 </script>
 
-<Metadata
-	title="Pagina Inicial"
-	altTitle="Hardware, Software, Games e Cultura Geek"
-	description="Fique por dentro das ultimas noticias de tecnologia, games, cultura geek e muito mais."
-	keywords={['palavra1', 'palavra2']}
-/>
+<Metadata title={_('Pagina Inicial')} keywords={[_('palavra1'), _('palavra2')]} />
 
 <Carousel items={carouselItems} />
 

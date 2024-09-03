@@ -1,7 +1,7 @@
 import { PUBLIC_COOKIE_SECURE } from '$env/static/public';
 import { fail, redirect } from '@sveltejs/kit';
 
-import { translate as _ } from '$i18n/translate'
+import { translate as _ } from '$i18n/translate';
 
 import User from '$db/models/User';
 import { comparePassword } from '$db/utils/password';
@@ -27,7 +27,7 @@ export const actions = {
 		}
 
 		let user = await User.findOne({ where: { username: entries.username } });
-        console.log({ where: { username: entries.username } }, entries?.password, user?.password)
+		console.log({ where: { username: entries.username } }, entries?.password, user?.password);
 
 		if (!user || !comparePassword(entries.password, user.password)) {
 			return fail(401, {

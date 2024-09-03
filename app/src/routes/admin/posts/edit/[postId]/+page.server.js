@@ -1,5 +1,7 @@
 import { error } from '@sveltejs/kit';
 
+import { translate as _ } from '$i18n/translate';
+
 import Posts from '$db/models/posts';
 
 export async function load({ params }) {
@@ -11,7 +13,7 @@ export async function load({ params }) {
 	});
 
 	if (!post) {
-		error(404, 'Post not found');
+		error(404, _('Post não encontrado'));
 	}
 
 	return {

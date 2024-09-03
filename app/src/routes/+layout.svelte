@@ -5,7 +5,7 @@
 	import { locale } from '$i18n/store.js';
 
 	// »»»»» Props
-	export let data;
+	let { data, children } = $props();
 
 	// »»»»» Components
 	import Header from '$comp/structural/header/Header.svelte';
@@ -15,13 +15,19 @@
 	// »»»»» Logic
 	// » Refreshing locale
 	//   - Auto update when the user changes language in the configuration.
-	$: locale.set(data?.lang);
+	let language = $state(data?.lang);
+	locale.set(language);
 </script>
 
 <Header />
 
 <PageTransition refresh={data.url}>
-	<slot />
+	<!--
+        For some reason, this warning does not affect anything, 
+        since the documentation says that this is the correct
+        way to render children.
+    -->
+	{@render children()}
 </PageTransition>
 
 <Footer />

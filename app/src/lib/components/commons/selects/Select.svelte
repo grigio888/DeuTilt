@@ -17,6 +17,26 @@
 	// when the select is open
 	let isOpen = $state(false);
 
+	// detect if the select options will overflow the window
+	let showOnTop = $state(false);
+
+	function detectOptionsOverflow() {
+		// In here, we'll detect if the customSelect is near the limits of the window,
+		// either on the top or on the bottom, and then we'll set the showOnTop state
+		// to true if it's near the bottom, or false if it's near the top
+		// The threshold is 200px, which is the height of the options container + 50px
+
+		let windowHeight = window.outerHeight;
+		let selectBottom = defaultSelect.getBoundingClientRect().bottom;
+
+		console.log(windowHeight, selectBottom);
+		if (windowHeight - selectBottom < 200) {
+			showOnTop = true;
+		} else {
+			showOnTop = false;
+		}
+	}
+
 	function toggleOption(value, selected) {
 		if (!multiple) {
 			options = options.map((option) => ({ ...option, selected: false }));
@@ -39,6 +59,7 @@
 
 	$effect(() => {
 		hidden = true;
+		detectOptionsOverflow();
 	});
 </script>
 
@@ -75,7 +96,7 @@
 		{/if}
 	</div>
 	<Icon icon="chevron-down {isOpen ? 'open' : ''}" />
-	<div class="options" class:isOpen>
+	<div class="options" class:isOpen class:showOnTop>
 		{#each options as option}
 			<button type="button" onclick={() => toggleOption(option.value, true)}>
 				{option.text}
@@ -165,11 +186,21 @@
 			left: var(--position-inline);
 			right: var(--position-inline);
 
+			max-height: 150px;
+
 			border: var(--border-width) solid var(--color-theme-1);
 			border-radius: var(--border-radius);
 
+			overflow-y: auto;
+			z-index: 2;
+
 			&.isOpen {
 				display: grid;
+			}
+
+			&.showOnTop {
+				top: auto;
+				bottom: 100%;
 			}
 
 			button {
@@ -191,6 +222,14 @@
 					background-color: var(--color-theme-1);
 					color: var(--color-text-highlight-1);
 				}
+			}
+		}
+	}
+
+	@media (max-width: 768px) {
+		.custom-select {
+			.options {
+				--position-inline: 0;
 			}
 		}
 	}

@@ -43,8 +43,9 @@
 	{...props}
 >
 	<!--
-        For some reason, this warning is nothing, since the documentation says
-        that this is the correct way to render children.
+        For some reason, this warning does not affect anything, 
+        since the documentation says that this is the correct
+        way to render children.
     -->
 	{@render children()}
 </svelte:element>

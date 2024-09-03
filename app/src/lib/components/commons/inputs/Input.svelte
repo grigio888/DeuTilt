@@ -1,15 +1,7 @@
 <script>
 	// »»»»» Props
-    let {
-        element = 'input',
-        type = 'text',
-        name,
-        required,
-        placeholder,
-        value,
-        ...props
-    } = $props();
-	
+	let { element = 'input', type = 'text', name, required, placeholder, value, ...props } = $props();
+
 	// »»»»» Components
 	import Icon from '$comp/commons/Icon.svelte';
 
@@ -25,15 +17,7 @@
 </script>
 
 <div>
-	<svelte:element
-		this={element}
-		{type}
-		{name}
-		{required}
-		{placeholder}
-		{value}
-        {...props}
-	/>
+	<svelte:element this={element} {type} {name} {required} {placeholder} {value} {...props} />
 	{#if previousType === 'password'}
 		<button type="button" onclick={switchState}>
 			<Icon icon={allowPasswordShow ? 'eye' : 'eye-closed'} />

@@ -1,4 +1,7 @@
 import { error } from '@sveltejs/kit';
+
+import { translate as _ } from '$i18n/translate';
+
 import Posts from '$db/models/posts';
 
 export async function load({ params }) {
@@ -9,7 +12,7 @@ export async function load({ params }) {
 		include: ['Author', 'Tags']
 	});
 
-	if (!post) error(404, 'Post not found');
+	if (!post) error(404, _('Post não encontrado'));
 
 	post.views++;
 	await post.save();

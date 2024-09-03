@@ -46,7 +46,7 @@
 	/* Sizes */
 	--media-width-mobile: 768px;
 
-    --footer-height: 6.5em;
+	--footer-height: 6.5em;
 
 	/* Defaults */
 	--border-width: 2px;
@@ -88,12 +88,12 @@ html {
 }
 
 body {
-    position: relative;
+	position: relative;
 
-    min-height: 100vh;
-    min-height: 100dvh;
+	min-height: 100vh;
+	min-height: 100dvh;
 
-    padding-bottom: var(--footer-height) !important; /* Allow footer to be visible */
+	padding-bottom: var(--footer-height) !important; /* Allow footer to be visible */
 
 	background: var(--color-background-1);
 	color: var(--color-text-1);

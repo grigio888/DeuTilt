@@ -1,9 +1,10 @@
 import { redirect, error } from '@sveltejs/kit';
 
+import { translate as _ } from '$i18n/translate';
+import { generateSlug } from '$db/utils/autoGenerator';
+
 import Posts from '$db/models/posts';
 import { Tags } from '$db/models/posts';
-
-import { generateSlug } from '$db/utils/autoGenerator';
 
 export async function load() {
 	// redirect to the admin page
@@ -41,7 +42,7 @@ export const actions = {
 
 async function createPost(postData, userId) {
 	if (!postData.imageHeader) {
-		error(400, 'Image header is required');
+		error(400, _('Imagem de capa é obrigatória'));
 	}
 
 	const post = await Posts.create({
@@ -60,7 +61,7 @@ async function editPost(postData) {
 	const post = await Posts.findByPk(postData.id);
 
 	if (!post) {
-		error(404, 'Post not found');
+		error(404, _('Post não encontrado'));
 	}
 
 	let data = {

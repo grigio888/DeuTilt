@@ -12,12 +12,7 @@
 	import CardPostPreview from '$comp/design/CardPostPreview.svelte';
 </script>
 
-<Metadata
-	title="Todos os Artigos"
-	altTitle="Hardware, Software, Games e Cultura Geek"
-	description="Fique por dentro das ultimas noticias de tecnologia, games, cultura geek e muito mais."
-	keywords={['palavra1', 'palavra2']}
-/>
+<Metadata title={_('Todos os Artigos')} keywords={['palavra1', 'palavra2']} />
 
 <div class="header">
 	<div class="left">

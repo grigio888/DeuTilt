@@ -15,12 +15,7 @@
 	import Icon from '$comp/commons/Icon.svelte';
 </script>
 
-<Metadata
-	title={post.title}
-	altTitle="Hardware, Software, Games e Cultura Geek"
-	description="Fique por dentro das ultimas noticias de tecnologia, games, cultura geek e muito mais."
-	keywords={['palavra1', 'palavra2']}
-/>
+<Metadata title={post.title} altTitle={post.subTitle} keywords={['palavra1', 'palavra2']} />
 
 <section>
 	<div class="header">
