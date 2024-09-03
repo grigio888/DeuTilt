@@ -11,10 +11,6 @@
 	let errorMessage = '';
 </script>
 
-{#if errorMessage}
-	<p>{errorMessage}</p>
-{/if}
-
 <form
 	action="?/login"
 	method="POST"
@@ -29,6 +25,9 @@
 		};
 	}}
 >
+    {#if errorMessage}
+        <p>{errorMessage}</p>
+    {/if}
     <label for="username">{_("Usuário")}</label>
 	<Input type="text" id="username" name="username" placeholder={_("Usuário")} />
     <label for="password">{_("Senha")}</label>
@@ -48,8 +47,26 @@
 
         margin: auto;
 
+        p {
+            width: 100%;
+
+            padding: .5em;
+
+            border: var(--border-width) solid hsl(0, 100%, 50%);
+            border-radius: var(--border-radius);
+
+            color: hsl(0, 100%, 70%);
+            text-align: center;
+        }
+
         > :global(button) {
             width: 100%;
+        }
+    }
+
+    @media (max-width: 30em) {
+        form {
+            width: 90%;
         }
     }
 </style>
