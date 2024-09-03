@@ -156,6 +156,23 @@
 					color: var(--color-theme-1);
 				}
 			}
+
+			:global(ul) {
+				list-style-type: disc;
+			}
+
+			:global(li) {
+				margin-left: 1em;
+				list-style: outside;
+
+				&::marker {
+					color: var(--color-theme-1);
+				}
+			}
+
+			:global(li + li) {
+				margin-top: 0.5em;
+			}
 		}
 	}
 
