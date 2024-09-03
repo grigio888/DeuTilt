@@ -1,10 +1,12 @@
 import { redirect, error } from '@sveltejs/kit';
+import fs from 'fs';
 
 import { translate as _ } from '$i18n/translate';
 import { generateSlug } from '$db/utils/autoGenerator';
 
 import Posts from '$db/models/posts';
 import { Tags } from '$db/models/posts';
+import path from 'path';
 
 export async function load() {
 	// redirect to the admin page
@@ -45,11 +47,18 @@ async function createPost(postData, userId) {
 		error(400, _('Imagem de capa é obrigatória'));
 	}
 
+    let imagePath;
+    try {
+        imagePath = await handleImageUpload(postData.imageHeader);
+    } catch (e) {
+        error(500, _('Erro ao salvar imagem') + '\n' + e.message);
+    }
+
 	const post = await Posts.create({
 		slug: await generateSlug(postData.title),
 		title: postData.title,
 		subTitle: postData.subTitle,
-		imageHeader: postData.imageHeader,
+		imageHeader: imagePath,
 		content: postData.content,
 		createdBy: userId
 	});
@@ -71,8 +80,12 @@ async function editPost(postData, userId) {
 		content: postData.content
 	};
 
-	if (postData.imageHeader && postData.imageHeader !== post.imageHeader) {
-		data.imageHeader = postData.imageHeader;
+	if (
+        postData.imageHeader.size != 0 &&
+        postData.imageHeader.name != ''
+    ) {
+		let imagePath = await handleImageUpload(postData.imageHeader)
+        data.imageHeader = imagePath;
 	}
 
 	data.editedBy = userId;
@@ -81,4 +94,21 @@ async function editPost(postData, userId) {
 	await post.update(data);
 
 	return post;
+}
+
+async function handleImageUpload(file) {
+    // this method will handle the image upload. The image should be saved under
+    // `/vol/static/assets/posts/` and the return should be the path to
+    // the image file.
+    let filePath = `static/assets/posts/${file.name}`
+
+    if (!fs.existsSync(path.dirname(filePath))) {
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+
+    fs.writeFileSync(filePath, buffer);
+
+    return '/' + filePath;
 }

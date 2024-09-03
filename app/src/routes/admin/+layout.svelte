@@ -9,8 +9,6 @@
 	// »»»»» Components
 	import Button from '$comp/commons/buttons/Button.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
-
-	console.log();
 </script>
 
 <main>
@@ -49,6 +47,11 @@
 		</Button>
 	</div>
 	<div class="content">
+        <!--
+            For some reason, this warning does not affect anything, 
+            since the documentation says that this is the correct
+            way to render children.
+        -->
 		{@render children()}
 	</div>
 </main>

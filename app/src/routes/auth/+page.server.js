@@ -27,7 +27,6 @@ export const actions = {
 		}
 
 		let user = await User.findOne({ where: { username: entries.username } });
-		console.log({ where: { username: entries.username } }, entries?.password, user?.password);
 
 		if (!user || !comparePassword(entries.password, user.password)) {
 			return fail(401, {

@@ -53,7 +53,7 @@
 			<img src={image?.src} alt="Imagem Principal" hidden={image?.src ? false : true} />
 		</div>
 		<div class="actions">
-			<label for="image-header">
+			<label for="imageHeader">
 				<Icon icon="photo-plus" />
 				{_('Carregar Imagem Principal')}
 			</label>
@@ -61,7 +61,7 @@
 				bind:this={imageHeader}
 				type="file"
 				id="imageHeader"
-				name="image-header"
+				name="imageHeader"
 				accept="image/*"
 				hidden
 			/>
@@ -147,6 +147,8 @@
 
 						text-align: center;
 						font-size: 0.9em;
+
+                        cursor: pointer;
 					}
 				}
 			}

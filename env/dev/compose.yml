@@ -42,7 +42,7 @@ services:
       - ../../app/vite.config.js:/home/app/vite.config.js
       - ../../app/.sequelizerc:/home/app/.sequelizerc
       - ../../app/src:/home/app/src
-      - ../../nginx/static:/vol/static/
+      - ../../nginx/static:/home/app/static/
     networks:
       - inet
     ports:
