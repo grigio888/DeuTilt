@@ -2,7 +2,6 @@ import { PUBLIC_COOKIE_SECURE } from '$env/static/public';
 import { Op } from 'sequelize';
 
 import Posts from '$db/models/posts';
-import { Tags } from '$db/models/posts';
 import paginate from '$db/utils/pagination';
 
 export async function load() {
@@ -23,13 +22,8 @@ export async function load() {
 		model: Posts,
 		page: 1,
 		pageSize: 10,
-		order: [['createdAt', 'DESC']],
-		include: [
-			{
-				model: Tags,
-				as: 'Tags'
-			}
-		],
+		order: [['publishedAt', 'DESC']],
+		include: ['Tags'],
 		returnAsJson: true
 	});
 

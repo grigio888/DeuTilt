@@ -12,7 +12,7 @@ export async function load({ url }) {
 		model: Posts,
 		page: page,
 		pageSize: 10,
-		order: [['createdAt', 'DESC']],
+		order: [['publishedAt', 'DESC']],
 		include: [
 			{
 				model: Tags,

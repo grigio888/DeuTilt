@@ -51,7 +51,7 @@
 			<hr class="vr" />
 			{#if post.published}
 				<a href="/posts/{post.slug}">
-					<Icon icon="eye-lash" />
+					<Icon icon="eye-off" />
 					{_('Transformar em Rascunho')}
 				</a>
 			{:else}
