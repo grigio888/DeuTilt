@@ -1,49 +1,93 @@
 <script>
 	// »»»»» Props
-	export let element = 'input';
-	export let type = 'text';
-	export let name = undefined;
-	export let required = undefined;
-	export let placeholder = undefined;
+    let {
+        element = 'input',
+        type = 'text',
+        name,
+        required,
+        placeholder,
+        value,
+        ...props
+    } = $props();
+	
+	// »»»»» Components
+	import Icon from '$comp/commons/Icon.svelte';
 
-	export let value = undefined;
+	// »»»»» Logic
+	let previousType = type;
+	let allowPasswordShow = $state(previousType === 'password' ? false : undefined);
+
+	// »»»»» Watchers
+	function switchState() {
+		allowPasswordShow = !allowPasswordShow;
+		type = type != 'text' ? 'text' : 'password';
+	}
 </script>
 
-<svelte:element
-	this={element}
-	on:focus
-	on:blur
-	on:input
-	{type}
-	{name}
-	{required}
-	{placeholder}
-	{value}
-/>
+<div>
+	<svelte:element
+		this={element}
+		{type}
+		{name}
+		{required}
+		{placeholder}
+		{value}
+        {...props}
+	/>
+	{#if previousType === 'password'}
+		<button type="button" onclick={switchState}>
+			<Icon icon={allowPasswordShow ? 'eye' : 'eye-closed'} />
+		</button>
+	{/if}
+</div>
 
 <style lang="scss">
-	input,
-	textarea {
+	div {
 		position: relative;
 
 		width: 100%;
 
-		padding: 0.5em;
+		input,
+		textarea {
+			position: relative;
 
-		border: var(--border-width) solid var(--color-theme-1);
-		border-radius: var(--border-radius);
+			width: 100%;
 
-		background-color: var(--color-background-1);
-		color: var(--color-text-1);
+			padding: 0.5em;
 
-		font-family: var(--default-font);
+			border: var(--border-width) solid var(--color-theme-1);
+			border-radius: var(--border-radius);
 
-		transition: border-color;
-		transition-duration: var(--transition-fast);
+			background-color: var(--color-background-1);
+			color: var(--color-text-1);
 
-		&:focus {
-			outline: none;
-			border-color: var(--color-theme-2);
+			font-family: var(--default-font);
+
+			transition: border-color;
+			transition-duration: var(--transition-fast);
+
+			&:focus {
+				outline: none;
+				border-color: var(--color-theme-2);
+			}
+		}
+
+		button {
+			position: absolute;
+			top: 55%;
+			right: 0.75em;
+
+			transform: translateY(-50%);
+
+			background-color: transparent;
+			border: none;
+
+			color: var(--color-text-1);
+
+			cursor: pointer;
+
+			transition: color;
+			transition-duration: var(--transition-fast);
 		}
 	}
 </style>
