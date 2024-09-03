@@ -149,13 +149,13 @@
 
 			font-size: 1em;
 
-            :global(a) {
-                text-decoration: underline;
+			:global(a) {
+				text-decoration: underline;
 
-                &:hover {
-                    color: var(--color-theme-1);
-                }
-            }
+				&:hover {
+					color: var(--color-theme-1);
+				}
+			}
 		}
 	}
 

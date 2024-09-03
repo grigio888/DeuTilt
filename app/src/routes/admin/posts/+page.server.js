@@ -47,12 +47,12 @@ async function createPost(postData, userId) {
 		error(400, _('Imagem de capa é obrigatória'));
 	}
 
-    let imagePath;
-    try {
-        imagePath = await handleImageUpload(postData.imageHeader);
-    } catch (e) {
-        error(500, _('Erro ao salvar imagem') + '\n' + e.message);
-    }
+	let imagePath;
+	try {
+		imagePath = await handleImageUpload(postData.imageHeader);
+	} catch (e) {
+		error(500, _('Erro ao salvar imagem') + '\n' + e.message);
+	}
 
 	const post = await Posts.create({
 		slug: await generateSlug(postData.title),
@@ -80,12 +80,9 @@ async function editPost(postData, userId) {
 		content: postData.content
 	};
 
-	if (
-        postData.imageHeader.size != 0 &&
-        postData.imageHeader.name != ''
-    ) {
-		let imagePath = await handleImageUpload(postData.imageHeader)
-        data.imageHeader = imagePath;
+	if (postData.imageHeader.size != 0 && postData.imageHeader.name != '') {
+		let imagePath = await handleImageUpload(postData.imageHeader);
+		data.imageHeader = imagePath;
 	}
 
 	data.editedBy = userId;
@@ -97,18 +94,18 @@ async function editPost(postData, userId) {
 }
 
 async function handleImageUpload(file) {
-    // this method will handle the image upload. The image should be saved under
-    // `/vol/static/assets/posts/` and the return should be the path to
-    // the image file.
-    let filePath = `static/assets/posts/${file.name}`
+	// this method will handle the image upload. The image should be saved under
+	// `/vol/static/assets/posts/` and the return should be the path to
+	// the image file.
+	let filePath = `static/assets/posts/${file.name}`;
 
-    if (!fs.existsSync(path.dirname(filePath))) {
-        fs.mkdirSync(path.dirname(filePath), { recursive: true });
-    }
+	if (!fs.existsSync(path.dirname(filePath))) {
+		fs.mkdirSync(path.dirname(filePath), { recursive: true });
+	}
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+	const buffer = Buffer.from(await file.arrayBuffer());
 
-    fs.writeFileSync(filePath, buffer);
+	fs.writeFileSync(filePath, buffer);
 
-    return '/' + filePath;
+	return '/' + filePath;
 }

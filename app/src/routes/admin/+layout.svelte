@@ -47,7 +47,7 @@
 		</Button>
 	</div>
 	<div class="content">
-        <!--
+		<!--
             For some reason, this warning does not affect anything, 
             since the documentation says that this is the correct
             way to render children.

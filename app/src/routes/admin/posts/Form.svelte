@@ -148,7 +148,7 @@
 						text-align: center;
 						font-size: 0.9em;
 
-                        cursor: pointer;
+						cursor: pointer;
 					}
 				}
 			}
