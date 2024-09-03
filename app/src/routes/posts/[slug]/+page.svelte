@@ -43,7 +43,7 @@
 
 	<img src={post.imageHeader} alt={post.title} />
 
-	{#if user.Role?.slug === 'admin'}
+	{#if user?.Role?.slug === 'admin'}
 		<div class="options">
 			<a href="/admin/posts/edit/{post.id}">
 				<Icon icon="pencil" />
