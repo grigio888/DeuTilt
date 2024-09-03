@@ -27,9 +27,19 @@
 		}
 	];
 
+	let user = $state($page.data?.user);
+	let isAdmin = $state($page.data?.user?.Role?.slug === 'admin');
+
+    if (user) {
+        options.push({
+            name: _('Perfil'),
+            href: '/perfil',
+            icon: 'user'
+        });
+    }
+
 	// state for the mobile menu
 	let mobileMenuActive = $state(false);
-	let isAdmin = $state($page.data?.user?.Role?.slug === 'admin');
 
 	// handle dynamic header position
 	let header;
@@ -82,11 +92,11 @@
 		</div>
 		<p>Deu Tilt</p>
 	</a>
-	<Button secondary id="mobileMenu" on:click={() => (mobileMenuActive = true)}>
+	<Button secondary id="mobileMenu" onclick={() => (mobileMenuActive = true)}>
 		<Icon icon="menu-2" />
 	</Button>
 	<nav class:active={mobileMenuActive}>
-		<Button secondary on:click={() => (mobileMenuActive = false)}>
+		<Button secondary onclick={() => (mobileMenuActive = false)}>
 			<Icon icon="x" />
 		</Button>
 		<div class="upper-options">
@@ -95,7 +105,7 @@
 					secondary={option.href != $page.url.pathname}
 					animated
 					href={option.href}
-					on:click={() => (mobileMenuActive = false)}
+					onclick={() => (mobileMenuActive = false)}
 				>
 					<Icon icon={option.icon} />
 					{option.name}
@@ -106,7 +116,7 @@
 					secondary={$page.url.pathname != '/admin'}
 					animated
 					href="/admin"
-					on:click={() => (mobileMenuActive = false)}
+					onclick={() => (mobileMenuActive = false)}
 				>
 					<Icon icon="crown" />
 					{_('Admin')}
@@ -114,7 +124,30 @@
 			{/if}
 		</div>
 		<div class="lower-options">
-			<Button secondary animated on:click={toggleTheme}>
+            {#if user}
+            <Button
+                secondary animated
+                onclick={() => {
+                    mobileMenuActive = false
+                    fetch('/auth?/logout', { method: 'POST', body: new FormData() })
+                    .then(() => window.location.href = '/')
+                }}
+            >
+                <Icon icon="logout" />
+                {_('Logout')}
+            </Button>
+            {:else}
+            <Button
+                secondary={$page.url.pathname != '/auth'}
+                animated
+                href="/auth"
+                onclick={() => (mobileMenuActive = false)}
+            >
+                <Icon icon="login" />
+                {_('Login')}
+            </Button>
+            {/if}
+			<Button secondary animated onclick={toggleTheme}>
 				<span>
 					<Icon icon="sun-filled" />
 					<Icon icon="toggle-{currentTheme === 'light' ? 'left' : 'right'}" />
@@ -208,6 +241,10 @@
 			.upper-options,
 			.lower-options {
 				display: flex;
+
+                :global(button span) {
+                    white-space: nowrap;
+                }
 			}
 		}
 
@@ -291,7 +328,7 @@
 				.upper-options,
 				.lower-options {
 					flex-direction: column;
-					gap: 1em;
+					// gap: 1em;
 
 					width: 100%;
 				}

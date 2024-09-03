@@ -1,6 +1,5 @@
 <script>
 	// »»»»» Imports
-	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 
 	// »»»»» Logic
@@ -21,7 +20,7 @@
 				return;
 			}
 
-			goto('/admin/');
+			window.location.href = '/';
 		};
 	}}
 >

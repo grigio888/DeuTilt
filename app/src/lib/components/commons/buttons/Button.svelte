@@ -1,38 +1,34 @@
 <script>
 	// »»»»» Props
-	// » Element construction
-	export let element = 'button';
-	export let id = undefined;
-	export let title = undefined;
-
-	// » Style
-	export let secondary = false;
-	export let animated = false;
-	export let standOut = false;
-	export let pill = false;
-	export let warn = false;
-
-	export let notAllowed = false;
-	export let hidden = false;
-
-	// » Form related
-	export let formaction = undefined;
-	export let type = undefined;
-
-	// » Label related
-	export let forLabel = undefined;
-
-	// » If element is a link
-	export let href = undefined;
+    let {
+        // element construction
+        element = 'button',
+        // style
+        secondary,
+        animated,
+        standOut,
+        pill,
+        warn,
+        notAllowed,
+        hidden,
+        // form related
+        formaction,
+        type,
+        // label related
+        forLabel,
+        // link related
+        href,
+        // children
+        children,
+        // remaining props
+        ...props
+    } = $props();
 	if (href) element = 'a';
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <svelte:element
-	this={element}
+    this={element}
 	{formaction}
-	{title}
-	{id}
 	class:primary={!secondary}
 	class:secondary
 	class:animated
@@ -44,9 +40,13 @@
 	{type}
 	for={forLabel}
 	{href}
-	on:click
->
-	<slot />
+    {...props}
+    >
+    <!--
+        For some reason, this warning is nothing, since the documentation says
+        that this is the correct way to render children.
+    -->
+    {@render children()}
 </svelte:element>
 
 <style lang="scss">

@@ -90,7 +90,7 @@
 	</div>
 	<div class="row">
 		<Button type="submit">{_('Publicar')}</Button>
-		<Button secondary animated type="button" on:click={() => console.log('preview')}>
+		<Button secondary animated type="button" onclick={() => console.log('preview')}>
 			{_('Prever Post')}
 		</Button>
 	</div>
