@@ -24,6 +24,13 @@
 
 <style>
 	footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        height: var(--footer-height);
+
 		padding: 1rem;
 
 		background-color: var(--color-background-2);
