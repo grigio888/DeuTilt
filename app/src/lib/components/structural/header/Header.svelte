@@ -8,35 +8,75 @@
 	import Button from '$comp/commons/buttons/Button.svelte';
 
 	// »»»»» Logic
-	// options for the header menu
-	let options = [
-		{
-			name: _('Início'),
-			href: '/',
-			icon: 'home'
-		},
-		{
-			name: _('Posts'),
-			href: '/posts',
-			icon: 'device-gamepad'
-		},
-		{
-			name: _('Procurar'),
-			href: '/procurar',
-			icon: 'search'
-		}
-	];
-
 	let user = $state($page.data?.user);
 	let isAdmin = $state($page.data?.user?.Role?.slug === 'admin');
 
-	if (user) {
-		options.push({
-			name: _('Perfil'),
-			href: '/perfil',
-			icon: 'user'
+	// options for the header menu
+	let defaultProps = {
+		onclick: () => (mobileMenuActive = false),
+		animated: true
+	};
+
+	let upperOptions = [
+		{
+			name: _('Início'),
+			icon: 'home',
+			props: { href: '/', ...defaultProps }
+		},
+		{
+			name: _('Posts'),
+			icon: 'device-gamepad',
+			props: { href: '/posts', ...defaultProps }
+		},
+		{
+			name: _('Procurar'),
+			icon: 'search',
+			props: { href: '/procurar', ...defaultProps }
+		}
+	];
+
+	// if (user) {
+	// 	upperOptions.push({
+	// 		name: _('Perfil'),
+	// 		icon: 'user',
+	//         props: { href: '/perfil', ...defaultProps }
+	// 	});
+	// }
+
+	if (isAdmin) {
+		upperOptions.push({
+			name: _('Admin'),
+			icon: 'crown',
+			props: { href: '/admin', ...defaultProps }
 		});
 	}
+
+	let lowerOptions = [
+		user
+			? {
+					name: _('Logout'),
+					icon: 'logout',
+					props: {
+						onclick: () => {
+							mobileMenuActive = false;
+							fetch('/auth?/logout', { method: 'POST', body: new FormData() }).then(
+								() => (window.location.href = '/')
+							);
+						},
+						animated: true,
+						secondary: true
+					}
+				}
+			: {
+					name: _('Login'),
+					icon: 'login',
+					props: {
+						href: '/auth',
+						secondary: '/auth' != $page.url.pathname,
+						...defaultProps
+					}
+				}
+	];
 
 	// state for the mobile menu
 	let mobileMenuActive = $state(false);
@@ -100,55 +140,20 @@
 			<Icon icon="x" />
 		</Button>
 		<div class="upper-options">
-			{#each options as option}
-				<Button
-					secondary={option.href != $page.url.pathname}
-					animated
-					href={option.href}
-					onclick={() => (mobileMenuActive = false)}
-				>
+			{#each upperOptions as option}
+				<Button secondary={option.props.href != $page.url.pathname} {...option.props}>
 					<Icon icon={option.icon} />
 					{option.name}
 				</Button>
 			{/each}
-			{#if isAdmin}
-				<Button
-					secondary={$page.url.pathname != '/admin'}
-					animated
-					href="/admin"
-					onclick={() => (mobileMenuActive = false)}
-				>
-					<Icon icon="crown" />
-					{_('Admin')}
-				</Button>
-			{/if}
 		</div>
 		<div class="lower-options">
-			{#if user}
-				<Button
-					secondary
-					animated
-					onclick={() => {
-						mobileMenuActive = false;
-						fetch('/auth?/logout', { method: 'POST', body: new FormData() }).then(
-							() => (window.location.href = '/')
-						);
-					}}
-				>
-					<Icon icon="logout" />
-					{_('Logout')}
+			{#each lowerOptions as option}
+				<Button secondary={option.props.href != $page.url.pathname} {...option.props}>
+					<Icon icon={option.icon} />
+					{option.name}
 				</Button>
-			{:else}
-				<Button
-					secondary={$page.url.pathname != '/auth'}
-					animated
-					href="/auth"
-					onclick={() => (mobileMenuActive = false)}
-				>
-					<Icon icon="login" />
-					{_('Login')}
-				</Button>
-			{/if}
+			{/each}
 			<Button secondary animated onclick={toggleTheme}>
 				<span>
 					<Icon icon="sun-filled" />
