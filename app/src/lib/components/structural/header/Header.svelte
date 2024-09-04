@@ -4,6 +4,7 @@
 	import { translate as _ } from '$i18n/translate';
 
 	// »»»»» Components
+    import Logo from '$comp/design/Logo.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
 	import Button from '$comp/commons/buttons/Button.svelte';
 
@@ -126,11 +127,9 @@
 
 <header bind:this={header} style="--top: var(--{currentTop})">
 	<a href="/" class="logo">
-		<div class="icon">
-			<Icon icon="x" />
-			<Icon icon="device-gamepad" />
-		</div>
+        <Logo side="left" />
 		<p>Deu Tilt</p>
+        <Logo side="right" />
 	</a>
 	<Button secondary id="mobileMenu" onclick={() => (mobileMenuActive = true)}>
 		<Icon icon="menu-2" />
@@ -203,31 +202,17 @@
 			font-weight: bolder;
 			text-transform: uppercase;
 
-			.icon {
-				position: relative;
-
-				display: flex;
-				align-items: center;
-
-				:global(i) {
-					color: var(--color-theme-1);
-					font-size: 2em;
-				}
-
-				:global(.ti-x) {
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
-
-					color: var(--color-theme-2);
-					font-size: 2.5em;
-				}
-			}
-
+            :global(.logo.left) {
+                transform: rotate(-15deg);
+            }
+            
 			p {
-				padding-top: 0.1em;
+                padding-top: 0.1em;
 			}
+
+            :global(.logo.right) {
+                transform: rotate(15deg);
+            }
 		}
 
 		> :global(button) {
