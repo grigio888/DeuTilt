@@ -90,7 +90,7 @@
 
 			margin: 0em 1em 2em;
 
-            font-size: 1.05em;
+			font-size: 1.05em;
 		}
 	}
 </style>
