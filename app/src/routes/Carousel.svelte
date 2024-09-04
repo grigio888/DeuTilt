@@ -1,6 +1,6 @@
 <script>
 	// »»»»» Imports
-	import { fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 
 	import { marked } from 'marked';
 	import { relativeTime } from '$lib/utils/date';
@@ -40,6 +40,10 @@
 		inView = post;
 	}
 
+	// handle animations
+	let animationOut = $state({ x: -150 });
+	let animationIn = $state({ x: 150 });
+
 	// handle progress bar
 	let timer = $state(0);
 	let duration = 10000;
@@ -71,44 +75,68 @@
 		refreshOptions();
 		renewInterval();
 
+		// handle animations
+		if (window.innerWidth <= 768) {
+			animationOut = { y: -100 };
+			animationIn = { y: 100 };
+		} else {
+			animationOut = { x: -150 };
+			animationIn = { x: 150 };
+		}
+
 		return () => removeInterval();
 	});
 </script>
 
 <section>
-	<div
-		class="in-view"
-		role="banner"
-		onmouseenter={() => removeInterval()}
-		onmouseleave={() => renewInterval()}
-	>
-		{#key inView}
-			<img src={inView.imageHeader} alt={inView.title} in:fade={{ duration: 150 }} />
-		{/key}
-		<div class="content">
-			<div class="tags">
-				{#each inView.Tags as tag}
-					<Tags {tag} />
-				{/each}
+	{#key inView}
+		<div
+			class="in-view"
+			role="banner"
+			onmouseenter={() => removeInterval()}
+			onmouseleave={() => renewInterval()}
+			in:fade={{ duration: 250 }}
+		>
+			<img src={inView.imageHeader} alt={inView.title} />
+			<div class="content">
+				<div class="tags">
+					{#each inView.Tags as tag}
+						<Tags {tag} />
+					{/each}
+				</div>
+				<span><Icon icon="clock" /> {relativeTime(inView.createdAt)}</span>
+				<a class="text" href="/posts/{inView.slug}">
+					<h2>{inView.title}</h2>
+					<h3>{inView.subTitle}</h3>
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+					{@html marked(inView.content.slice(0, 100) + '...')}
+				</a>
+				<div class="progress-bar" style="width: {(timer / duration) * 100}%"></div>
 			</div>
-			<span><Icon icon="clock" /> {relativeTime(inView.createdAt)}</span>
-			<a class="text" href="/posts/{inView.slug}">
-				<h2>{inView.title}</h2>
-				<h3>{inView.subTitle}</h3>
-				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-				{@html marked(inView.content.slice(0, 100) + '...')}
-			</a>
-			<div class="progress-bar" style="width: {(timer / duration) * 100}%"></div>
 		</div>
-	</div>
+	{/key}
 	<div class="options">
 		<button class="selected">
-			<h2>{inView.title}</h2>
+			{#key inView}
+				<h2
+					out:fly={{ duration: 1000, ...animationOut }}
+					in:fly={{ duration: 1000, ...animationIn }}
+				>
+					{inView.title}
+				</h2>
+			{/key}
 		</button>
 		{#each options as option}
 			<hr />
 			<button onclick={() => setInView(option)}>
-				<h2>{option.title}</h2>
+				{#key option}
+					<h2
+						out:fly={{ duration: 1000, ...animationOut }}
+						in:fly={{ duration: 1000, ...animationIn }}
+					>
+						{option.title}
+					</h2>
+				{/key}
 			</button>
 		{/each}
 	</div>
@@ -232,9 +260,15 @@
 
 			button {
 				position: relative;
+				flex: 1;
+
+				display: grid;
+				place-items: center;
 
 				height: calc(calc(var(--height) / 4) * 1.2);
 				aspect-ratio: 3/2;
+
+				padding-inline: 1em;
 
 				border: none;
 
@@ -243,6 +277,10 @@
 				cursor: pointer;
 
 				overflow: hidden;
+
+				& > * {
+					grid-area: 1/1/2/2;
+				}
 
 				&:after {
 					content: '';
@@ -336,9 +374,7 @@
 				// border-top: var(--border-width) solid var(--color-theme-1);
 
 				button {
-					display: flex;
-
-					height: 6em;
+					min-height: 6em;
 					aspect-ratio: auto;
 
 					background-color: var(--color-background-1);
