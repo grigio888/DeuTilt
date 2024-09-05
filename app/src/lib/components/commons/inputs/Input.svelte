@@ -6,8 +6,19 @@
 	import Icon from '$comp/commons/Icon.svelte';
 
 	// »»»»» Logic
+    let elementGenerated;
 	let previousType = type;
 	let allowPasswordShow = $state(previousType === 'password' ? false : undefined);
+
+    export function insertAtCursor(text) {
+        const start = elementGenerated.selectionStart;
+        const end = elementGenerated.selectionEnd;
+        const before = elementGenerated.value.substring(0, start);
+        const after = elementGenerated.value.substring(end, elementGenerated.value.length);
+        elementGenerated.value = before + text + after;
+        elementGenerated.selectionStart = elementGenerated.selectionEnd = start + text.length;
+        elementGenerated.focus();
+    }
 
 	// »»»»» Watchers
 	function switchState() {
@@ -17,7 +28,7 @@
 </script>
 
 <div>
-	<svelte:element this={element} {type} {name} {required} {placeholder} {value} {...props} />
+	<svelte:element bind:this={elementGenerated} this={element} {type} {name} {required} {placeholder} {value} {...props} />
 	{#if previousType === 'password'}
 		<button type="button" onclick={switchState}>
 			<Icon icon={allowPasswordShow ? 'eye' : 'eye-closed'} />
