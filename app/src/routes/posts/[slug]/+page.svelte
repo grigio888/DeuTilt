@@ -97,12 +97,20 @@
     </ul>
 </section>
 
+<section class="comments">
+	<h2>
+		<Icon icon="message-2" />
+		{_('Comentários')}
+		<Icon icon="message-2" />
+	</h2>
+</section>
+
 <style lang="scss">
 	section {
 		display: grid;
 		gap: 2em;
 
-		max-width: 70em;
+		max-width: 60em;
 
 		padding: 2em;
 		margin-inline: auto;
@@ -142,7 +150,7 @@
 
 		img {
 			width: 100%;
-			height: 20em;
+			height: 25em;
 			object-fit: cover;
 
 			border: var(--border-width) solid var(--color-theme-1);
@@ -171,7 +179,7 @@
 		.body {
 			display: flex;
 			flex-direction: column;
-			gap: 1em;
+			gap: 2em;
 
 			font-size: 1em;
 
@@ -207,18 +215,31 @@
                 justify-content: center;
                 gap: 1em;
             }
-            :global(img) {
-                position: relative;
 
+            :global(img), :global(iframe) {
                 width: 80%;
-                height: auto;
 
-                object-fit: cover;
+                margin-block: 1em;
 
                 border: var(--border-width) solid var(--color-theme-1);
                 border-radius: var(--border-radius);
 
                 box-shadow: 0 0 1em var(--color-theme-1);
+            }
+
+            :global(img) {
+                position: relative;
+
+                height: auto;
+
+                object-fit: cover;
+            }
+
+            :global(iframe) {
+                width: 80%;
+                height: 30em;
+
+                margin-inline: auto;
             }
 
             :global(blockquote) {
@@ -234,22 +255,10 @@
 
                 background-color: var(--color-background-1);
             }
-
-            :global(iframe) {
-                width: 80%;
-                height: 30em;
-
-                margin-inline: auto;
-
-                border: var(--border-width) solid var(--color-theme-1);
-                border-radius: var(--border-radius);
-
-                box-shadow: 0 0 1em var(--color-theme-1);
-            }
 		}
 	}
 
-	.see-more {
+	.see-more, .comments {
 		h2 {
 			display: flex;
 			align-items: center;
