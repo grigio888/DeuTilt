@@ -23,6 +23,50 @@
 	});
 	let imageHeader;
 
+    // handling textarea events
+    let textarea;
+    async function handleImagePasted(e) {
+        e.preventDefault();
+
+        let clipboardItems = e.clipboardData.items;
+        for (let i = 0; i < clipboardItems.length; i++) {
+            let item = clipboardItems[i];
+            if (item.type.indexOf("image") !== -1) {
+                let blob = item.getAsFile();
+
+                if (!post) {
+                    textarea.insertAtCursor(`![${_('Imagem não carregada, primeiro salve o post como rascunho.')}]()`);
+                    return;
+                }
+
+                let formData = new FormData();
+                formData.append('image', blob);
+                formData.append('folder', post.slug);
+
+                let response = await fetch('/admin/posts/?/imageUpload', {
+                    method: 'POST',
+                    body: formData
+                });
+                let json = await response.json();
+                let data = JSON.parse(json.data);
+
+                if (json.type == 'success') {
+                    textarea.insertAtCursor(`![${data[1]}](${data[2]})`);
+                } else {
+                    console.error(json.message);
+                    textarea.insertAtCursor(`![${_('Imagem não carregada')}]()`);
+                }
+
+                return;
+            }
+
+            // in here we assume that the clipboard item is not an image,
+            // so we just paste it as it is
+            let text = await e.clipboardData.getData('text');
+            textarea.insertAtCursor(text);
+        }
+    }
+
 	// select options
 	let tagOptions = tags.map((tag) => ({
 		value: tag.slug,
@@ -45,7 +89,7 @@
 	});
 </script>
 
-<form action="/admin/posts/" method="POST" enctype="multipart/form-data" use:enhance>
+<form action="/admin/posts/?/postForm" method="POST" enctype="multipart/form-data" use:enhance>
 	<input type="text" name="id" value={post?.id} hidden />
 	<div class="row image">
 		<p>Imagem Principal</p>
@@ -82,14 +126,23 @@
 	</div>
 	<div class="row">
 		<label for="content">{_('Conteúdo')}</label>
-		<Input element="textarea" id="content" name="content" value={post?.content} required />
+		<Input bind:this={textarea} element="textarea" id="content" name="content" value={post?.content} required onpaste={handleImagePasted} />
 	</div>
 	<div class="row">
 		<label for="category">{_('Categorias')}</label>
 		<Select options={tagOptions} name="category" id="category" multiple />
 	</div>
 	<div class="row">
-		<Button type="submit">{_('Publicar')}</Button>
+        <div class="sub-row" id="action">
+            <Button type="submit">
+                <Icon icon="check" />
+                {_('Publicar')}
+            </Button>
+            <Button type="submit" name="draft">
+                <Icon icon="device-floppy" />
+                {_('Rascunho')}
+            </Button>
+        </div>
 		<Button secondary animated type="button" onclick={() => console.log('preview')}>
 			{_('Prever Post')}
 		</Button>
@@ -108,24 +161,24 @@
 		.row {
 			display: grid;
 			gap: 0.5em;
-
+            
 			&.image {
-				display: flex;
+                display: flex;
 				flex-wrap: wrap;
-
+                
 				> p {
-					width: 100%;
+                    width: 100%;
 				}
-
+                
 				.frame {
-					width: 10em;
+                    width: 10em;
 					height: 10em;
-
+                    
 					border: var(--border-width) solid var(--color-theme-1);
 					border-radius: var(--border-radius);
-
+                    
 					img {
-						width: 100%;
+                        width: 100%;
 						height: 100%;
 						object-fit: cover;
 					}
@@ -133,18 +186,18 @@
 
 				.actions {
 					flex: 1;
-
+                    
 					label {
-						display: flex;
+                        display: flex;
 						align-items: center;
 						justify-content: center;
 						gap: 0.5em;
-
+                        
 						padding: 0.5em 0.5em;
-
+                        
 						border: var(--border-width) solid var(--color-theme-1);
 						border-radius: var(--border-radius);
-
+                        
 						text-align: center;
 						font-size: 0.9em;
 
@@ -156,9 +209,18 @@
 			:global(textarea) {
 				min-height: 10em;
 			}
+
+            .sub-row {
+                display: flex;
+                gap: 0.5em;
+
+                :global(> *) {
+                    flex: 1;
+                }
+            }
 		}
 	}
-
+    
 	@media (max-width: 40em) {
 		form {
 			width: 100%;
@@ -176,6 +238,10 @@
 						width: 100%;
 					}
 				}
+
+                .sub-row {
+                    flex-direction: column;
+                }
 			}
 		}
 	}

@@ -2,7 +2,7 @@ import { redirect, error } from '@sveltejs/kit';
 import fs from 'fs';
 
 import { translate as _ } from '$i18n/translate';
-import { generateSlug } from '$db/utils/autoGenerator';
+import { generateSlug, uuidv4 } from '$db/utils/autoGenerator';
 
 import Posts from '$db/models/posts';
 import { Tags } from '$db/models/posts';
@@ -14,7 +14,7 @@ export async function load() {
 }
 
 export const actions = {
-	default: async ({ locals, request }) => {
+	postForm: async ({ locals, request }) => {
 		const formData = await request.formData();
 		const entries = Object.fromEntries(formData);
 
@@ -28,6 +28,12 @@ export const actions = {
 			post = await createPost(entries, locals.user.id);
 		}
 
+        post.published = 'draft' in entries ? false : true;
+        if (post.published && !post.publishedAt) {
+            post.publishedAt = new Date();
+        }
+        post.save();
+
 		if (entries.categories) {
 			let categories = await Tags.findAll({
 				where: {
@@ -39,7 +45,33 @@ export const actions = {
 		}
 
 		return redirect(302, `/admin/posts/edit`);
-	}
+	},
+    imageUpload: async ({ request }) => {
+        const formData = await request.formData();
+        const file = formData.get('image');
+        const folder = formData.get('folder');
+
+        let imagePath;
+        let name = await uuidv4() + '.jpg';
+
+        try {
+            imagePath = await handleImageUpload({
+                file,
+                overwrite: false,
+                name,
+                folder: folder
+            });
+        } catch (e) {
+            error(500, _('Erro ao salvar imagem') + '\n' + e.message);
+        }
+
+        console.log(imagePath);
+
+        return [
+            name,
+            imagePath
+        ]
+    }
 };
 
 async function createPost(postData, userId) {
@@ -47,20 +79,26 @@ async function createPost(postData, userId) {
 		error(400, _('Imagem de capa é obrigatória'));
 	}
 
+    let slug = await generateSlug(postData.title);
+
 	let imagePath;
 	try {
-		imagePath = await handleImageUpload(postData.imageHeader);
+		imagePath = await handleImageUpload({
+            file: postData.imageHeader,
+            folder: slug,
+            overwrite: true
+        });
 	} catch (e) {
 		error(500, _('Erro ao salvar imagem') + '\n' + e.message);
 	}
 
 	const post = await Posts.create({
-		slug: await generateSlug(postData.title),
 		title: postData.title,
 		subTitle: postData.subTitle,
 		imageHeader: imagePath,
 		content: postData.content,
-		createdBy: userId
+		createdBy: userId,
+        slug
 	});
 
 	return post;
@@ -74,14 +112,17 @@ async function editPost(postData, userId) {
 	}
 
 	let data = {
-		slug: await generateSlug(postData.title),
 		title: postData.title,
 		subTitle: postData.subTitle,
 		content: postData.content
 	};
 
 	if (postData.imageHeader.size != 0 && postData.imageHeader.name != '') {
-		let imagePath = await handleImageUpload(postData.imageHeader);
+		let imagePath = await handleImageUpload({
+            file: postData.imageHeader,
+            folder: post.slug,
+            overwrite: true
+        });
 		data.imageHeader = imagePath;
 	}
 
@@ -93,15 +134,24 @@ async function editPost(postData, userId) {
 	return post;
 }
 
-async function handleImageUpload(file) {
+async function handleImageUpload({file = undefined, overwrite = false, name = undefined, folder = ''}) {
 	// this method will handle the image upload. The image should be saved under
 	// `/vol/static/assets/posts/` and the return should be the path to
 	// the image file.
-	let filePath = `static/assets/posts/${file.name}`;
+    if (!file) {
+        throw new Error('Arquivo não informado');
+    }
+
+	let filePath = `static/assets/posts/${folder ? folder + '/' : ''}${name ? name : file.name}`;
 
 	if (!fs.existsSync(path.dirname(filePath))) {
 		fs.mkdirSync(path.dirname(filePath), { recursive: true });
 	}
+
+    // verify if the file already exists
+    if (overwrite && fs.existsSync(filePath)) {
+        throw new Error('Arquivo já existe');
+    }
 
 	const buffer = Buffer.from(await file.arrayBuffer());
 
