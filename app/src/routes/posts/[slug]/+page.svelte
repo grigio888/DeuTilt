@@ -7,7 +7,7 @@
 
 	// »»»»» Props
 	let { data } = $props();
-	let { post, user } = data;
+	let { post, relatedPosts, user } = data;
 
 	// »»»»» Components
 	import Metadata from '$comp/structural/Metadata.svelte';
@@ -17,7 +17,7 @@
 
 <Metadata title={post.title} altTitle={post.subTitle} keywords={['palavra1', 'palavra2']} />
 
-<section>
+<section class="content">
 	<div class="header">
 		<div class="tags">
 			{#each post.Tags as tag}
@@ -43,6 +43,12 @@
 	<img src={post.imageHeader} alt={post.title} />
 
 	{#if user?.Role?.slug === 'admin'}
+        {#if !post.published}
+        <div class="options">
+            <Icon icon="info-hexagon-filled" />
+            {_("Este post está como rascunho.")}
+        </div>
+        {/if}
 		<div class="options">
 			<a href="/admin/posts/edit/{post.id}">
 				<Icon icon="pencil" />
@@ -50,12 +56,12 @@
 			</a>
 			<hr class="vr" />
 			{#if post.published}
-				<a href="/posts/{post.slug}">
+				<a href="/admin/posts/edit/{post.id}#action">
 					<Icon icon="eye-off" />
 					{_('Transformar em Rascunho')}
 				</a>
 			{:else}
-				<a href="/posts/{post.slug}">
+				<a href="/admin/posts/edit/{post.id}#action">
 					<Icon icon="eye" />
 					{_('Publicar')}
 				</a>
@@ -74,6 +80,23 @@
 	</div>
 </section>
 
+<section class="see-more">
+	<h2>
+		<Icon icon="circuit-resistor" />
+		{_('Veja Também')}
+		<Icon icon="circuit-resistor" />
+	</h2>
+    <ul>
+        {#each relatedPosts as post}
+            <li>
+                <a href="/posts/{post.slug}">
+                    {post.title}
+                </a>
+            </li>
+        {/each}
+    </ul>
+</section>
+
 <style lang="scss">
 	section {
 		display: grid;
@@ -83,7 +106,9 @@
 
 		padding: 2em;
 		margin-inline: auto;
+	}
 
+	.content {
 		.header {
 			display: grid;
 			gap: 1em;
@@ -128,6 +153,7 @@
 
 		.options {
 			display: flex;
+            align-items: center;
 			gap: 1em;
 
 			padding: 1em;
@@ -152,6 +178,8 @@
 			:global(a) {
 				text-decoration: underline;
 
+                transition: color var(--transition-fast);
+
 				&:hover {
 					color: var(--color-theme-1);
 				}
@@ -173,12 +201,153 @@
 			:global(li + li) {
 				margin-top: 0.5em;
 			}
+
+            :global(p:has(img)) {
+                display: flex;
+                justify-content: center;
+                gap: 1em;
+            }
+            :global(img) {
+                position: relative;
+
+                width: 80%;
+                height: auto;
+
+                object-fit: cover;
+
+                border: var(--border-width) solid var(--color-theme-1);
+                border-radius: var(--border-radius);
+
+                box-shadow: 0 0 1em var(--color-theme-1);
+            }
+
+            :global(blockquote) {
+                display: grid;
+                gap: .5em;
+
+                padding: 1em;
+                margin: 1em 0;
+
+                border: 1px solid var(--color-theme-1);
+                border-left-width: 4px;
+                border-radius: var(--border-radius);
+
+                background-color: var(--color-background-1);
+            }
+
+            :global(iframe) {
+                width: 80%;
+                height: 30em;
+
+                margin-inline: auto;
+
+                border: var(--border-width) solid var(--color-theme-1);
+                border-radius: var(--border-radius);
+
+                box-shadow: 0 0 1em var(--color-theme-1);
+            }
 		}
 	}
 
-	@media (max-width: 768px) {
-		section {
-			padding: 1em;
+	.see-more {
+		h2 {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 2em;
+
+			font-size: 1.5em;
+
+			:global(.ti) {
+				color: var(--color-theme-1);
+			}
 		}
+
+        ul {
+            display: grid;
+            gap: 1em;
+
+            padding: 1em;
+
+            list-style-type: none;
+
+            li {
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+
+                &:before {
+                    content: '» ';
+
+                    color: var(--color-theme-1);
+                    font-size: 1.75em;
+                }
+
+                a {
+                    text-decoration: underline;
+
+                    transition: color var(--transition-fast);
+
+                    &:hover {
+                        color: var(--color-theme-1);
+                    }
+                }
+
+            }
+        }
+	}
+
+	@media (max-width: 768px) {
+        section {
+			padding: 1em;
+        }
+
+        .content {
+
+            .tags {
+                padding-bottom: .75em;
+            }
+
+            .details {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+
+            .options {
+                flex-direction: column;
+                gap: 1em;
+
+                hr {
+                    width: 100%;
+                    height: var(--border-width)
+                }
+            }
+
+            .body {
+                font-size: 1em;
+
+                :global(img) {
+                    width: 100%;
+                    height: auto;
+                }
+
+                :global(iframe) {
+                    width: 100%;
+                    height: 20em;
+                }
+            }
+		}
+
+        .see-more {
+            h2 {
+                justify-content: space-between;
+                gap: 0;
+            }
+
+            ul {
+                padding: 0;
+            }
+        }
 	}
 </style>
