@@ -8,9 +8,12 @@
 	let { pagination } = data;
 
 	// »»»»» Components
+	import Metadata from '$comp/structural/Metadata.svelte';
 	import Button from '$comp/commons/buttons/Button.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
 </script>
+
+<Metadata robots="noindex, nofollow" title={_('Posts')} />
 
 <section>
 	<h2>{_('Posts')}</h2>
