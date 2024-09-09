@@ -12,7 +12,7 @@ export async function load({ url }) {
 		model: Posts,
 		page: page,
 		pageSize: 10,
-        where: { published: true },
+		where: { published: true },
 		order: [['publishedAt', 'DESC']],
 		include: [
 			{

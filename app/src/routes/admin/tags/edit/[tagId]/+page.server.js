@@ -8,7 +8,7 @@ export async function load({ params }) {
 	const { tagId } = params;
 
 	let tag = await Tags.findOne({
-		where: { id: tagId },
+		where: { id: tagId }
 	});
 
 	if (!tag) {

@@ -4,7 +4,7 @@
 	import { translate as _ } from '$i18n/translate';
 
 	// »»»»» Components
-    import Logo from '$comp/design/Logo.svelte';
+	import Logo from '$comp/design/Logo.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
 	import Button from '$comp/commons/buttons/Button.svelte';
 
@@ -43,14 +43,6 @@
 	//         props: { href: '/perfil', ...defaultProps }
 	// 	});
 	// }
-
-	if (isAdmin) {
-		upperOptions.push({
-			name: _('Admin'),
-			icon: 'crown',
-			props: { href: '/admin', ...defaultProps }
-		});
-	}
 
 	let lowerOptions = [
 		user
@@ -117,6 +109,14 @@
 	}
 
 	$effect(() => {
+		if (isAdmin) {
+			upperOptions.push({
+				name: _('Admin'),
+				icon: 'crown',
+				props: { href: '/admin', ...defaultProps }
+			});
+		}
+
 		window.addEventListener('scroll', handleScroll);
 
 		return () => {
@@ -127,9 +127,9 @@
 
 <header bind:this={header} style="--top: var(--{currentTop})">
 	<a href="/" class="logo">
-        <Logo side="left" />
+		<Logo side="left" />
 		<p>Deu Tilt</p>
-        <Logo side="right" />
+		<Logo side="right" />
 	</a>
 	<Button secondary id="mobileMenu" onclick={() => (mobileMenuActive = true)}>
 		<Icon icon="menu-2" />
@@ -202,17 +202,17 @@
 			font-weight: bolder;
 			text-transform: uppercase;
 
-            :global(.logo.left) {
-                transform: rotate(-15deg);
-            }
-            
-			p {
-                padding-top: 0.1em;
+			:global(.logo.left) {
+				transform: rotate(-15deg);
 			}
 
-            :global(.logo.right) {
-                transform: rotate(15deg);
-            }
+			p {
+				padding-top: 0.1em;
+			}
+
+			:global(.logo.right) {
+				transform: rotate(15deg);
+			}
 		}
 
 		> :global(button) {

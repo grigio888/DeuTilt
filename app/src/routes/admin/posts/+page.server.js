@@ -28,11 +28,11 @@ export const actions = {
 			post = await createPost(entries, locals.user.id);
 		}
 
-        post.published = 'draft' in entries ? false : true;
-        if (post.published && !post.publishedAt) {
-            post.publishedAt = new Date();
-        }
-        post.save();
+		post.published = 'draft' in entries ? false : true;
+		if (post.published && !post.publishedAt) {
+			post.publishedAt = new Date();
+		}
+		post.save();
 
 		if (entries.categories) {
 			let categories = await Tags.findAll({
@@ -46,32 +46,29 @@ export const actions = {
 
 		return redirect(302, `/admin/posts/edit`);
 	},
-    imageUpload: async ({ request }) => {
-        const formData = await request.formData();
-        const file = formData.get('image');
-        const folder = formData.get('folder');
+	imageUpload: async ({ request }) => {
+		const formData = await request.formData();
+		const file = formData.get('image');
+		const folder = formData.get('folder');
 
-        let imagePath;
-        let name = await uuidv4() + '.jpg';
+		let imagePath;
+		let name = (await uuidv4()) + '.jpg';
 
-        try {
-            imagePath = await handleImageUpload({
-                file,
-                overwrite: false,
-                name,
-                folder: folder
-            });
-        } catch (e) {
-            error(500, _('Erro ao salvar imagem') + '\n' + e.message);
-        }
+		try {
+			imagePath = await handleImageUpload({
+				file,
+				overwrite: false,
+				name,
+				folder: folder
+			});
+		} catch (e) {
+			error(500, _('Erro ao salvar imagem') + '\n' + e.message);
+		}
 
-        console.log(imagePath);
+		console.log(imagePath);
 
-        return [
-            name,
-            imagePath
-        ]
-    }
+		return [name, imagePath];
+	}
 };
 
 async function createPost(postData, userId) {
@@ -79,15 +76,15 @@ async function createPost(postData, userId) {
 		error(400, _('Imagem de capa é obrigatória'));
 	}
 
-    let slug = await generateSlug(postData.title);
+	let slug = await generateSlug(postData.title);
 
 	let imagePath;
 	try {
 		imagePath = await handleImageUpload({
-            file: postData.imageHeader,
-            folder: slug,
-            overwrite: true
-        });
+			file: postData.imageHeader,
+			folder: slug,
+			overwrite: true
+		});
 	} catch (e) {
 		error(500, _('Erro ao salvar imagem') + '\n' + e.message);
 	}
@@ -98,7 +95,7 @@ async function createPost(postData, userId) {
 		imageHeader: imagePath,
 		content: postData.content,
 		createdBy: userId,
-        slug
+		slug
 	});
 
 	return post;
@@ -119,10 +116,10 @@ async function editPost(postData, userId) {
 
 	if (postData.imageHeader.size != 0 && postData.imageHeader.name != '') {
 		let imagePath = await handleImageUpload({
-            file: postData.imageHeader,
-            folder: post.slug,
-            overwrite: true
-        });
+			file: postData.imageHeader,
+			folder: post.slug,
+			overwrite: true
+		});
 		data.imageHeader = imagePath;
 	}
 
@@ -134,13 +131,18 @@ async function editPost(postData, userId) {
 	return post;
 }
 
-async function handleImageUpload({file = undefined, overwrite = false, name = undefined, folder = ''}) {
+async function handleImageUpload({
+	file = undefined,
+	overwrite = false,
+	name = undefined,
+	folder = ''
+}) {
 	// this method will handle the image upload. The image should be saved under
 	// `/vol/static/assets/posts/` and the return should be the path to
 	// the image file.
-    if (!file) {
-        throw new Error('Arquivo não informado');
-    }
+	if (!file) {
+		throw new Error('Arquivo não informado');
+	}
 
 	let filePath = `static/assets/posts/${folder ? folder + '/' : ''}${name ? name : file.name}`;
 
@@ -148,10 +150,10 @@ async function handleImageUpload({file = undefined, overwrite = false, name = un
 		fs.mkdirSync(path.dirname(filePath), { recursive: true });
 	}
 
-    // verify if the file already exists
-    if (!overwrite && fs.existsSync(filePath)) {
-        throw new Error('Arquivo já existe');
-    }
+	// verify if the file already exists
+	if (!overwrite && fs.existsSync(filePath)) {
+		throw new Error('Arquivo já existe');
+	}
 
 	const buffer = Buffer.from(await file.arrayBuffer());
 

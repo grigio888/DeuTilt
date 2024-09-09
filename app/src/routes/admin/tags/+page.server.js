@@ -25,34 +25,34 @@ export const actions = {
 };
 
 async function createTag(tagData) {
-    // validation of the data
-    if (!tagData.slug) error(400, _('Slug é obrigatório'))
-    else if (!tagData.title) error(400, _('Titulo é obrigatório'))
-    else if (!tagData.color) error(400, _('Cor é obrigatório'))
+	// validation of the data
+	if (!tagData.slug) error(400, _('Slug é obrigatório'));
+	else if (!tagData.title) error(400, _('Titulo é obrigatório'));
+	else if (!tagData.color) error(400, _('Cor é obrigatório'));
 
-    delete tagData.id;
-    let target = {
-        slug: tagData?.slug,
-        title: tagData?.title,
-        color: tagData?.color,
-        icon: tagData?.icon
-    }
+	delete tagData.id;
+	let target = {
+		slug: tagData?.slug,
+		title: tagData?.title,
+		color: tagData?.color,
+		icon: tagData?.icon
+	};
 	return await Tags.create(target);
 }
 
 async function editTag(tagData) {
-    const tag = await Tags.findByPk(tagData.id);
-    
+	const tag = await Tags.findByPk(tagData.id);
+
 	if (!tag) {
-        error(404, _('Post não encontrado'));
+		error(404, _('Post não encontrado'));
 	}
-    
-    delete tagData.id;
-    let target = {
-        slug: tagData?.slug,
-        title: tagData?.title,
-        color: tagData?.color,
-        icon: tagData?.icon
-    }
-    return await tag.update(target);
+
+	delete tagData.id;
+	let target = {
+		slug: tagData?.slug,
+		title: tagData?.title,
+		color: tagData?.color,
+		icon: tagData?.icon
+	};
+	return await tag.update(target);
 }

@@ -43,12 +43,12 @@
 	<img src={post.imageHeader} alt={post.title} />
 
 	{#if user?.Role?.slug === 'admin'}
-        {#if !post.published}
-        <div class="options">
-            <Icon icon="info-hexagon-filled" />
-            {_("Este post está como rascunho.")}
-        </div>
-        {/if}
+		{#if !post.published}
+			<div class="options">
+				<Icon icon="info-hexagon-filled" />
+				{_('Este post está como rascunho.')}
+			</div>
+		{/if}
 		<div class="options">
 			<a href="/admin/posts/edit/{post.id}">
 				<Icon icon="pencil" />
@@ -86,15 +86,15 @@
 		{_('Veja Também')}
 		<Icon icon="circuit-resistor" />
 	</h2>
-    <ul>
-        {#each relatedPosts as post}
-            <li>
-                <a href="/posts/{post.slug}">
-                    {post.title}
-                </a>
-            </li>
-        {/each}
-    </ul>
+	<ul>
+		{#each relatedPosts as post}
+			<li>
+				<a href="/posts/{post.slug}">
+					{post.title}
+				</a>
+			</li>
+		{/each}
+	</ul>
 </section>
 
 <section class="comments">
@@ -161,7 +161,7 @@
 
 		.options {
 			display: flex;
-            align-items: center;
+			align-items: center;
 			gap: 1em;
 
 			padding: 1em;
@@ -186,7 +186,7 @@
 			:global(a) {
 				text-decoration: underline;
 
-                transition: color var(--transition-fast);
+				transition: color var(--transition-fast);
 
 				&:hover {
 					color: var(--color-theme-1);
@@ -210,96 +210,100 @@
 				margin-top: 0.5em;
 			}
 
-            :global(p:has(img)) {
-                display: flex;
-                justify-content: center;
-                gap: 1em;
-            }
+			:global(p:has(img)) {
+				display: flex;
+				justify-content: center;
+				gap: 1em;
+			}
 
-            :global(img), :global(iframe), :global(.polaroid-frame) {
-                width: 90%;
+			:global(img),
+			:global(iframe),
+			:global(.polaroid-frame) {
+				width: 90%;
 
-                margin-block: 1em;
-                margin-inline: auto;
-            }
+				margin-block: 1em;
+				margin-inline: auto;
+			}
 
-            :global(img), :global(iframe), :global(.polaroid-frame),
-            :global(code) {
-                border: var(--border-width) solid var(--color-theme-1);
-                border-radius: var(--border-radius);
+			:global(img),
+			:global(iframe),
+			:global(.polaroid-frame),
+			:global(code) {
+				border: var(--border-width) solid var(--color-theme-1);
+				border-radius: var(--border-radius);
 
-                box-shadow: 0 0 1em var(--color-theme-1);
-            }
+				box-shadow: 0 0 1em var(--color-theme-1);
+			}
 
-            :global(img) {
-                position: relative;
+			:global(img) {
+				position: relative;
 
-                height: auto;
+				height: auto;
 
-                object-fit: cover;
-            }
+				object-fit: cover;
+			}
 
-            :global(iframe) {
-                height: 30em;
-            }
+			:global(iframe) {
+				height: 30em;
+			}
 
-            :global(blockquote) {
-                display: grid;
-                gap: .5em;
+			:global(blockquote) {
+				display: grid;
+				gap: 0.5em;
 
-                padding: 1em;
-                margin: 1em 0;
+				padding: 1em;
+				margin: 1em 0;
 
-                border: 1px solid var(--color-theme-1);
-                border-left-width: 4px;
-                border-radius: var(--border-radius);
+				border: 1px solid var(--color-theme-1);
+				border-left-width: 4px;
+				border-radius: var(--border-radius);
 
-                background-color: var(--color-background-1);
-            }
+				background-color: var(--color-background-1);
+			}
 
-            :global(.polaroid-frame) {
-                display: flex;
-                flex-direction: column;
-                align-items: end;
+			:global(.polaroid-frame) {
+				display: flex;
+				flex-direction: column;
+				align-items: end;
 
-                background-color: var(--color-background-3);
+				background-color: var(--color-background-3);
 
-                overflow: hidden;
-            }
-            :global(.polaroid-frame img) {
-                width: 100%;
-                height: auto;
-                margin: 0;
+				overflow: hidden;
+			}
+			:global(.polaroid-frame img) {
+				width: 100%;
+				height: auto;
+				margin: 0;
 
-                border: none;
-                border-bottom: var(--border-width) solid var(--color-theme-1);
-                border-radius: 0;
-            }
-            :global(.polaroid-frame p) {
-                font-size: .85em;
-                padding: .5em;
-                color: var(--color-text-2);
-            }
+				border: none;
+				border-bottom: var(--border-width) solid var(--color-theme-1);
+				border-radius: 0;
+			}
+			:global(.polaroid-frame p) {
+				font-size: 0.85em;
+				padding: 0.5em;
+				color: var(--color-text-2);
+			}
 
-            :global(code) {
-                padding: .1em .25em;
+			:global(code) {
+				padding: 0.1em 0.25em;
 
-                background-color: var(--color-background-3);
-            }
+				background-color: var(--color-background-3);
+			}
 
-            :global(hr) {
-                width: 50%;
-                height: var(--border-width);
+			:global(hr) {
+				width: 50%;
+				height: var(--border-width);
 
-                margin-inline: auto;
+				margin-inline: auto;
 
-                border: none;
-                background-color: var(--color-theme-1);
-            }
+				border: none;
+				background-color: var(--color-theme-1);
+			}
 		}
 	}
 
-	.see-more, .comments {
+	.see-more {
 		h2 {
 			display: flex;
 			align-items: center;
@@ -313,95 +317,93 @@
 			}
 		}
 
-        ul {
-            display: grid;
-            gap: 1em;
+		ul {
+			display: grid;
+			gap: 1em;
 
-            padding: 1em;
+			padding: 1em;
 
-            list-style-type: none;
+			list-style-type: none;
 
-            li {
-                display: flex;
-                align-items: center;
-                gap: 0.5em;
+			li {
+				display: flex;
+				align-items: center;
+				gap: 0.5em;
 
-                &:before {
-                    content: '» ';
+				&:before {
+					content: '» ';
 
-                    color: var(--color-theme-1);
-                    font-size: 1.75em;
-                }
+					color: var(--color-theme-1);
+					font-size: 1.75em;
+				}
 
-                a {
-                    text-decoration: underline;
+				a {
+					text-decoration: underline;
 
-                    transition: color var(--transition-fast);
+					transition: color var(--transition-fast);
 
-                    &:hover {
-                        color: var(--color-theme-1);
-                    }
-                }
-
-            }
-        }
+					&:hover {
+						color: var(--color-theme-1);
+					}
+				}
+			}
+		}
 	}
 
 	@media (max-width: 768px) {
-        section {
+		section {
 			padding: 1em;
-        }
-
-        .content {
-
-            .tags {
-                padding-bottom: .75em;
-            }
-
-            .details {
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-            }
-
-            img {
-                height: 12.5em;
-            }
-
-            .options {
-                flex-direction: column;
-                gap: 1em;
-
-                hr {
-                    width: 100%;
-                    height: var(--border-width)
-                }
-            }
-
-            .body {
-                font-size: 1em;
-
-                :global(img) {
-                    width: 100%;
-                    height: auto;
-                }
-
-                :global(iframe) {
-                    width: 100%;
-                    height: 20em;
-                }
-            }
 		}
 
-        .see-more {
-            h2 {
-                justify-content: space-between;
-                gap: 0;
-            }
+		.content {
+			.tags {
+				padding-bottom: 0.75em;
+			}
 
-            ul {
-                padding: 0;
-            }
-        }
+			.details {
+				display: flex;
+				flex-direction: column;
+				gap: 1em;
+			}
+
+			img {
+				height: 12.5em;
+			}
+
+			.options {
+				flex-direction: column;
+				gap: 1em;
+
+				hr {
+					width: 100%;
+					height: var(--border-width);
+				}
+			}
+
+			.body {
+				font-size: 1em;
+
+				:global(img) {
+					width: 100%;
+					height: auto;
+				}
+
+				:global(iframe) {
+					width: 100%;
+					height: 20em;
+				}
+			}
+		}
+
+		.see-more {
+			h2 {
+				justify-content: space-between;
+				gap: 0;
+			}
+
+			ul {
+				padding: 0;
+			}
+		}
 	}
 </style>

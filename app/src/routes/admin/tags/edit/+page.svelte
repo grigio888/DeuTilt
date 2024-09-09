@@ -1,7 +1,6 @@
 <script>
 	// »»»»» Imports
 	import { translate as _ } from '$i18n/translate.js';
-	import { relativeTime } from '$lib/utils/date';
 
 	// »»»»» Props
 	let { data } = $props();
@@ -9,7 +8,7 @@
 
 	// »»»»» Components
 	import Metadata from '$comp/structural/Metadata.svelte';
-    import Tags from '$comp/design/Tags.svelte';
+	import Tags from '$comp/design/Tags.svelte';
 	import Button from '$comp/commons/buttons/Button.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
 </script>
@@ -70,7 +69,7 @@
 
 		.group {
 			display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
 			gap: 1em;
 
 			width: 90%;
@@ -81,27 +80,27 @@
 				display: flex;
 
 				.content {
-                    flex: 1;
+					flex: 1;
 
-                    :global(> *) {
-                        width: 100%;
-                        height: 100%;
-                        font-size: 1em;
-                        border-top-right-radius: 0;
-                        border-bottom-right-radius: 0;
-                    }
+					:global(> *) {
+						width: 100%;
+						height: 100%;
+						font-size: 1em;
+						border-top-right-radius: 0;
+						border-bottom-right-radius: 0;
+					}
 				}
 
 				.actions {
 					height: 100%;
 
-                    --border: var(--border-width) solid var(--color-theme-1);
-                    border-top: var(--border);
-                    border-right: var(--border);
-                    border-bottom: var(--border);
-                    border-radius: var(--border-radius);
-                    border-top-left-radius: 0;
-                    border-bottom-left-radius: 0;
+					--border: var(--border-width) solid var(--color-theme-1);
+					border-top: var(--border);
+					border-right: var(--border);
+					border-bottom: var(--border);
+					border-radius: var(--border-radius);
+					border-top-left-radius: 0;
+					border-bottom-left-radius: 0;
 
 					:global(a) {
 						height: 50%;

@@ -1,5 +1,5 @@
 import { PUBLIC_COOKIE_SECURE } from '$env/static/public';
-import { Op, where } from 'sequelize';
+import { Op } from 'sequelize';
 
 import Posts from '$db/models/posts';
 import paginate from '$db/utils/pagination';
@@ -8,7 +8,7 @@ export async function load() {
 	const carouselItems = (
 		await Posts.findAll({
 			where: {
-                published: true,
+				published: true,
 				createdAt: {
 					[Op.gte]: new Date(new Date() - 7 * 24 * 60 * 60 * 1000)
 				}
@@ -23,7 +23,7 @@ export async function load() {
 		model: Posts,
 		page: 1,
 		pageSize: 10,
-        where: { published: true },
+		where: { published: true },
 		order: [['publishedAt', 'DESC']],
 		include: ['Tags'],
 		returnAsJson: true
