@@ -18,11 +18,6 @@
     let title = $state(tag ? tag.title : 'Example');
     let color = $state(tag ? tag.color : 'green');
     let icon = $state(tag ? tag.icon : 'alert-triangle');
-
-    // after effects
-	$effect(() => {
-        console.log({slug, title, color, icon});
-	});
 </script>
 
 <form action="/admin/tags/?/tagForm" method="POST" use:enhance>
