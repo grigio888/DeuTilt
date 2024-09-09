@@ -149,7 +149,7 @@ async function handleImageUpload({file = undefined, overwrite = false, name = un
 	}
 
     // verify if the file already exists
-    if (overwrite && fs.existsSync(filePath)) {
+    if (!overwrite && fs.existsSync(filePath)) {
         throw new Error('Arquivo já existe');
     }
 
