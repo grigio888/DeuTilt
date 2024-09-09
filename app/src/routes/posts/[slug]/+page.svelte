@@ -216,11 +216,15 @@
                 gap: 1em;
             }
 
-            :global(img), :global(iframe) {
-                width: 80%;
+            :global(img), :global(iframe), :global(.polaroid-frame) {
+                width: 90%;
 
                 margin-block: 1em;
+                margin-inline: auto;
+            }
 
+            :global(img), :global(iframe), :global(.polaroid-frame),
+            :global(code) {
                 border: var(--border-width) solid var(--color-theme-1);
                 border-radius: var(--border-radius);
 
@@ -236,10 +240,7 @@
             }
 
             :global(iframe) {
-                width: 80%;
                 height: 30em;
-
-                margin-inline: auto;
             }
 
             :global(blockquote) {
@@ -254,6 +255,46 @@
                 border-radius: var(--border-radius);
 
                 background-color: var(--color-background-1);
+            }
+
+            :global(.polaroid-frame) {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+
+                background-color: var(--color-background-3);
+
+                overflow: hidden;
+            }
+            :global(.polaroid-frame img) {
+                width: 100%;
+                height: auto;
+                margin: 0;
+
+                border: none;
+                border-bottom: var(--border-width) solid var(--color-theme-1);
+                border-radius: 0;
+            }
+            :global(.polaroid-frame p) {
+                font-size: .85em;
+                padding: .5em;
+                color: var(--color-text-2);
+            }
+
+            :global(code) {
+                padding: .1em .25em;
+
+                background-color: var(--color-background-3);
+            }
+
+            :global(hr) {
+                width: 50%;
+                height: var(--border-width);
+
+                margin-inline: auto;
+
+                border: none;
+                background-color: var(--color-theme-1);
             }
 		}
 	}
@@ -321,6 +362,10 @@
                 display: flex;
                 flex-direction: column;
                 gap: 1em;
+            }
+
+            img {
+                height: 12.5em;
             }
 
             .options {
