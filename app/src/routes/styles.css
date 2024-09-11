@@ -21,7 +21,8 @@
 	--color-text-3: hsl(from var(--color-text-1) h s 60%);
 
 	--color-text-highlight-1: hsl(0, 0%, 5%);
-	--color-text-highlight-2: hsl(from var(--color-text-1) h s 20%);
+	--color-text-highlight-2: hsl(from var(--color-text-1) h s 15%);
+	--color-text-highlight-3: hsl(from var(--color-text-1) h s 25%);
 
 	--color-theme-1: hsl(278, 65%, 40%);
 	/* --color-theme-1: hsl(17, 100%, 61%); */
