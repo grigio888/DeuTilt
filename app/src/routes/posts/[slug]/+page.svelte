@@ -384,8 +384,8 @@
 				font-size: 1em;
 
 				:global(img),
-                :global(iframe),
-                :global(.polaroid-frame) {
+				:global(iframe),
+				:global(.polaroid-frame) {
 					width: 100%;
 					height: auto;
 				}
@@ -398,9 +398,9 @@
 					height: 20em;
 				}
 
-                :global(hr) {
-                    width: 90%;
-                }
+				:global(hr) {
+					width: 90%;
+				}
 			}
 		}
 
