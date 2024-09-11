@@ -292,7 +292,7 @@
 			}
 
 			:global(hr) {
-				width: 50%;
+				width: 75%;
 				height: var(--border-width);
 
 				margin-inline: auto;
@@ -383,15 +383,24 @@
 			.body {
 				font-size: 1em;
 
-				:global(img) {
+				:global(img),
+                :global(iframe),
+                :global(.polaroid-frame) {
 					width: 100%;
 					height: auto;
 				}
 
+				:global(img) {
+					height: auto;
+				}
+
 				:global(iframe) {
-					width: 100%;
 					height: 20em;
 				}
+
+                :global(hr) {
+                    width: 90%;
+                }
 			}
 		}
 
