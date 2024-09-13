@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 
 import { translate as _ } from '$i18n/translate';
 
-import User from '$db/models/User';
+import User from '$db/models/user';
 import { comparePassword } from '$db/utils/password';
 
 export async function load({ parent }) {
