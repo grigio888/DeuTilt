@@ -42,7 +42,10 @@
 
 	<img src={post.imageHeader} alt={post.title} />
 
+    <hr>
+
 	{#if user?.Role?.slug === 'admin'}
+        <h3>Opções de Admin</h3>
 		{#if !post.published}
 			<div class="options">
 				<Icon icon="info-hexagon-filled" />
@@ -72,6 +75,8 @@
 				{_('Apagar')}
 			</a>
 		</div>
+
+        <hr>
 	{/if}
 
 	<div class="body">
@@ -158,6 +163,14 @@
 
 			box-shadow: 0 0 1em var(--color-theme-1);
 		}
+
+        hr:not(.vr) {
+            width: 100%;
+            height: var(--border-width);
+
+            border: none;
+            background-color: var(--color-theme-1);
+        }
 
 		.options {
 			display: flex;
