@@ -233,13 +233,13 @@
 					overflow: hidden;
 					text-overflow: ellipsis;
 
-                    h3 {
-                        color: var(--color-text-highlight-2);
-                    }
+					h3 {
+						color: var(--color-text-highlight-2);
+					}
 
-                    :global(p) {
-                        color: var(--color-text-highlight-3);
-                    }
+					:global(p) {
+						color: var(--color-text-highlight-3);
+					}
 				}
 
 				.progress-bar {
