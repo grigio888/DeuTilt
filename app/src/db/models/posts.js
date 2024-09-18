@@ -123,5 +123,61 @@ const PostTags = sequelize.define(
 Posts.belongsToMany(Tags, { through: PostTags, foreignKey: 'postId', as: 'Tags' });
 Tags.belongsToMany(Posts, { through: PostTags, foreignKey: 'tagId', as: 'Posts' });
 
+const Comments = sequelize.define(
+	'Comments',
+	{
+		postId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'Posts',
+				key: 'id'
+			},
+			onDelete: 'SET NULL',
+			onUpdate: 'CASCADE'
+		},
+        userId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'User',
+				key: 'id'
+			},
+			onDelete: 'SET NULL',
+			onUpdate: 'CASCADE',
+			defaultValue: 2
+		},
+		name: {
+			// This is only used for the visitor
+			type: DataTypes.STRING
+		},
+		email: {
+			// This is only used for the visitor
+			type: DataTypes.STRING
+		},
+		content: {
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		editedBy: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'User',
+				key: 'id'
+			},
+			onDelete: 'SET NULL',
+			onUpdate: 'CASCADE'
+		},
+		editedAt: {
+			type: DataTypes.DATE
+		}
+	},
+	{
+		tableName: 'Comments',
+		timestamps: true
+	}
+);
+
+Comments.belongsTo(User, { foreignKey: 'userId', as: 'User' });
+Comments.belongsTo(Posts, { foreignKey: 'postId', as: 'Post' });
+
 export default Posts;
-export { Tags, PostTags };
+export { Tags, PostTags, Comments };
