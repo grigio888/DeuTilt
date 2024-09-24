@@ -1,18 +1,47 @@
 <script>
 	// »»»»» Imports
+	import { PUBLIC_FEAT_COMMENTS } from '$env/static/public';
 	import { marked } from 'marked';
+
+	import { enhance } from '$app/forms';
 
 	import { translate as _ } from '$i18n/translate';
 	import { relativeTime } from '$lib/utils/date';
 
 	// »»»»» Props
 	let { data } = $props();
-	let { post, relatedPosts, user } = data;
+	let { post, comments, relatedPosts, user } = data;
+    
+    let commentPagination = $state(comments)
 
 	// »»»»» Components
 	import Metadata from '$comp/structural/Metadata.svelte';
 	import Tags from '$comp/design/Tags.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
+	import Input from '$comp/commons/inputs/Input.svelte';
+	import Button from '$comp/commons/buttons/Button.svelte';
+    import Pagination from '$comp/commons/pagination/Pagination.svelte';
+
+    // »»»»» Functions
+    async function getComments(page) {
+        var response = await fetch(`/posts/${post.slug}/comments?page=${page}`)
+        var result = await response.json()
+
+        return result
+    }
+
+	// »»»»» Logic
+	// The comment section is controlled by a FeatureFlag entry.
+    //
+    // After the page is ready, we load the comment section. With this, we intent
+	// to not index the comments section in the search engines crawler. This is
+	// to prevent the renewing of pages that are not necessary, which could affect
+	// the SEO.
+	let commentSection = $state(false);
+
+	$effect(() => {
+		commentSection = PUBLIC_FEAT_COMMENTS;
+	});
 </script>
 
 <Metadata title={post.title} altTitle={post.subTitle} keywords={['palavra1', 'palavra2']} />
@@ -42,10 +71,10 @@
 
 	<img src={post.imageHeader} alt={post.title} />
 
-    <hr>
+	<hr />
 
 	{#if user?.Role?.slug === 'admin'}
-        <h3>Opções de Admin</h3>
+		<h3>Opções de Admin</h3>
 		{#if !post.published}
 			<div class="options">
 				<Icon icon="info-hexagon-filled" />
@@ -76,7 +105,7 @@
 			</a>
 		</div>
 
-        <hr>
+		<hr />
 	{/if}
 
 	<div class="body">
@@ -86,7 +115,7 @@
 </section>
 
 <section class="see-more">
-	<h2>
+	<h2 class="header alt">
 		<Icon icon="circuit-resistor" />
 		{_('Veja Também')}
 		<Icon icon="circuit-resistor" />
@@ -102,13 +131,101 @@
 	</ul>
 </section>
 
-<section class="comments">
-	<h2>
-		<Icon icon="message-2" />
-		{_('Comentários')}
-		<Icon icon="message-2" />
-	</h2>
-</section>
+{#if commentSection}
+	<section class="comments">
+		<h2 class="header alt">
+			<Icon icon="message-2" />
+			{_('Comentários')}
+			<Icon icon="message-2" />
+		</h2>
+
+        {#if commentPagination.totalItems > 0}
+        {#each commentPagination.items as comment, i}
+            {#if i != 0}
+            <hr>
+            {/if}
+            <div class="comment">
+                <div class="info">
+                    <p>
+                        <Icon icon="user" />
+                        {comment.User.username}
+                    </p>
+                    <p class="date">
+                        <Icon icon="clock" />
+                        {relativeTime(comment.createdAt)}
+                    </p>
+                </div>
+                <div class="content">
+                    {@html marked(comment.content)}
+                </div>
+            </div>
+        {/each}
+        {#key commentPagination.page}
+        <Pagination
+            pagination={commentPagination}
+            prevClick={async () => {
+                commentPagination = await getComments(commentPagination.page - 1)
+            }}
+            nextClick={async () => {
+                commentPagination = await getComments(commentPagination.page + 1)
+            }}
+        />
+        {/key}
+        {:else}
+            <div class="comment">
+                <div class="content">
+                    <p>{_('Nenhum comentário ainda.')}</p>
+                </div>
+            </div>
+        {/if}
+
+		<div class="wrapper">
+			<form method="POST" use:enhance={({ formElement }) => {
+                return async ({ result }) => {
+                    formElement.reset()
+                    commentPagination = result?.data?.comments
+                }
+            }}>
+				<h3>{_('Deixe um comentário')}</h3>
+				<div class="inputs">
+                    {#if !user}
+					<div class="row identity">
+						<div class="row">
+							<label for="name">{_('Nome')}</label>
+							<Input id="name" type="text" name="name" required placeholder={_('Seu nome')} />
+						</div>
+						<div class="row">
+							<label for="email">{_('Email')}</label>
+							<Input id="email" type="email" name="email" required placeholder={_('Seu email')} />
+						</div>
+					</div>
+                    {/if}
+					<div class="row content">
+						<label for="comment">{_('Comentário')}</label>
+						<Input
+							element="textarea"
+							id="comment"
+							type="text"
+							name="comment"
+							placeholder={_('Escreva seu comentário aqui...\n(Aceita Markdown)')}
+							required
+						/>
+					</div>
+				</div>
+				<div class="buttons">
+					<Button type="submit">
+						<Icon icon="send" />
+						{_('Enviar')}
+					</Button>
+					<Button secondary animated type="button" onclick={() => console.log('preview')}>
+						<Icon icon="search" />
+						{_('Pré-visualizar')}
+					</Button>
+				</div>
+			</form>
+		</div>
+	</section>
+{/if}
 
 <style lang="scss">
 	section {
@@ -119,6 +236,19 @@
 
 		padding: 2em;
 		margin-inline: auto;
+
+		.header.alt {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 2em;
+
+			font-size: 1.5em;
+
+			:global(.ti) {
+				color: var(--color-theme-1);
+			}
+		}
 	}
 
 	.content {
@@ -164,13 +294,13 @@
 			box-shadow: 0 0 1em var(--color-theme-1);
 		}
 
-        hr:not(.vr) {
-            width: 100%;
-            height: var(--border-width);
+		hr:not(.vr) {
+			width: 100%;
+			height: var(--border-width);
 
-            border: none;
-            background-color: var(--color-theme-1);
-        }
+			border: none;
+			background-color: var(--color-theme-1);
+		}
 
 		.options {
 			display: flex;
@@ -195,141 +325,10 @@
 			gap: 2em;
 
 			font-size: 1em;
-
-			:global(a) {
-				text-decoration: underline;
-
-				transition: color var(--transition-fast);
-
-				&:hover {
-					color: var(--color-theme-1);
-				}
-			}
-
-			:global(ul) {
-				list-style-type: disc;
-			}
-
-			:global(li) {
-				margin-left: 1em;
-				list-style: outside;
-
-				&::marker {
-					color: var(--color-theme-1);
-				}
-			}
-
-			:global(li + li) {
-				margin-top: 0.5em;
-			}
-
-			:global(p:has(img)) {
-				display: flex;
-				justify-content: center;
-				gap: 1em;
-			}
-
-			:global(img),
-			:global(iframe),
-			:global(.polaroid-frame) {
-				width: 90%;
-
-				margin-block: 1em;
-				margin-inline: auto;
-			}
-
-			:global(img),
-			:global(iframe),
-			:global(.polaroid-frame),
-			:global(code) {
-				border: var(--border-width) solid var(--color-theme-1);
-				border-radius: var(--border-radius);
-
-				box-shadow: 0 0 1em var(--color-theme-1);
-			}
-
-			:global(img) {
-				position: relative;
-
-				height: auto;
-
-				object-fit: cover;
-			}
-
-			:global(iframe) {
-				height: 30em;
-			}
-
-			:global(blockquote) {
-				display: grid;
-				gap: 0.5em;
-
-				padding: 1em;
-				margin: 1em 0;
-
-				border: 1px solid var(--color-theme-1);
-				border-left-width: 4px;
-				border-radius: var(--border-radius);
-
-				background-color: var(--color-background-1);
-			}
-
-			:global(.polaroid-frame) {
-				display: flex;
-				flex-direction: column;
-				align-items: end;
-
-				background-color: var(--color-background-3);
-
-				overflow: hidden;
-			}
-			:global(.polaroid-frame img) {
-				width: 100%;
-				height: auto;
-				margin: 0;
-
-				border: none;
-				border-bottom: var(--border-width) solid var(--color-theme-1);
-				border-radius: 0;
-			}
-			:global(.polaroid-frame p) {
-				font-size: 0.85em;
-				padding: 0.5em;
-				color: var(--color-text-2);
-			}
-
-			:global(code) {
-				padding: 0.1em 0.25em;
-
-				background-color: var(--color-background-3);
-			}
-
-			:global(hr) {
-				width: 75%;
-				height: var(--border-width);
-
-				margin-inline: auto;
-
-				border: none;
-				background-color: var(--color-theme-1);
-			}
-		}
+        }
 	}
 
 	.see-more {
-		h2 {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 2em;
-
-			font-size: 1.5em;
-
-			:global(.ti) {
-				color: var(--color-theme-1);
-			}
-		}
-
 		ul {
 			display: grid;
 			gap: 1em;
@@ -363,14 +362,237 @@
 		}
 	}
 
+	.comments {
+
+        hr {
+            width: 100%;
+            height: var(--border-width);
+
+            border: none;
+            background-color: var(--color-theme-1);
+        }
+
+        .comment {
+            display: grid;
+            gap: 1.5em;
+
+            .info {
+                display: flex;
+                justify-content: space-between;
+
+                text-transform: capitalize;
+
+                p {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5em;
+                }
+            }
+        }
+
+		.wrapper {
+			display: grid;
+
+			border: var(--border-width) solid var(--color-theme-1);
+			border-radius: var(--border-radius);
+
+			form {
+				--gap: 1em;
+
+				display: grid;
+				gap: var(--gap);
+
+				padding: 1em;
+
+				h3 {
+					width: 100%;
+					text-align: center;
+				}
+
+				.inputs {
+					flex: 1;
+					display: grid;
+					gap: var(--gap);
+
+					.row {
+						display: grid;
+						gap: 0.25em;
+					}
+					> .identity {
+						display: flex;
+						gap: var(--gap);
+
+						> div {
+							flex: 1;
+						}
+					}
+
+					.content {
+						:global(textarea) {
+							min-height: 7.5em;
+							resize: vertical;
+						}
+					}
+				}
+
+				.buttons {
+					display: flex;
+					gap: var(--gap);
+					height: 80.75%;
+
+					:global(button) {
+                        flex: 1;
+						
+                        display: flex;
+						flex-direction: row;
+
+						height: 100%;
+
+                        padding: 0.75em;
+					}
+				}
+			}
+		}
+	}
+
+    .content .body,
+    .comments .comment .content {
+        :global(a) {
+            text-decoration: underline;
+
+            transition: color var(--transition-fast);
+
+            &:hover {
+                color: var(--color-theme-1);
+            }
+        }
+
+        :global(ul) {
+            list-style-type: disc;
+        }
+
+        :global(li) {
+            margin-left: 1em;
+            list-style: outside;
+
+            &::marker {
+                color: var(--color-theme-1);
+            }
+        }
+
+        :global(li + li) {
+            margin-top: 0.5em;
+        }
+
+        :global(p:has(img)) {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+        }
+
+        :global(img),
+        :global(iframe),
+        :global(.polaroid-frame) {
+            width: 90%;
+
+            margin-block: 1em;
+            margin-inline: auto;
+        }
+
+        :global(img),
+        :global(iframe),
+        :global(.polaroid-frame),
+        :global(code) {
+            border: var(--border-width) solid var(--color-theme-1);
+            border-radius: var(--border-radius);
+
+            box-shadow: 0 0 1em var(--color-theme-1);
+        }
+
+        :global(img) {
+            position: relative;
+
+            height: auto;
+
+            object-fit: cover;
+        }
+
+        :global(iframe) {
+            height: 30em;
+        }
+
+        :global(blockquote) {
+            display: grid;
+            gap: 0.5em;
+
+            padding: 1em;
+            margin: 1em 0;
+
+            border: 1px solid var(--color-theme-1);
+            border-left-width: 4px;
+            border-radius: var(--border-radius);
+
+            background-color: var(--color-background-1);
+        }
+
+        :global(.polaroid-frame) {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+
+            background-color: var(--color-background-3);
+
+            overflow: hidden;
+        }
+        :global(.polaroid-frame img) {
+            width: 100%;
+            height: auto;
+            margin: 0;
+
+            border: none;
+            border-bottom: var(--border-width) solid var(--color-theme-1);
+            border-radius: 0;
+        }
+        :global(.polaroid-frame p) {
+            font-size: 0.85em;
+            padding: 0.5em;
+            color: var(--color-text-2);
+        }
+
+        :global(code) {
+            padding: 0.1em 0.25em;
+
+            background-color: var(--color-background-3);
+        }
+
+        :global(hr) {
+            width: 75%;
+            height: var(--border-width);
+
+            margin-inline: auto;
+
+            border: none;
+            background-color: var(--color-theme-1);
+        }
+    }
+
 	@media (max-width: 768px) {
 		section {
 			padding: 1em;
+
+			.header {
+				justify-content: space-between;
+				gap: 0;
+			}
 		}
 
 		.content {
+			font-size: 1.1em;
+
 			.tags {
-				padding-bottom: 0.75em;
+				:global(> *) {
+					font-size: 1em;
+				}
 			}
 
 			.details {
@@ -394,8 +616,6 @@
 			}
 
 			.body {
-				font-size: 1em;
-
 				:global(img),
 				:global(iframe),
 				:global(.polaroid-frame) {
@@ -418,13 +638,42 @@
 		}
 
 		.see-more {
-			h2 {
-				justify-content: space-between;
-				gap: 0;
-			}
-
 			ul {
 				padding: 0;
+			}
+		}
+
+		.comments {
+			.wrapper {
+				form {
+					--gap: 1em;
+
+					display: grid;
+
+					h3 {
+						width: 100%;
+						text-align: center;
+					}
+
+					.inputs {
+						display: grid;
+
+						> .identity {
+							display: grid;
+						}
+					}
+
+					.buttons {
+						display: flex;
+						flex-direction: column-reverse;
+
+						height: auto;
+
+						:global(button) {
+							flex-direction: row;
+						}
+					}
+				}
 			}
 		}
 	}
