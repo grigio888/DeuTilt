@@ -11,6 +11,7 @@
 	import Icon from '$comp/commons/Icon.svelte';
 	import CardPostPreview from '$comp/design/CardPostPreview.svelte';
 	import Button from '$comp/commons/buttons/Button.svelte';
+    import Pagination from '$comp/commons/pagination/Pagination.svelte';
 </script>
 
 <Metadata title={_('Todos os Artigos')} keywords={['palavra1', 'palavra2']} />
@@ -31,23 +32,7 @@
 </div>
 
 <div class="pagination">
-	<Button
-		notAllowed={!pagination.hasPrevious}
-		secondary
-		animated
-		href={`/posts?page=${pagination.page - 1}`}
-	>
-		<Icon icon="chevron-left" />
-	</Button>
-	<span>{_('Página')} {pagination.page} {_('de')} {pagination.totalPages}</span>
-	<Button
-		notAllowed={!pagination.hasNext}
-		secondary
-		animated
-		href={`/posts?page=${pagination.page + 1}`}
-	>
-		<Icon icon="chevron-right" />
-	</Button>
+    <Pagination {pagination} />
 </div>
 
 <style lang="scss">
@@ -77,12 +62,7 @@
 		margin: 1em;
 	}
 
-	.pagination {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1em;
-
-		margin: 1em;
-	}
+    .pagination {
+        margin: 1em;
+    }
 </style>
