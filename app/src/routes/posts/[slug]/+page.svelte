@@ -156,7 +156,7 @@
 						</p>
 					</div>
 					<div class="content">
-                        <!-- this is absolutely dangerous and should be avoided at all costs -->
+						<!-- this is absolutely dangerous and should be avoided at all costs -->
 						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						{@html marked(comment.content)}
 					</div>

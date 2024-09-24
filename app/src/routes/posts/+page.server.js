@@ -1,6 +1,4 @@
-import Posts from '$db/models/posts';
-import { Tags } from '$db/models/posts';
-import paginate from '$db/utils/pagination';
+import { getPosts } from '$db/models/utils/posts';
 
 export async function load({ url }) {
 	let page = url.searchParams.get('page');
@@ -8,21 +6,7 @@ export async function load({ url }) {
 
 	const tag = url.searchParams.get('tag');
 
-	const pagination = await paginate({
-		model: Posts,
-		page: page,
-		pageSize: 10,
-		where: { published: true },
-		order: [['publishedAt', 'DESC']],
-		include: [
-			{
-				model: Tags,
-				as: 'Tags',
-				where: tag ? { slug: tag } : null
-			}
-		],
-		returnAsJson: true
-	});
+	const pagination = await getPosts({ page, tag });
 
 	return {
 		pagination

@@ -1,8 +1,8 @@
 import { PUBLIC_COOKIE_SECURE } from '$env/static/public';
 import { Op } from 'sequelize';
 
+import { getPosts } from '$db/models/utils/posts';
 import Posts from '$db/models/posts';
-import paginate from '$db/utils/pagination';
 
 export async function load() {
 	const carouselItems = (
@@ -19,15 +19,7 @@ export async function load() {
 		})
 	).map((post) => post.toJSON());
 
-	const posts = await paginate({
-		model: Posts,
-		page: 1,
-		pageSize: 10,
-		where: { published: true },
-		order: [['publishedAt', 'DESC']],
-		include: ['Tags'],
-		returnAsJson: true
-	});
+	const posts = await getPosts({ page: 1 });
 
 	return {
 		carouselItems,

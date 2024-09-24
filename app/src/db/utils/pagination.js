@@ -4,6 +4,7 @@ export default async function paginate({
 	pageSize = 10,
 	where = {},
 	include = [],
+	distinct = true,
 	order = [],
 	returnAsJson = false
 }) {
@@ -15,7 +16,8 @@ export default async function paginate({
 		order,
 		offset,
 		limit,
-		include
+		include,
+		distinct
 	});
 
 	let totalPages = Math.ceil(count / pageSize);
