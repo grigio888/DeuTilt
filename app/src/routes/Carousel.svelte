@@ -89,59 +89,59 @@
 </script>
 
 {#if items.length !== 0}
-<section>
-	{#key inView}
-		<div
-			class="in-view"
-			role="banner"
-			onmouseenter={() => removeInterval()}
-			onmouseleave={() => renewInterval()}
-			in:fade={{ duration: 250 }}
-		>
-			<img src={inView.imageHeader} alt={inView.title} />
-			<div class="content">
-				<div class="tags">
-					{#each inView.Tags as tag}
-						<Tags {tag} />
-					{/each}
+	<section>
+		{#key inView}
+			<div
+				class="in-view"
+				role="banner"
+				onmouseenter={() => removeInterval()}
+				onmouseleave={() => renewInterval()}
+				in:fade={{ duration: 250 }}
+			>
+				<img src={inView.imageHeader} alt={inView.title} />
+				<div class="content">
+					<div class="tags">
+						{#each inView.Tags as tag}
+							<Tags {tag} />
+						{/each}
+					</div>
+					<span><Icon icon="clock" /> {relativeTime(inView.createdAt)}</span>
+					<a class="text" href="/posts/{inView.slug}">
+						<h2>{inView.title}</h2>
+						<h3>{inView.subTitle}</h3>
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						{@html marked(inView.content.slice(0, 100) + '...')}
+					</a>
+					<div class="progress-bar" style="width: {(timer / duration) * 100}%"></div>
 				</div>
-				<span><Icon icon="clock" /> {relativeTime(inView.createdAt)}</span>
-				<a class="text" href="/posts/{inView.slug}">
-					<h2>{inView.title}</h2>
-					<h3>{inView.subTitle}</h3>
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					{@html marked(inView.content.slice(0, 100) + '...')}
-				</a>
-				<div class="progress-bar" style="width: {(timer / duration) * 100}%"></div>
 			</div>
-		</div>
-	{/key}
-	<div class="options">
-		<button class="selected">
-			{#key inView}
-				<h2
-					out:fly={{ duration: 1000, ...animationOut }}
-					in:fly={{ duration: 1000, ...animationIn }}
-				>
-					{inView.title}
-				</h2>
-			{/key}
-		</button>
-		{#each options as option}
-			<hr />
-			<button onclick={() => setInView(option)}>
-				{#key option}
+		{/key}
+		<div class="options">
+			<button class="selected">
+				{#key inView}
 					<h2
 						out:fly={{ duration: 1000, ...animationOut }}
 						in:fly={{ duration: 1000, ...animationIn }}
 					>
-						{option.title}
+						{inView.title}
 					</h2>
 				{/key}
 			</button>
-		{/each}
-	</div>
-</section>
+			{#each options as option}
+				<hr />
+				<button onclick={() => setInView(option)}>
+					{#key option}
+						<h2
+							out:fly={{ duration: 1000, ...animationOut }}
+							in:fly={{ duration: 1000, ...animationIn }}
+						>
+							{option.title}
+						</h2>
+					{/key}
+				</button>
+			{/each}
+		</div>
+	</section>
 {/if}
 
 <style lang="scss">

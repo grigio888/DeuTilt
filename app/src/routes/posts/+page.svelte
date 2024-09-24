@@ -10,8 +10,7 @@
 	import Metadata from '$comp/structural/Metadata.svelte';
 	import Icon from '$comp/commons/Icon.svelte';
 	import CardPostPreview from '$comp/design/CardPostPreview.svelte';
-	import Button from '$comp/commons/buttons/Button.svelte';
-    import Pagination from '$comp/commons/pagination/Pagination.svelte';
+	import Pagination from '$comp/commons/pagination/Pagination.svelte';
 </script>
 
 <Metadata title={_('Todos os Artigos')} keywords={['palavra1', 'palavra2']} />
@@ -32,7 +31,7 @@
 </div>
 
 <div class="pagination">
-    <Pagination {pagination} />
+	<Pagination {pagination} />
 </div>
 
 <style lang="scss">
@@ -62,7 +61,7 @@
 		margin: 1em;
 	}
 
-    .pagination {
-        margin: 1em;
-    }
+	.pagination {
+		margin: 1em;
+	}
 </style>

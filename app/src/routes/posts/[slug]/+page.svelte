@@ -11,8 +11,8 @@
 	// »»»»» Props
 	let { data } = $props();
 	let { post, comments, relatedPosts, user } = data;
-    
-    let commentPagination = $state(comments)
+
+	let commentPagination = $state(comments);
 
 	// »»»»» Components
 	import Metadata from '$comp/structural/Metadata.svelte';
@@ -20,20 +20,20 @@
 	import Icon from '$comp/commons/Icon.svelte';
 	import Input from '$comp/commons/inputs/Input.svelte';
 	import Button from '$comp/commons/buttons/Button.svelte';
-    import Pagination from '$comp/commons/pagination/Pagination.svelte';
+	import Pagination from '$comp/commons/pagination/Pagination.svelte';
 
-    // »»»»» Functions
-    async function getComments(page) {
-        var response = await fetch(`/posts/${post.slug}/comments?page=${page}`)
-        var result = await response.json()
+	// »»»»» Functions
+	async function getComments(page) {
+		var response = await fetch(`/posts/${post.slug}/comments?page=${page}`);
+		var result = await response.json();
 
-        return result
-    }
+		return result;
+	}
 
 	// »»»»» Logic
 	// The comment section is controlled by a FeatureFlag entry.
-    //
-    // After the page is ready, we load the comment section. With this, we intent
+	//
+	// After the page is ready, we load the comment section. With this, we intent
 	// to not index the comments section in the search engines crawler. This is
 	// to prevent the renewing of pages that are not necessary, which could affect
 	// the SEO.
@@ -139,67 +139,72 @@
 			<Icon icon="message-2" />
 		</h2>
 
-        {#if commentPagination.totalItems > 0}
-        {#each commentPagination.items as comment, i}
-            {#if i != 0}
-            <hr>
-            {/if}
-            <div class="comment">
-                <div class="info">
-                    <p>
-                        <Icon icon="user" />
-                        {comment.User.username}
-                    </p>
-                    <p class="date">
-                        <Icon icon="clock" />
-                        {relativeTime(comment.createdAt)}
-                    </p>
-                </div>
-                <div class="content">
-                    {@html marked(comment.content)}
-                </div>
-            </div>
-        {/each}
-        {#key commentPagination.page}
-        <Pagination
-            pagination={commentPagination}
-            prevClick={async () => {
-                commentPagination = await getComments(commentPagination.page - 1)
-            }}
-            nextClick={async () => {
-                commentPagination = await getComments(commentPagination.page + 1)
-            }}
-        />
-        {/key}
-        {:else}
-            <div class="comment">
-                <div class="content">
-                    <p>{_('Nenhum comentário ainda.')}</p>
-                </div>
-            </div>
-        {/if}
+		{#if commentPagination.totalItems > 0}
+			{#each commentPagination.items as comment, i}
+				{#if i != 0}
+					<hr />
+				{/if}
+				<div class="comment">
+					<div class="info">
+						<p>
+							<Icon icon="user" />
+							{comment.User ? comment.User.username : comment.name}
+						</p>
+						<p class="date">
+							<Icon icon="clock" />
+							{relativeTime(comment.createdAt)}
+						</p>
+					</div>
+					<div class="content">
+                        <!-- this is absolutely dangerous and should be avoided at all costs -->
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						{@html marked(comment.content)}
+					</div>
+				</div>
+			{/each}
+			{#key commentPagination.page}
+				<Pagination
+					pagination={commentPagination}
+					prevClick={async () => {
+						commentPagination = await getComments(commentPagination.page - 1);
+					}}
+					nextClick={async () => {
+						commentPagination = await getComments(commentPagination.page + 1);
+					}}
+				/>
+			{/key}
+		{:else}
+			<div class="comment">
+				<div class="content">
+					<p>{_('Nenhum comentário ainda.')}</p>
+				</div>
+			</div>
+		{/if}
 
 		<div class="wrapper">
-			<form method="POST" use:enhance={({ formElement }) => {
-                return async ({ result }) => {
-                    formElement.reset()
-                    commentPagination = result?.data?.comments
-                }
-            }}>
+			<form
+				method="POST"
+				use:enhance={({ formElement }) => {
+					return async ({ result }) => {
+						formElement.reset();
+						commentPagination = result?.data?.comments;
+					};
+				}}
+			>
 				<h3>{_('Deixe um comentário')}</h3>
 				<div class="inputs">
-                    {#if !user}
-					<div class="row identity">
-						<div class="row">
-							<label for="name">{_('Nome')}</label>
-							<Input id="name" type="text" name="name" required placeholder={_('Seu nome')} />
+					{#if !user}
+						<div class="row identity">
+							<div class="row">
+								<label for="name">{_('Nome')}</label>
+								<Input id="name" type="text" name="name" required placeholder={_('Seu nome')} />
+							</div>
+							<div class="row">
+								<label for="email">{_('Email')}</label>
+								<Input id="email" type="email" name="email" required placeholder={_('Seu email')} />
+							</div>
 						</div>
-						<div class="row">
-							<label for="email">{_('Email')}</label>
-							<Input id="email" type="email" name="email" required placeholder={_('Seu email')} />
-						</div>
-					</div>
-                    {/if}
+					{/if}
 					<div class="row content">
 						<label for="comment">{_('Comentário')}</label>
 						<Input
@@ -325,7 +330,7 @@
 			gap: 2em;
 
 			font-size: 1em;
-        }
+		}
 	}
 
 	.see-more {
@@ -363,32 +368,31 @@
 	}
 
 	.comments {
+		hr {
+			width: 100%;
+			height: var(--border-width);
 
-        hr {
-            width: 100%;
-            height: var(--border-width);
+			border: none;
+			background-color: var(--color-theme-1);
+		}
 
-            border: none;
-            background-color: var(--color-theme-1);
-        }
+		.comment {
+			display: grid;
+			gap: 1.5em;
 
-        .comment {
-            display: grid;
-            gap: 1.5em;
+			.info {
+				display: flex;
+				justify-content: space-between;
 
-            .info {
-                display: flex;
-                justify-content: space-between;
+				text-transform: capitalize;
 
-                text-transform: capitalize;
-
-                p {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5em;
-                }
-            }
-        }
+				p {
+					display: flex;
+					align-items: center;
+					gap: 0.5em;
+				}
+			}
+		}
 
 		.wrapper {
 			display: grid;
@@ -441,140 +445,140 @@
 					height: 80.75%;
 
 					:global(button) {
-                        flex: 1;
-						
-                        display: flex;
+						flex: 1;
+
+						display: flex;
 						flex-direction: row;
 
 						height: 100%;
 
-                        padding: 0.75em;
+						padding: 0.75em;
 					}
 				}
 			}
 		}
 	}
 
-    .content .body,
-    .comments .comment .content {
-        :global(a) {
-            text-decoration: underline;
+	.content .body,
+	.comments .comment .content {
+		:global(a) {
+			text-decoration: underline;
 
-            transition: color var(--transition-fast);
+			transition: color var(--transition-fast);
 
-            &:hover {
-                color: var(--color-theme-1);
-            }
-        }
+			&:hover {
+				color: var(--color-theme-1);
+			}
+		}
 
-        :global(ul) {
-            list-style-type: disc;
-        }
+		:global(ul) {
+			list-style-type: disc;
+		}
 
-        :global(li) {
-            margin-left: 1em;
-            list-style: outside;
+		:global(li) {
+			margin-left: 1em;
+			list-style: outside;
 
-            &::marker {
-                color: var(--color-theme-1);
-            }
-        }
+			&::marker {
+				color: var(--color-theme-1);
+			}
+		}
 
-        :global(li + li) {
-            margin-top: 0.5em;
-        }
+		:global(li + li) {
+			margin-top: 0.5em;
+		}
 
-        :global(p:has(img)) {
-            display: flex;
-            justify-content: center;
-            gap: 1em;
-        }
+		:global(p:has(img)) {
+			display: flex;
+			justify-content: center;
+			gap: 1em;
+		}
 
-        :global(img),
-        :global(iframe),
-        :global(.polaroid-frame) {
-            width: 90%;
+		:global(img),
+		:global(iframe),
+		:global(.polaroid-frame) {
+			width: 90%;
 
-            margin-block: 1em;
-            margin-inline: auto;
-        }
+			margin-block: 1em;
+			margin-inline: auto;
+		}
 
-        :global(img),
-        :global(iframe),
-        :global(.polaroid-frame),
-        :global(code) {
-            border: var(--border-width) solid var(--color-theme-1);
-            border-radius: var(--border-radius);
+		:global(img),
+		:global(iframe),
+		:global(.polaroid-frame),
+		:global(code) {
+			border: var(--border-width) solid var(--color-theme-1);
+			border-radius: var(--border-radius);
 
-            box-shadow: 0 0 1em var(--color-theme-1);
-        }
+			box-shadow: 0 0 1em var(--color-theme-1);
+		}
 
-        :global(img) {
-            position: relative;
+		:global(img) {
+			position: relative;
 
-            height: auto;
+			height: auto;
 
-            object-fit: cover;
-        }
+			object-fit: cover;
+		}
 
-        :global(iframe) {
-            height: 30em;
-        }
+		:global(iframe) {
+			height: 30em;
+		}
 
-        :global(blockquote) {
-            display: grid;
-            gap: 0.5em;
+		:global(blockquote) {
+			display: grid;
+			gap: 0.5em;
 
-            padding: 1em;
-            margin: 1em 0;
+			padding: 1em;
+			margin: 1em 0;
 
-            border: 1px solid var(--color-theme-1);
-            border-left-width: 4px;
-            border-radius: var(--border-radius);
+			border: 1px solid var(--color-theme-1);
+			border-left-width: 4px;
+			border-radius: var(--border-radius);
 
-            background-color: var(--color-background-1);
-        }
+			background-color: var(--color-background-1);
+		}
 
-        :global(.polaroid-frame) {
-            display: flex;
-            flex-direction: column;
-            align-items: end;
+		:global(.polaroid-frame) {
+			display: flex;
+			flex-direction: column;
+			align-items: end;
 
-            background-color: var(--color-background-3);
+			background-color: var(--color-background-3);
 
-            overflow: hidden;
-        }
-        :global(.polaroid-frame img) {
-            width: 100%;
-            height: auto;
-            margin: 0;
+			overflow: hidden;
+		}
+		:global(.polaroid-frame img) {
+			width: 100%;
+			height: auto;
+			margin: 0;
 
-            border: none;
-            border-bottom: var(--border-width) solid var(--color-theme-1);
-            border-radius: 0;
-        }
-        :global(.polaroid-frame p) {
-            font-size: 0.85em;
-            padding: 0.5em;
-            color: var(--color-text-2);
-        }
+			border: none;
+			border-bottom: var(--border-width) solid var(--color-theme-1);
+			border-radius: 0;
+		}
+		:global(.polaroid-frame p) {
+			font-size: 0.85em;
+			padding: 0.5em;
+			color: var(--color-text-2);
+		}
 
-        :global(code) {
-            padding: 0.1em 0.25em;
+		:global(code) {
+			padding: 0.1em 0.25em;
 
-            background-color: var(--color-background-3);
-        }
+			background-color: var(--color-background-3);
+		}
 
-        :global(hr) {
-            width: 75%;
-            height: var(--border-width);
+		:global(hr) {
+			width: 75%;
+			height: var(--border-width);
 
-            margin-inline: auto;
+			margin-inline: auto;
 
-            border: none;
-            background-color: var(--color-theme-1);
-        }
-    }
+			border: none;
+			background-color: var(--color-theme-1);
+		}
+	}
 
 	@media (max-width: 768px) {
 		section {

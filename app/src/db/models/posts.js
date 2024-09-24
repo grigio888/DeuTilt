@@ -135,7 +135,7 @@ const Comments = sequelize.define(
 			onDelete: 'SET NULL',
 			onUpdate: 'CASCADE'
 		},
-        userId: {
+		userId: {
 			type: DataTypes.INTEGER,
 			references: {
 				model: 'User',
