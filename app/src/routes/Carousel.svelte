@@ -88,6 +88,7 @@
 	});
 </script>
 
+{#if items.length !== 0}
 <section>
 	{#key inView}
 		<div
@@ -141,6 +142,7 @@
 		{/each}
 	</div>
 </section>
+{/if}
 
 <style lang="scss">
 	section {
