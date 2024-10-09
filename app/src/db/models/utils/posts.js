@@ -3,6 +3,7 @@ import { Op } from 'sequelize';
 
 import { translate as _ } from '$i18n/translate';
 
+import sequelize from '$db/connector.js';
 import Posts from '$db/models/posts';
 import { Tags } from '$db/models/posts';
 
@@ -38,14 +39,36 @@ export async function getPosts({ page = 1, tag = undefined }) {
 }
 
 export async function getRelatedPosts({ post }) {
-	return await Posts.findAll({
-		where: {
-			id: {
-				[Op.ne]: post.id
-			}
-		},
-		include: ['Tags'],
-		order: [['views', 'DESC']],
-		limit: 3
-	});
+    return await Posts.findAll({
+        where: {
+            published: true,
+            id: {
+                [Op.ne]: post.id
+            }
+        },
+        include: ['Tags'],
+        attributes: {
+            include: [
+                [
+                    sequelize.literal(`(
+                        SELECT COUNT(*)
+                        FROM "PostTags" as pt
+                        WHERE
+                            pt."postId" = "Posts".id
+                            AND pt."tagId" IN (
+                                SELECT "tagId"
+                                FROM "PostTags"
+                                WHERE "postId" = ${post.id}
+                            )
+                    )`),
+                    'tag_match_count'
+                ]
+            ]
+        },
+        order: [
+            [sequelize.literal('tag_match_count'), 'DESC'],
+            ['publishedAt', 'DESC']
+        ],
+        limit: 3
+    });
 }
