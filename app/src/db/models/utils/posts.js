@@ -39,18 +39,18 @@ export async function getPosts({ page = 1, tag = undefined }) {
 }
 
 export async function getRelatedPosts({ post }) {
-    return await Posts.findAll({
-        where: {
-            published: true,
-            id: {
-                [Op.ne]: post.id
-            }
-        },
-        include: ['Tags'],
-        attributes: {
-            include: [
-                [
-                    sequelize.literal(`(
+	return await Posts.findAll({
+		where: {
+			published: true,
+			id: {
+				[Op.ne]: post.id
+			}
+		},
+		include: ['Tags'],
+		attributes: {
+			include: [
+				[
+					sequelize.literal(`(
                         SELECT COUNT(*)
                         FROM "PostTags" as pt
                         WHERE
@@ -61,14 +61,14 @@ export async function getRelatedPosts({ post }) {
                                 WHERE "postId" = ${post.id}
                             )
                     )`),
-                    'tag_match_count'
-                ]
-            ]
-        },
-        order: [
-            [sequelize.literal('tag_match_count'), 'DESC'],
-            ['publishedAt', 'DESC']
-        ],
-        limit: 3
-    });
+					'tag_match_count'
+				]
+			]
+		},
+		order: [
+			[sequelize.literal('tag_match_count'), 'DESC'],
+			['publishedAt', 'DESC']
+		],
+		limit: 3
+	});
 }
